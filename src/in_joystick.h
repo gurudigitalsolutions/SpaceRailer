@@ -1,0 +1,1 @@
+int joystick_main();
