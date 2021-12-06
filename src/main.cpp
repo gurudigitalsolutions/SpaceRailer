@@ -14,7 +14,7 @@
 
 #include "main.h"
 #include "input.h"
-
+#include "scripting.h"
 
 using namespace std;
 
@@ -64,6 +64,8 @@ int main(int argc, char** argv)
 	
 	currentProgramMode = PROGRAM_MAINMENU;
 	//	Enter the glutLoop.  This will drive the callbacks to our code.
+	
+	script_test(argc, argv);
 	glutMainLoop();
 }
 
