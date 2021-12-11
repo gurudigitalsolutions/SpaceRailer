@@ -19,5 +19,6 @@ string Config::getStageDir()
 	char stagedir[256];
 	getcwd(stagedir, 256);
 	
-	return (string)stagedir + "/stages/";
+	return (string)stagedir + "/data/stages/";
+	
 }

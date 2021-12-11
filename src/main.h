@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "config.h"
+#include "stage.h"
 
 void handleRender();
 //void handleReshape(GLint newWidth, GLint newHeight);
@@ -9,6 +10,10 @@ void handleLoop();
 void handleCleanup();
 bool init();
 void execute();
+
+SDL_Window * getSDLWindow();
+SDL_Renderer * getSDLRenderer();
+SDL_Surface * getSDLPrimarySurface();
 
 void onSDLEvent(SDL_Event * Event);
 
@@ -19,7 +24,8 @@ extern bool keepRunning;
 
 extern Config config;
 
-extern unsigned char currentStage;
+extern unsigned char currentStageID;
+extern Stage * currentStage;
 
 enum programMode { PROGRAM_BOOT, PROGRAM_MAINMENU, PROGRAM_GAME };
 

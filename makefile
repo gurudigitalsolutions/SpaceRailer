@@ -3,7 +3,8 @@ OBJ = src/main.cpp \
 	src/input.cpp \
 	src/in_joystick.cpp \
 	src/scripting.cpp \
-	src/config.cpp
+	src/config.cpp \
+	src/stage.cpp
 
 #	Set any dependencies
 #DEPS = main.h

@@ -23,9 +23,14 @@ short windowHeight = 540;
 //	keepRunning determines when the program should stop looping
 bool keepRunning = true;
 
+//	Initialize a configuration object
 Config config;
 
-unsigned char currentStage = 0;
+//	Initialize stage information.  currentStageID will be the number for
+//	the stage you are on, and currentStage will be the actual object that
+//	is and manipulates the world.
+unsigned char currentStageID = 0;
+Stage * currentStage;
 
 programMode currentProgramMode = PROGRAM_BOOT;
 
@@ -44,6 +49,13 @@ int main(int argc, char ** argv)
 	cout << "Stage Dir: " << config.getStageDir() << "\n";
 	
 	cout << "Reticulating splines...\n";
+	currentStage = Stage::load(currentStageID);
+	
+	if(currentStage == NULL)
+	{
+		cout << "Failed to load stage.  :(\n";
+		return 0;
+	}
 	
 	execute();
 	
@@ -52,6 +64,14 @@ int main(int argc, char ** argv)
 
 void handleRender()
 {
+	switch(currentProgramMode)
+	{
+		case PROGRAM_BOOT		: break;
+		case PROGRAM_MAINMENU	: break;
+		case PROGRAM_GAME		:
+			currentStage->render();
+			break;
+	}
 	
 }
 
@@ -154,6 +174,8 @@ void execute()
 	
 	SDL_Event Event;
 	
+	currentProgramMode = PROGRAM_GAME;
+	
 	while(keepRunning)
 	{
 		while(SDL_PollEvent(&Event) != 0)
@@ -174,3 +196,7 @@ void execute()
 	
 	return;
 }
+
+SDL_Window * getSDLWindow() { return Window; }
+SDL_Renderer * getSDLRenderer() { return Renderer; }
+SDL_Surface * getSDLPrimarySurface() { return PrimarySurface; }
