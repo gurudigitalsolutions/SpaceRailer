@@ -4,149 +4,166 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef __APPLE_CC__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
+#include <SDL2/SDL.h>
 #include <cstdlib>
 #include <iostream>
+
+using namespace std;
 
 #include "main.h"
 #include "input.h"
 #include "scripting.h"
 
-using namespace std;
 
-//	Set initial dimensions for the window.  The default values here are for
-//	half of a 1080 display.
+
+//	Setting window size to be a quarter of a 1080 display
 short windowWidth = 960;
 short windowHeight = 540;
 
+//	keepRunning determines when the program should stop looping
+bool keepRunning = true;
+
 programMode currentProgramMode = PROGRAM_BOOT;
-ProgramInput InputHandler;
 
-// A simple two-dimensional point class to make life easy.  It allows you to
-// reference points with x and y coordinates instead of array indices) and
-// encapsulates a midpoint function.
-struct Point {
-  GLfloat x, y;
-  Point(GLfloat x = 0, GLfloat y = 0): x(x), y(y) {}
-  Point midpoint(Point p) {return Point((x + p.x) / 2.0, (y + p.y) / 2.0);}
-};
-
-
-//	The main entry point for the program.  This will need to initialize OpenGL,
-//	the game engine, and setup callbacks.
-int main(int argc, char** argv)
+int main(int argc, char ** argv)
 {
-	//	Welcome message
-	cout << "Space Railer\n";
+	cout << "SpaceRailer\n";
 	
-	//	Configure OpenGL Utility Library (GLUT)
-	glutInit(&argc, argv);
-	glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
-	glutInitWindowSize(windowWidth, windowHeight);
-	glutInitWindowPosition(40, 40);
-	glutCreateWindow("Space Railer");
+	cout << "Initializing...\n";
+	if(!init())
+	{
+		cout << "Failed to initialize.\n";
+		cout << "That seriously sucks.\n";
+		return 1;
+	}
 	
-	//	Configure callbacks.
-	//		DisplayFunc:	Called 60x/second to render graphics
-	//		ReshapeFunc:	Called when the window is resized
-	//		IdleFunc:		Called when rendering is complete.  This is where
-	//						our program actually runs.
-	glutDisplayFunc(handleRender);
-	glutReshapeFunc(handleReshape);
-	glutIdleFunc(handleIdle);
+	cout << "Reticulating splines...\n";
+	execute();
 	
-	//	Do the main initialization of our game.
-	init();
-	
-	currentProgramMode = PROGRAM_MAINMENU;
-	//	Enter the glutLoop.  This will drive the callbacks to our code.
-	
-	script_test(argc, argv);
-	glutMainLoop();
+	return 0;
 }
 
-// Draws a Sierpinski triangle with a fixed number of points. (Note that the
-// number of points is kept fairly small because a display callback should
-// NEVER run for too long.
 void handleRender()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	static Point vertices[] = {Point(0, 0), Point(200, 500), Point(500, 0)};
-
-	// Compute and plot 100000 new points, starting (arbitrarily) with one of
-	// the vertices. Each point is halfway between the previous point and a
-	// randomly chosen vertex.
-	static Point p = vertices[0];
 	
-	//	glBegin/glEnd don't have { }, but they are essentially code blocks.  It
-	//	can be easier to read if it is formatted like the code between them is
-	//	part of a block.
-	glBegin(GL_POINTS);
-		for (int k = 0; k < 100000; k++)
-		{
-			p = p.midpoint(vertices[rand() % 3]);
-			glVertex2f(p.x, p.y);
-		}
-	glEnd();
-	
-	glFlush();
 }
 
-//	Something has caused the window to resize.  Since we still want to be
-//	looking at the same content, we need to adjust the viewport to the new
-//	dimensions.  The grid will remain the same.
-void handleReshape(GLint newWidth, GLint newHeight)
+/*void handleReshape(GLint newWidth, GLint newHeight)
 {
-	// Set up the viewing volume: windowWidth x windowHeight window with origin upper left.
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	gluOrtho2D(0.0, windowWidth, windowHeight, 0.0);
-	glViewport(0, 0, newWidth, newHeight);
-	
 	return;
-}
+}*/
 
-
-//	Idle is where the main processing for the program goes.  This will determine
-//	what state the program is currently in and hand it off to the appropriate
-//	subsystem.
-void handleIdle()
+//	handleLoop is where the main processing for the program goes.  This will
+//	determine what state the program is currently in and hand it off to the
+//	appropriate subsystem.
+void handleLoop()
 {
-	InputHandler.process();
-	
 	switch(currentProgramMode)
 	{
 		case PROGRAM_BOOT		: break;
 		case PROGRAM_MAINMENU	: break;
 		case PROGRAM_GAME		: break;
 	}
+	
 	return;
 }
 
-//	Initialize our game here.  This will need to launch the startup sequence,
-//	main menu, audio subsystem, etc.
-void init()
+//	handleCleanup will destroy windows, free up file pointers and other
+//	related stuff.
+void handleCleanup()
 {
-	// Set a deep purple background and draw in a greenish yellow.
-	glClearColor(0.25, 0.0, 0.2, 1.0);
-	glColor3ub(154, 255, 0);
-
-	// Set up the viewing volume: windowWidth x windowHeight window with origin upper left.
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+	cout << "Dereticulating splinial units...\n";
 	
-	gluOrtho2D(0.0, windowWidth, windowHeight, 0.0);
-	glViewport(0, 0, windowWidth, windowHeight);
+	if(Renderer)
+	{
+		SDL_DestroyRenderer(Renderer);
+		Renderer = NULL;
+	}
 	
-	//	Now that OpenGL is initialized, we need to initialize input handling.
-	//InputHandler = ProgramInput;
+	if(Window)
+	{
+		SDL_DestroyWindow(Window);
+		Window = NULL;
+	}
 	
+	SDL_Quit();
 }
 
 
+//	onSDLEvent is called if there are any SDL Events to process.  These include
+//	stuff like window resizing, input, and I'm not really sure yet.
+void onSDLEvent(SDL_Event * Event)
+{
+
+}
+
+
+bool init()
+{
+	if(SDL_Init(SDL_INIT_VIDEO) < 0)
+	{
+		cout << "Unable to init SDL.\n";
+		return false;
+	}
+	
+	if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
+	{
+		cout << "Unable to init hinting.\n";
+		return false;
+	}
+	
+	Window = SDL_CreateWindow(
+		"SpaceRailer",
+		SDL_WINDOWPOS_UNDEFINED,
+		SDL_WINDOWPOS_UNDEFINED,
+		windowWidth,
+		windowHeight,
+		SDL_WINDOW_SHOWN
+	);
+	
+	if(Window == NULL)
+	{
+		cout << "Unable to create SDL window.\n";
+		return false;
+	}
+	
+	PrimarySurface = SDL_GetWindowSurface(Window);
+	
+	if((Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED)) == NULL)
+	{
+		cout << "Unable to create renderer.\n";
+		return false;
+	}
+	
+	//	Set draw color to fully opaque black (RGBA)
+	SDL_SetRenderDrawColor(Renderer, 0x00, 0x00, 0x00, 0xFF);
+	
+	return true;
+}
+
+void execute()
+{
+	cout << "Splines reticulated.\n";
+	
+	SDL_Event Event;
+	
+	while(keepRunning)
+	{
+		while(SDL_PollEvent(&Event) != 0)
+		{
+			onSDLEvent(&Event);
+			
+			if(Event.type == SDL_QUIT) { keepRunning = false; }
+		}
+		
+		handleLoop();
+		handleRender();
+		
+		//	Delayage
+		SDL_Delay(1);
+	}
+	
+	handleCleanup();
+	
+	return;
+}
