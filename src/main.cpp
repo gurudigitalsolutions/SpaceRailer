@@ -23,6 +23,10 @@ short windowHeight = 540;
 //	keepRunning determines when the program should stop looping
 bool keepRunning = true;
 
+Config config;
+
+unsigned char currentStage = 0;
+
 programMode currentProgramMode = PROGRAM_BOOT;
 
 int main(int argc, char ** argv)
@@ -37,7 +41,10 @@ int main(int argc, char ** argv)
 		return 1;
 	}
 	
+	cout << "Stage Dir: " << config.getStageDir() << "\n";
+	
 	cout << "Reticulating splines...\n";
+	
 	execute();
 	
 	return 0;

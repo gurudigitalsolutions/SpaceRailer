@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <cstdlib>
 #include <iostream>
+#include "config.h"
 
 void handleRender();
 //void handleReshape(GLint newWidth, GLint newHeight);
@@ -15,6 +16,10 @@ extern short windowWidth;
 extern short windowHeight;
 
 extern bool keepRunning;
+
+extern Config config;
+
+extern unsigned char currentStage;
 
 enum programMode { PROGRAM_BOOT, PROGRAM_MAINMENU, PROGRAM_GAME };
 
