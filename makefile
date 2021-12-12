@@ -4,7 +4,8 @@ OBJ = src/main.cpp \
 	src/in_joystick.cpp \
 	src/scripting.cpp \
 	src/config.cpp \
-	src/stage.cpp
+	src/stage.cpp \
+	src/mob.cpp
 
 #	Set any dependencies
 #DEPS = main.h

@@ -1,6 +1,9 @@
 #include <string>
 #include <filesystem>
 #include <unistd.h>
+#include <vector>
+#include <Python.h>
+#include "mob.h"
 
 extern Config config;
 
@@ -22,9 +25,17 @@ class Stage
 		bool render();
 		
 	private:
+		PyObject * _scriptFilename;
+		PyObject * _scriptModule;
+		PyObject * _scriptFunction;
+		
 		unsigned char _stageID = 0;
 		string _stageDirectory = "";
 		
-		bool _initialize();
+		//	It's unclear to me if this should be an array, linked list, vector,
+		//	or something else.  
+		vector<Mob> _mobs;
 		
+		bool _initialize();
+		bool _initializeScripting();
 };

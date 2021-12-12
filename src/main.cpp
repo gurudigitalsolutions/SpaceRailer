@@ -34,11 +34,19 @@ Stage * currentStage;
 
 programMode currentProgramMode = PROGRAM_BOOT;
 
+int _argc;
+char ** _argv;
+
 int main(int argc, char ** argv)
 {
 	cout << "SpaceRailer\n";
 	
 	cout << "Initializing...\n";
+	
+	//	"Globalize" command line arguments
+	_argc = argc;
+	_argv = argv;
+	
 	if(!init())
 	{
 		cout << "Failed to initialize.\n";
@@ -200,3 +208,13 @@ void execute()
 SDL_Window * getSDLWindow() { return Window; }
 SDL_Renderer * getSDLRenderer() { return Renderer; }
 SDL_Surface * getSDLPrimarySurface() { return PrimarySurface; }
+
+char ** getArgv()
+{
+	return _argv;
+}
+
+int getArgc()
+{
+	return _argc;
+}
