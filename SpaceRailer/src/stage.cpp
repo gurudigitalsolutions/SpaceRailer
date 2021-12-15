@@ -1,12 +1,5 @@
 #include <string>
 #include <filesystem>
-
-#ifdef _WIN32
-	#include <windows.h>
-#elif
-	#include <unistd.h>
-#endif
-
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,8 +11,19 @@
 #include <fstream>
 #include <string>
 
+
+#ifdef _WIN32
+	//
+#elif
+	#include <unistd.h>
+#endif
+
+
+
 #include "config.h"
 #include "stage.h"
+#include "path_tools.h"
+
 
 extern char** getArgv();
 extern int getArgc();
@@ -30,33 +34,16 @@ using namespace std;
 //	interaction with the stage.
 Stage * Stage::load(unsigned char stageid)
 {
+	cout << "Game data path: '" << Path_Tools::getGameDataPath() << "'\n";
+
 	string stageDir = config.getStageDir() + "stage_" + to_string(stageid) + "/";
 	cout << "Loading stage: " << stageDir << "\n";
 	
 	
-	
-	//	Check if the directory for this stage exists
-#ifdef _WIN32
-	DWORD ftyp = GetFileAttributesA(stageDir.c_str());
-	if (ftyp == INVALID_FILE_ATTRIBUTES)
-		return false;  //something is wrong with your path!
-
-	if (ftyp & FILE_ATTRIBUTE_DIRECTORY)
-		return true;   // this is a directory!
-
-	return false;    // this is not a directory!
-	
-#elif
-	DIR * dp = opendir(stageDir.c_str());
-	if(dp == NULL)
-	{
-		cout << "Stage directory not found.\n";
+	if (!Path_Tools::pathExists(stageDir)) {
 		return NULL;
 	}
-	closedir(dp);
-#endif
-	
-	
+
 	//	Sweet, the stage directory exists.  Now to check the files within
 	//	to make sure there is something to load.
 	Stage * newStage = new Stage();

@@ -1,14 +1,16 @@
 #include <string>
 #include <filesystem>
+#include <iostream>
 
 #ifdef _WIN32
-	#include <direct.h>
+	#include <Windows.h>
 	#define getcwd _getcwd
 #elif
 	#include <inistd.h>
 #endif
 
 #include "config.h"
+#include "path_tools.h"
 
 
 using namespace std;
@@ -16,7 +18,7 @@ using namespace std;
 
 string Config::getConfigDir()
 {
-	return "";
+	return Path_Tools::getGameDataPath() + "/config/";
 }
 
 
@@ -24,9 +26,8 @@ string Config::getConfigDir()
 //	this just uses the current working directory.
 string Config::getStageDir()
 {
-	char stagedir[256];
-	getcwd(stagedir, 256);
-	
-	return (string)stagedir + "/data/stages/";
-	
+	return Path_Tools::getGameDataPath() + "/data/stages/";
 }
+
+
+
