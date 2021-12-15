@@ -1,6 +1,12 @@
 #include <string>
 #include <filesystem>
-//#include <unistd.h>
+
+#ifdef _WIN32
+	#include <windows.h>
+#elif
+	#include <unistd.h>
+#endif
+
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,6 +15,8 @@
 //#include <SDL2/SDL.h>
 #include <SDL2/SDL.h>
 //#include <dirent.h>
+#include <fstream>
+#include <string>
 
 #include "config.h"
 #include "stage.h"
@@ -29,7 +37,15 @@ Stage * Stage::load(unsigned char stageid)
 	
 	//	Check if the directory for this stage exists
 #ifdef _WIN32
-	//	Nothing
+	DWORD ftyp = GetFileAttributesA(stageDir.c_str());
+	if (ftyp == INVALID_FILE_ATTRIBUTES)
+		return false;  //something is wrong with your path!
+
+	if (ftyp & FILE_ATTRIBUTE_DIRECTORY)
+		return true;   // this is a directory!
+
+	return false;    // this is not a directory!
+	}
 #elif
 	DIR * dp = opendir(stageDir.c_str());
 	if(dp == NULL)
