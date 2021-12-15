@@ -45,7 +45,7 @@ Stage * Stage::load(unsigned char stageid)
 		return true;   // this is a directory!
 
 	return false;    // this is not a directory!
-	}
+	
 #elif
 	DIR * dp = opendir(stageDir.c_str());
 	if(dp == NULL)
