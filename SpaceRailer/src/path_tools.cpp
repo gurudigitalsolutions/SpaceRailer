@@ -42,7 +42,11 @@ string Path_Tools::_getSystemDataPaths(string * dp1, string * dp2, string * dp3)
 		//cout << appdata << "\n" << (string)install << "\n" << progdata << "\n";
 		return new string[3]{ appdata,install,progdata };
 	#else
-
+		*dp1 = (string)getenv("HOME") + "/.config/spacerailer/";
+		*dp2 = "/usr/share/spacerailer/";
+		char install[256];
+		getcwd(install, 256);
+		*dp3 = (string)install;
 	#endif
 	
 	return (string)("");
@@ -72,6 +76,7 @@ bool Path_Tools::pathExists(const string& path_to_check)
 		if (dp == NULL)
 		{
 			cout << "Stage directory not found.\n";
+			cout << path_to_check << "\n";
 			return false;
 		}
 		closedir(dp);
