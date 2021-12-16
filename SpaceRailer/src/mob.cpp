@@ -4,8 +4,8 @@
 #ifdef _WIN32
 	#include <direct.h>
 	#define getcwd _getcwd
-#elif
-	#include <inistd.h>
+#else
+	#include <unistd.h>
 #endif
 
 #include <iostream>
@@ -16,7 +16,7 @@
 
 #ifdef _WIN32
 	#include "C:\vclib\SDL2-2.0.18\include\SDL.h"
-#elif
+#else
 	#include <SDL2/SDL.h>
 #endif
 //#include <dirent.h>

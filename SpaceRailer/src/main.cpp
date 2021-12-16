@@ -6,7 +6,7 @@
 
 #ifdef _WIN32
 	#include "C:\vclib\SDL2-2.0.18\include\SDL.h"
-#elif
+#else
 	#include <SDL2/SDL.h>
 #endif
 

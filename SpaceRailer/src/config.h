@@ -5,8 +5,8 @@
 #ifdef _WIN32
 	#include <Windows.h>
 	#define getcwd _getcwd
-#elif
-	#include <inistd.h>
+#else
+	#include <unistd.h>
 #endif
 
 

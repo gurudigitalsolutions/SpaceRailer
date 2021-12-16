@@ -1,11 +1,12 @@
 #	Set all object files (pretty much all .cpp)
-OBJ = src/main.cpp \
-	src/input.cpp \
-	src/in_joystick.cpp \
-	src/scripting.cpp \
-	src/config.cpp \
-	src/stage.cpp \
-	src/mob.cpp
+OBJ = SpaceRailer/src/main.cpp \
+	SpaceRailer/src/input.cpp \
+	SpaceRailer/src/in_joystick.cpp \
+	SpaceRailer/src/scripting.cpp \
+	SpaceRailer/src/config.cpp \
+	SpaceRailer/src/stage.cpp \
+	SpaceRailer/src/mob.cpp \
+	SpaceRailer/src/path_tools.cpp
 
 #	Set any dependencies
 #DEPS = main.h
@@ -51,7 +52,7 @@ EXTENSION = .cpp
 #Combine them into the output file
 #Set your desired exe output file name here
 spacerailer: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS) $(LIBS) 
+	$(CC) -o x64/Debug/$@ $^ $(CFLAGS) $(LIBS) 
 
 #Cleanup
 .PHONY: clean

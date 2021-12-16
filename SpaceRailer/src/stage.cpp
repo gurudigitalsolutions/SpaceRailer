@@ -5,17 +5,16 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-//#include <SDL2/SDL.h>
 #include <SDL2/SDL.h>
-//#include <dirent.h>
 #include <fstream>
 #include <string>
 
 
 #ifdef _WIN32
 	//
-#elif
+#else
 	#include <unistd.h>
+	#include <dirent.h>
 #endif
 
 
@@ -70,7 +69,7 @@ bool Stage::_initialize()
 	//	Start with the graphics directory
 #ifdef _WIN32
 	//	Nothing
-#elif
+#else
 	DIR * dp = opendir((_stageDirectory + "graphics").c_str());
 	if(dp == NULL)
 	{

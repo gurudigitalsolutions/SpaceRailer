@@ -2,11 +2,12 @@
 #include <iostream>
 
 #ifdef _WIN32
-#include <Windows.h>
+	#include <Windows.h>
 	#include <direct.h>
 	#define getcwd _getcwd
-#elif
-	#include <inistd.h>
+#else
+	#include <unistd.h>
+	#include <dirent.h>
 #endif
 
 #include "path_tools.h"
@@ -20,7 +21,9 @@ string Path_Tools::_gameDataPath  = "";
 string Path_Tools::getGameDataPath() {
 	if (_gameDataPath=="")
 	{
-		_gameDataPath = pathsExist(_getSystemDataPaths());
+		string systemdatapaths[3]; 
+		_getSystemDataPaths(&systemdatapaths[0], &systemdatapaths[1], &systemdatapaths[2]);
+		_gameDataPath = pathsExist((string *)&systemdatapaths);
 	}
 	return _gameDataPath;
 }
@@ -29,18 +32,20 @@ string Path_Tools::getGameDataPath() {
 
 // Gets the array of paths to check for game's data
 // Returns OS specific array of paths to check
-string* Path_Tools::_getSystemDataPaths() {
+string Path_Tools::_getSystemDataPaths(string * dp1, string * dp2, string * dp3) {
 	#ifdef _WIN32
-		string appdata = (string)getenv("APPDATA") + "/SpaceRailer/";
-		string progdata = (string)getenv("PROGRAMDATA") + "/SpaceRailer/";
+		*dp1 = (string)getenv("APPDATA") + "/SpaceRailer/";
+		*dp2 = (string)getenv("PROGRAMDATA") + "/SpaceRailer/";
 		// TODO: this will need to be tweaked to the actual installation path
 		char install[256];
-		getcwd(install, 256);
+		getcwd(*dp3, 256);
 		//cout << appdata << "\n" << (string)install << "\n" << progdata << "\n";
 		return new string[3]{ appdata,install,progdata };
-	#elif
+	#else
 
 	#endif
+	
+	return (string)("");
 }
 
 
@@ -62,8 +67,8 @@ bool Path_Tools::pathExists(const string& path_to_check)
 		return false;    // this is not a directory!
 
 	// Unix systems
-	#elif
-		DIR* dp = opendir(stageDir.c_str());
+	#else
+		DIR * dp = opendir(path_to_check.c_str());
 		if (dp == NULL)
 		{
 			cout << "Stage directory not found.\n";
@@ -71,12 +76,15 @@ bool Path_Tools::pathExists(const string& path_to_check)
 		}
 		closedir(dp);
 	#endif
+	
+	//	Shouldn't reach here
+	return false;
 }
 
 
 // Checks array of directories returning first valid path
 // paths_to_check should be in order of preference
-string Path_Tools::pathsExist(string paths_to_check[]) {
+string Path_Tools::pathsExist(string * paths_to_check) {
 
 	for (int i = 0; i < 3; i++)
 	{
