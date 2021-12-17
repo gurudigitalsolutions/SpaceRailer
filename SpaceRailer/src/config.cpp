@@ -18,7 +18,7 @@ using namespace std;
 
 string Config::getConfigDir()
 {
-	return Path_Tools::getGameDataPath() + "/config/";
+	return Path_Tools::getGameDataPath() + "data/config/";
 }
 
 
@@ -26,7 +26,7 @@ string Config::getConfigDir()
 //	this just uses the current working directory.
 string Config::getStageDir()
 {
-	return Path_Tools::getGameDataPath() + "/stages/";
+	return Path_Tools::getGameDataPath() + "data/stages/";
 }
 
 

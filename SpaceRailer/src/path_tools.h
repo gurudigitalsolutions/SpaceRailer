@@ -15,7 +15,7 @@ class Path_Tools
 {
 private:
 	static string _gameDataPath;
-	static string _getSystemDataPaths(string * dp1, string * dp2, string * dp3);
+	static void _getSystemDataPaths(string * dp1, string * dp2, string * dp3);
 public:
 	static bool pathExists(const string& dirName_in);
 	static string pathsExist(string paths_to_check[]);

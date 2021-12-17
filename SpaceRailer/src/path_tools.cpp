@@ -15,11 +15,11 @@
 
 using namespace std;
 
-string Path_Tools::_gameDataPath  = "";
+string Path_Tools::_gameDataPath;
 
 // gets the game data path, sets value if empty
 string Path_Tools::getGameDataPath() {
-	if (_gameDataPath=="")
+	if (_gameDataPath.empty())
 	{
 		string systemdatapaths[3]; 
 		_getSystemDataPaths(&systemdatapaths[0], &systemdatapaths[1], &systemdatapaths[2]);
@@ -32,22 +32,17 @@ string Path_Tools::getGameDataPath() {
 
 // Gets the array of paths to check for game's data
 // Returns OS specific array of paths to check
-string Path_Tools::_getSystemDataPaths(string * dp1, string * dp2, string * dp3) {
+void Path_Tools::_getSystemDataPaths(string* dp1, string* dp2, string* dp3) {
 	#ifdef _WIN32
 		*dp1 = (string)getenv("APPDATA") + "/SpaceRailer/";
 		*dp2 = (string)getenv("PROGRAMDATA") + "/SpaceRailer/";
-		// TODO: this will need to be tweaked to the actual installation path
-		char install[256];
-		getcwd(*dp3, 256);
+		*dp3 = (string)"";
 		//cout << appdata << "\n" << (string)install << "\n" << progdata << "\n";
-		return new string[3]{ appdata,install,progdata };
 	#else
-		*dp1 = (string)getenv("HOME") + "/.config/spacerailer";
-		*dp2 = "/usr/share/spacerailer";
-		*dp3 = (string)"data";
+		*dp1 = (string)getenv("HOME") + "/.config/spacerailer/";
+		*dp2 = "/usr/share/spacerailer/";
+		*dp3 = (string)"";
 	#endif
-	
-	return (string)("");
 }
 
 

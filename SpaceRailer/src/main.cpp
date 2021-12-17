@@ -102,7 +102,9 @@ void handleLoop()
 	{
 		case PROGRAM_BOOT		: break;
 		case PROGRAM_MAINMENU	: break;
-		case PROGRAM_GAME		: break;
+		case PROGRAM_GAME		: 
+			currentStage->process();
+			break;
 	}
 	
 	return;

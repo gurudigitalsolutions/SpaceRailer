@@ -1,5 +1,5 @@
-/SpaceRailer/x64/Debug
-/SpaceRailer/x64/Release
+#SpaceRailer/x64/Debug
+#SpaceRailer/x64/Release
 *.obj
 *.exe
 
