@@ -1,6 +1,6 @@
 #include "mob.h"
 
-class Player : Mob {
+class Player : public Mob {
 private:
 
 public:

@@ -1,4 +1,7 @@
 #include <string>
+#include "graphics.h"
+#include "path_tools.h"
+#include <list>
 
 using namespace std;
 
@@ -17,6 +20,11 @@ class Mob
 		int Width() { return _width; }
 		int Height() { return _height; }
 
+		void setWidth(int value) { _width = value; }
+		void setHeight(int value) { _height = value; }
+		
+		list<SDL_Texture *> sprites;
+
 		bool isFriendly;
 		string mobName;
 
@@ -25,6 +33,8 @@ class Mob
 		bool render();
 		bool initialize(string mobName);
 		bool initialize();
+
+		bool loadSprites();
 	
 	private:
 		unsigned int _hitPoints = 100;
@@ -37,4 +47,5 @@ class Mob
 		short _accelerationY = 0;
 		short _accelerationMaxX = 40;
 		short _accelerationMaxY = 40;
+
 };

@@ -67,19 +67,9 @@ bool Stage::_initialize()
 		return false;
 	}
 	
-	//	Check if the proper resources are available
+	// TODO	Check if the proper resources are available
 	//	Start with the graphics directory
-#ifdef _WIN32
-	//	Nothing
-#else
-	DIR * dp = opendir((_stageDirectory + "graphics").c_str());
-	if(dp == NULL)
-	{
-		cout << "Graphics directory not found for stage.\n";
-		return NULL;
-	}
-	closedir(dp);
-#endif
+
 	
 	//	Attempt to launch the scripting engine for this stage
 	if(!_initializeScripting())
@@ -88,11 +78,13 @@ bool Stage::_initialize()
 		return NULL;
 	}
 
-		
+	_player.setWidth(256);
+	_player.setHeight(256);
 	if (!_player.initialize())
 	{
 		cout << "player is already dead, failed to initialize";
 	}
+
 	
 	return true;
 }

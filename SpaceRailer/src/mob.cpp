@@ -34,7 +34,18 @@ bool Mob::process()
 }
 
 bool Mob::render() {
-	return false;
+
+	SDL_Rect box;
+	box.w = 30;
+	box.h = 30;
+	box.x = 50;
+	box.y = 50;
+
+	//	Set draw color to green
+	SDL_SetRenderDrawColor(getSDLRenderer(), 0x00, 0xff, 0x00, 0xff);
+	SDL_RenderFillRect(getSDLRenderer(), &box);
+	SDL_RenderPresent(getSDLRenderer());
+	return true;
 }
 
 
@@ -45,5 +56,16 @@ bool Mob::initialize(string mobName) {
 
 bool Mob::initialize()
 {
+	sprites.push_back(
+		Graphics::loadTexture(Path_Tools::getGameDataPath() + "resources/mobs/" + mobName + "/sprites/mob0.png")
+	);
+
+	return true;
+}
+
+bool Mob::loadSprites()
+{
+	//	Check game data path for additional sprites to load for this mob
+
 	return true;
 }
