@@ -6,6 +6,7 @@
 //#include "mob.h"
 #include "player.h"
 
+
 extern Config config;
 
 //	These are actually defined in main.cpp

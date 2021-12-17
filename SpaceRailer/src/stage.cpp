@@ -21,7 +21,6 @@
 
 #include "config.h"
 #include "stage.h"
-#include "path_tools.h"
 
 
 extern char** getArgv();
@@ -110,9 +109,11 @@ bool Stage::render()
 	box.x = 50;
 	box.y = 50;
 	
+	_player.render();
+
 	//	Set draw color to green
-	SDL_SetRenderDrawColor(getSDLRenderer(), 0x00, 0xff, 0x00, 0xff);
-	SDL_RenderFillRect(getSDLRenderer(), &box);
+	//SDL_SetRenderDrawColor(getSDLRenderer(), 0x00, 0xff, 0x00, 0xff);
+	//SDL_RenderFillRect(getSDLRenderer(), &box);
 	SDL_RenderPresent(getSDLRenderer());
 	return true;
 }

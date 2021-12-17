@@ -3,6 +3,6 @@
 
 bool Player::initialize()
 {
-	return true;
+	return Mob::initialize("playership");
 }
 

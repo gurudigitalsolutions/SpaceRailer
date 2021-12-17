@@ -1,7 +1,9 @@
+#pragma once
 #include <string>
 #include "graphics.h"
-#include "path_tools.h"
 #include <list>
+
+#include "path_tools.h"
 
 using namespace std;
 

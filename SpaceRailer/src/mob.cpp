@@ -21,7 +21,7 @@
 #endif
 //#include <dirent.h>
 
-#include "config.h"
+
 #include "mob.h"
 
 using namespace std;
@@ -36,15 +36,11 @@ bool Mob::process()
 bool Mob::render() {
 
 	SDL_Rect box;
-	box.w = 30;
-	box.h = 30;
+	box.w = 128;
+	box.h = 128;
 	box.x = 50;
 	box.y = 50;
-
-	//	Set draw color to green
-	SDL_SetRenderDrawColor(getSDLRenderer(), 0x00, 0xff, 0x00, 0xff);
-	SDL_RenderFillRect(getSDLRenderer(), &box);
-	SDL_RenderPresent(getSDLRenderer());
+	SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
 	return true;
 }
 
