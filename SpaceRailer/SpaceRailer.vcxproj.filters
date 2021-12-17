@@ -33,9 +33,6 @@
     <ClCompile Include="src\stage.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\constant.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\path_tools.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -57,9 +54,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\stage.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\constant.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\path_tools.h">

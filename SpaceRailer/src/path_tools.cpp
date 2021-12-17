@@ -88,7 +88,7 @@ string Path_Tools::pathsExist(string * paths_to_check) {
 
 	for (int i = 0; i < 3; i++)
 	{
-		cout << "Checking path: " << paths_to_check[i] << "\n";
+		//cout << "Checking path: " << paths_to_check[i] << "\n";
 		if (pathExists(paths_to_check[i])) {
 			return paths_to_check[i];
 		}
