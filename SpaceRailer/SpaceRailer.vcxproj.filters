@@ -36,6 +36,9 @@
     <ClCompile Include="src\path_tools.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\config.h">
@@ -57,6 +60,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\path_tools.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
