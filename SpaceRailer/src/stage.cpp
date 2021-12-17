@@ -27,6 +27,8 @@
 extern char** getArgv();
 extern int getArgc();
 
+
+
 using namespace std;
 
 //	Static method to create a new Stage object.  This object will handle all
@@ -84,6 +86,12 @@ bool Stage::_initialize()
 	{
 		cout << "Scripting engine could not be initialized.\n";
 		return NULL;
+	}
+
+		
+	if (!_player.initialize())
+	{
+		cout << "player is already dead, failed to initialize";
 	}
 	
 	return true;

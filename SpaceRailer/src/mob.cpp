@@ -32,3 +32,14 @@ bool Mob::process()
 {
 	return true;
 }
+
+bool Mob::render() {
+	return false;
+}
+
+
+bool Mob::initialize(string mobName) {
+	this->mobName = mobName;
+	return initialize();
+}
+

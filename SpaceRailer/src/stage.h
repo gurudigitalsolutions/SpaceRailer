@@ -4,6 +4,7 @@
 #include <vector>
 #include <Python.h>
 #include "mob.h"
+#include "player.h"
 
 extern Config config;
 
@@ -23,6 +24,8 @@ class Stage
 		
 		bool process();
 		bool render();
+
+		Player _player;
 		
 	private:
 		PyObject * _scriptFilename;

@@ -1,3 +1,6 @@
+#include <string>
+
+using namespace std;
 
 class Mob
 {
@@ -10,14 +13,26 @@ class Mob
 		
 		int X() { return _coordX; }
 		int Y() { return _coordY; }
-		
+
+		int Width() { return _width; }
+		int Height() { return _height; }
+
+		bool isFriendly;
+		string mobName;
+
 		bool process();
+
+		bool render();
+		bool initialize(string mobName);
+
 	
 	private:
 		unsigned int _hitPoints = 100;
 		unsigned int _magicPoints = 0;
 		int _coordX = 0;
 		int _coordY = 0;
+		int _width = 0;
+		int _height = 0;
 		short _accelerationX = 0;
 		short _accelerationY = 0;
 		short _accelerationMaxX = 40;

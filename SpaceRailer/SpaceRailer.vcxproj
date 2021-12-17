@@ -151,6 +151,7 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\vclib\SDL2-2.0.18\include;C:\Program Files\Python39\include</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="src\path_tools.cpp" />
+    <ClCompile Include="src\player.cpp" />
     <ClCompile Include="src\scripting.cpp" />
     <ClCompile Include="src\stage.cpp" />
   </ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="src\main.h" />
     <ClInclude Include="src\mob.h" />
     <ClInclude Include="src\path_tools.h" />
+    <ClInclude Include="src\player.h" />
     <ClInclude Include="src\scripting.h" />
     <ClInclude Include="src\stage.h" />
   </ItemGroup>
