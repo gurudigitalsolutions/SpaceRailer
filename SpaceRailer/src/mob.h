@@ -16,11 +16,14 @@ class Mob
 		unsigned int getMagicPoints() { return _magicPoints; }
 		void setMagicPoints(unsigned int value) { _magicPoints = value; }
 		
-		int X() { return _coordX; }
-		int Y() { return _coordY; }
+		int getX() { return _coordX; }
+		int getY() { return _coordY; }
 
-		int Width() { return _width; }
-		int Height() { return _height; }
+		void setX(int value) { _coordX = value; }
+		void setY(int value) { _coordY = value; }
+
+		int getWidth() { return _width; }
+		int getHeight() { return _height; }
 
 		void setWidth(int value) { _width = value; }
 		void setHeight(int value) { _height = value; }
@@ -37,6 +40,7 @@ class Mob
 		bool initialize();
 
 		bool loadSprites();
+		bool loadSprite(string spriteName);
 	
 	private:
 		unsigned int _hitPoints = 100;

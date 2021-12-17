@@ -204,7 +204,7 @@ void execute()
 		handleRender();
 		
 		//	Delayage
-		SDL_Delay(1);
+		SDL_Delay(2);
 	}
 	
 	handleCleanup();

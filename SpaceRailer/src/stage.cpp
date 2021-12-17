@@ -77,8 +77,10 @@ bool Stage::_initialize()
 		return NULL;
 	}
 
-	_player.setWidth(256);
-	_player.setHeight(256);
+	_player.setWidth(128);
+	_player.setHeight(128);
+	_player.setX(30);
+	_player.setY(30);
 	if (!_player.initialize())
 	{
 		cout << "player is already dead, failed to initialize";
@@ -93,6 +95,7 @@ bool Stage::_initialize()
 //	next frame from being rendered.
 bool Stage::process()
 {
+	_player.process();
 	return true;
 }
 

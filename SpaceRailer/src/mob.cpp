@@ -30,16 +30,20 @@ using namespace std;
 //	scripting.
 bool Mob::process()
 {
+	setX(getX() + 1);
+	//setY(getY() - 1);
+	
+
 	return true;
 }
 
 bool Mob::render() {
 
 	SDL_Rect box;
-	box.w = 128;
-	box.h = 128;
-	box.x = 50;
-	box.y = 50;
+	box.w = getWidth();
+	box.h = getHeight();
+	box.x = getX();
+	box.y = getY();
 	SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
 	return true;
 }
@@ -62,6 +66,11 @@ bool Mob::initialize()
 bool Mob::loadSprites()
 {
 	//	Check game data path for additional sprites to load for this mob
+	// loops through available sprites
+	return true;
+}
 
+bool Mob::loadSprite(string spriteName)
+{
 	return true;
 }
