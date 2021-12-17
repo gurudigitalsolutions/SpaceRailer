@@ -24,7 +24,7 @@ class Mob
 
 		bool render();
 		bool initialize(string mobName);
-
+		bool initialize();
 	
 	private:
 		unsigned int _hitPoints = 100;

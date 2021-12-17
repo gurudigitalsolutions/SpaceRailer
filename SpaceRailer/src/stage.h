@@ -3,7 +3,7 @@
 //#include <unistd.h>
 #include <vector>
 #include <Python.h>
-#include "mob.h"
+//#include "mob.h"
 #include "player.h"
 
 extern Config config;

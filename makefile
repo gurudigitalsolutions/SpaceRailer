@@ -6,13 +6,15 @@ OBJ = SpaceRailer/src/main.cpp \
 	SpaceRailer/src/config.cpp \
 	SpaceRailer/src/stage.cpp \
 	SpaceRailer/src/mob.cpp \
-	SpaceRailer/src/path_tools.cpp
+	SpaceRailer/src/path_tools.cpp \
+	SpaceRailer/src/player.cpp \
+	SpaceRailer/src/graphics.cpp
 
 #	Set any dependencies
 #DEPS = main.h
 
 #	Any special libraries
-LIBS = -pthread -lX11 -lGL -lGLU -lglut -lSDL2 -g -Wall
+LIBS = -pthread -lX11 -lGL -lGLU -lglut -lSDL2 -lSDL2_image -g -Wall
 
 #	Set any compiler flags
 CFLAGS = -I/usr/include/python3.9 \

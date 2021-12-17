@@ -43,3 +43,7 @@ bool Mob::initialize(string mobName) {
 	return initialize();
 }
 
+bool Mob::initialize()
+{
+	return true;
+}
