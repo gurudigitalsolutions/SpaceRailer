@@ -26,7 +26,7 @@ string Config::getConfigDir()
 //	this just uses the current working directory.
 string Config::getStageDir()
 {
-	return Path_Tools::getGameDataPath() + "/data/stages/";
+	return Path_Tools::getGameDataPath() + "data/stages/";
 }
 
 

@@ -42,11 +42,9 @@ string Path_Tools::_getSystemDataPaths(string * dp1, string * dp2, string * dp3)
 		//cout << appdata << "\n" << (string)install << "\n" << progdata << "\n";
 		return new string[3]{ appdata,install,progdata };
 	#else
-		*dp1 = (string)getenv("HOME") + "/.config/spacerailer/";
-		*dp2 = "/usr/share/spacerailer/";
-		char install[256];
-		getcwd(install, 256);
-		*dp3 = (string)install;
+		*dp1 = (string)getenv("HOME") + "/.config/spacerailer";
+		*dp2 = "/usr/share/spacerailer";
+		*dp3 = (string)"data";
 	#endif
 	
 	return (string)("");
@@ -80,6 +78,8 @@ bool Path_Tools::pathExists(const string& path_to_check)
 			return false;
 		}
 		closedir(dp);
+		
+		return true;
 	#endif
 	
 	//	Shouldn't reach here
