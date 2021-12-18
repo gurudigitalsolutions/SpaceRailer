@@ -3,6 +3,7 @@
 #include <string>
 
 #include "graphics.h"
+#include "path_tools.h"
 
 
 class MobComponent {
@@ -20,16 +21,17 @@ class MobComponent {
 		void setHeight(int value) { _height = value; }
 
 		list<SDL_Texture*> sprites;
-		string parentMob;
+		string componentName;
+		string parentName;
 
 		bool process();
 
 		bool render();
-		bool initialize(string compName, string parentMob);
+		bool initialize(string componentName, string parentName);
 		bool initialize();
 
 		bool loadSprites();
-		bool loadSprite(string spriteName);
+		bool loadSprite();
 
 
 	private:

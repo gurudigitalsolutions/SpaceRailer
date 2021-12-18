@@ -7,7 +7,10 @@ bool MobComponent::process() {
 bool MobComponent::render() {
 	return false;
 }
-bool MobComponent::initialize(string compName, string parentMob) {
+bool MobComponent::initialize(string componentName, string parentName) {
+	this->componentName = componentName;
+	this->parentName = parentName;
+	loadSprite();
 	return false;
 }
 bool MobComponent::initialize() {
@@ -18,7 +21,10 @@ bool MobComponent::loadSprites() {
 	// loops through available sprites
 	return true;
 }
-bool MobComponent::loadSprite(string spriteName) {
-	Graphics::loadTexture("")
+bool MobComponent::loadSprite() {
+	sprites.push_back(
+		Graphics::loadTexture(Path_Tools::getGameDataPath() + "resources/mobs/" + parentName + "/sprites/mob_" + componentName)
+	);
+	return true;
 }
 
