@@ -156,6 +156,11 @@ void handleSDLEvent(SDL_Event * Event)
 		case SDL_CONTROLLERBUTTONUP:
 		case SDL_KEYDOWN:
 		case SDL_KEYUP:
+		case SDL_JOYAXISMOTION:
+		case SDL_JOYBALLMOTION:
+		case SDL_JOYHATMOTION:
+		case SDL_JOYBUTTONDOWN:
+		case SDL_JOYBUTTONUP:
 			programInput.handleInputEvent(Event);
 			break;
 
@@ -163,6 +168,8 @@ void handleSDLEvent(SDL_Event * Event)
 		case SDL_CONTROLLERDEVICEADDED:
 		case SDL_CONTROLLERDEVICEREMOVED:
 		case SDL_CONTROLLERDEVICEREMAPPED:
+		case SDL_JOYDEVICEADDED:
+		case SDL_JOYDEVICEREMOVED:
 			programInput.handleConnectionEvent(Event);
 			break;
 		

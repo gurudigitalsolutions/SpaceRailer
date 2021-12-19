@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include "input.h"
 
 using namespace std;
@@ -59,7 +60,96 @@ void ProgramInput::process()
 //	subsystem.
 void ProgramInput::handleInputEvent(SDL_Event * Event)
 {
-	printf("Input event received.\n");
+	//printf("Input event received.\n");
+	previousInputState = currentInputState;
+	
+	//	Start with button up/down events
+	if(Event->type == SDL_JOYBUTTONDOWN
+	|| Event->type == SDL_JOYBUTTONUP)
+	{
+		//	These are the mappings of the controller that I currently have
+		//	connected.  This will need to be updated to be dynamic
+		//		fire		2
+		//		activate	1
+		//		pause		9
+		if(((SDL_ControllerButtonEvent *)Event)->button == 2)
+		{	currentInputState.buttonFire = (((SDL_ControllerButtonEvent *)Event)->state == 0 ? false : true); }
+		
+		if(((SDL_ControllerButtonEvent *)Event)->button == 1)
+		{	currentInputState.buttonActivate = (((SDL_ControllerButtonEvent *)Event)->state == 0 ? false : true); }
+		
+		if(((SDL_ControllerButtonEvent *)Event)->button == 9)
+		{	currentInputState.buttonPause = (((SDL_ControllerButtonEvent *)Event)->state == 0 ? false : true); }
+		
+		/*printf("Button, State:  %d, %d\n", 
+			((SDL_ControllerButtonEvent *)Event)->button,
+			((SDL_ControllerButtonEvent *)Event)->state
+		);*/
+	}
+	
+	//	Update analog stick info
+	if(Event->type == SDL_JOYAXISMOTION)
+	{
+		//	Values on the controller currently plugged in:
+		//		Axis Left <-> Right:	0
+		//		Axis Up <-> Down:		1
+		//
+		//	Pushing down or right are positive integers
+		
+		if(((SDL_JoyAxisEvent *)Event)->axis == 1)
+		{
+			//	Start with vertical axis.  Check if the player is pushing
+			//	up or down and set the input state accordingly
+			if(abs(((SDL_JoyAxisEvent *)Event)->value) < 400)
+			{
+				//	The '400' is for the dead zone.  This magic number really
+				//	needs to be defined in the controller config file.
+				currentInputState.analogDown = 0;
+				currentInputState.analogUp = 0;
+			}
+			else if((((SDL_JoyAxisEvent *)Event)->value) > 0)
+			{
+				//	The player is pushing down on the analog stick
+				currentInputState.analogDown = abs((((SDL_JoyAxisEvent *)Event)->value));
+				currentInputState.analogUp = 0;
+			}
+			else
+			{
+				//	The player is pushing up on the analog stick
+				currentInputState.analogUp = abs((((SDL_JoyAxisEvent *)Event)->value));
+				currentInputState.analogDown = 0;
+			}
+		}
+		else
+		{
+			//	And now the horizontal axis.  Check if the player is pushing
+			//	left or right and do the right thing with that information.
+			if(abs(((SDL_JoyAxisEvent *)Event)->value) < 400)
+			{
+				//	The '400' is for the dead zone.  This magic number really
+				//	needs to be defined in the controller config file.
+				currentInputState.analogLeft = 0;
+				currentInputState.analogRight = 0;
+			}
+			else if((((SDL_JoyAxisEvent *)Event)->value) > 0)
+			{
+				//	The player is pushing right on the analog stick
+				currentInputState.analogRight = abs((((SDL_JoyAxisEvent *)Event)->value));
+				currentInputState.analogLeft = 0;
+			}
+			else
+			{
+				//	The player is pushing left on the analog stick
+				currentInputState.analogLeft = abs((((SDL_JoyAxisEvent *)Event)->value));
+				currentInputState.analogRight = 0;
+			}
+		}
+		
+		/*printf("JoyAxis: %d %d\n",
+			((SDL_JoyAxisEvent *)Event)->axis,
+			((SDL_JoyAxisEvent *)Event)->value
+		);*/
+	}
 }
 
 void ProgramInput::handleConnectionEvent(SDL_Event * Event)

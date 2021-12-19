@@ -60,7 +60,7 @@ bool Path_Tools::pathExists(const string& path_to_check)
 		if (ftyp & FILE_ATTRIBUTE_DIRECTORY) {
 			return true;   // this is a directory!
 		}
-		cout << "Stage directory not found.\n";
+		//cout << "Stage directory not found.\n";
 		return false;    // this is not a directory!
 
 	// Unix systems
@@ -68,8 +68,8 @@ bool Path_Tools::pathExists(const string& path_to_check)
 		DIR * dp = opendir(path_to_check.c_str());
 		if (dp == NULL)
 		{
-			cout << "Stage directory not found.\n";
-			cout << path_to_check << "\n";
+			//cout << "Stage directory not found.\n";
+			//cout << path_to_check << "\n";
 			return false;
 		}
 		closedir(dp);
