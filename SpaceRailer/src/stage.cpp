@@ -95,7 +95,7 @@ bool Stage::_initialize()
 		cout << "player is already dead, failed to initialize";
 	}
 	
-	_player.addComponent("thruster0", -128, 64, 55, 55);
+	_player.addComponent("thruster0", 0, 64, 55, 55);
 
 	
 	return true;
