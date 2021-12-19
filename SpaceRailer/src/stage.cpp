@@ -22,6 +22,7 @@
 #include "config.h"
 #include "stage.h"
 #include "input.h"
+#include "stage_api.h"
 
 extern ProgramInput programInput;
 
@@ -145,7 +146,7 @@ bool Stage::_initializeScripting()
 {
 	
 	//	First, check that the stage python script exists.
-	FILE * fh = fopen((_stageDirectory + "stage.py").c_str(), "r");
+	FILE * fh = fopen((_stageDirectory + "__init__.py").c_str(), "r");
 	if(fh == NULL)
 	{
 		cout << "stage.py missing for this stage.\n";
@@ -153,7 +154,9 @@ bool Stage::_initializeScripting()
 	}
 	fclose(fh);
 	
-	//	Open and import the script.
+	//	Script exists, so lets initialize the API.  This must be done before
+	//	the call to Py_Initialize()
+	PyImport_AppendInittab("spacerailer", &PyInit_pySpaceRailerModule);
 	Py_Initialize();
 	PyRun_SimpleString("import sys");
 	string dpath = "sys.path.append(\"" + Path_Tools::getGameDataPath() + "resources/stages\")";
@@ -171,7 +174,7 @@ bool Stage::_initializeScripting()
 		return false;
 	}
 	
-	//	Looks like the python module has been loaded!  We aren't calling any
-	//	functions at this point.
+	//	Looks like the python module has been loaded!
+	
 	return true;
 }
