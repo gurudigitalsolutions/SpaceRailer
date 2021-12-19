@@ -21,7 +21,9 @@
 
 #include "config.h"
 #include "stage.h"
+#include "input.h"
 
+extern ProgramInput programInput;
 
 extern char** getArgv();
 extern int getArgc();
@@ -95,6 +97,15 @@ bool Stage::_initialize()
 //	next frame from being rendered.
 bool Stage::process()
 {
+	//	Check if the player is trying to move around.
+	InputData currentInputState = programInput.getCurrentInputState();
+	InputData previousInputState = programInput.getPreviousInputState();
+	
+	if(currentInputState.analogRight > 16384) { _player.setX(_player.getX() + 1); }
+	if(currentInputState.analogLeft > 16384) { _player.setX(_player.getX() - 1); }
+	if(currentInputState.analogUp > 16384) { _player.setY(_player.getY() - 1); }
+	if(currentInputState.analogDown > 16384) { _player.setY(_player.getY() + 1); }
+	
 	_player.process();
 	return true;
 }

@@ -25,13 +25,15 @@
 #include "mob.h"
 
 extern Stage * currentStage;
+
+
 using namespace std;
 
 //	Called each game tick to process mob stuff.  This includes physics and
 //	scripting.
 bool Mob::process()
 {
-	setX(getX() + 1);
+	//setX(getX() + 1);
 	//setY(getY() - 1);
 	
 

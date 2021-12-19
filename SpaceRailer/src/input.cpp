@@ -113,11 +113,15 @@ void ProgramInput::handleInputEvent(SDL_Event * Event)
 				currentInputState.analogDown = abs((((SDL_JoyAxisEvent *)Event)->value));
 				currentInputState.analogUp = 0;
 			}
-			else
+			else if((((SDL_JoyAxisEvent *)Event)->value) < 0)
 			{
 				//	The player is pushing up on the analog stick
-				currentInputState.analogUp = abs((((SDL_JoyAxisEvent *)Event)->value));
+				//	Since a short can only go from -32768 to 32767, the absolute
+				//	value of -32768 is still -32768.  Because of this, we need
+				//	to add 1 to the value here.
+				currentInputState.analogUp = abs(((SDL_JoyAxisEvent *)Event)->value + 1);
 				currentInputState.analogDown = 0;
+				
 			}
 		}
 		else
@@ -137,10 +141,10 @@ void ProgramInput::handleInputEvent(SDL_Event * Event)
 				currentInputState.analogRight = abs((((SDL_JoyAxisEvent *)Event)->value));
 				currentInputState.analogLeft = 0;
 			}
-			else
+			else if((((SDL_JoyAxisEvent *)Event)->value) < 0)
 			{
 				//	The player is pushing left on the analog stick
-				currentInputState.analogLeft = abs((((SDL_JoyAxisEvent *)Event)->value));
+				currentInputState.analogLeft = abs(((SDL_JoyAxisEvent *)Event)->value + 1);
 				currentInputState.analogRight = 0;
 			}
 		}
