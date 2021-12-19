@@ -3,6 +3,7 @@
 #include "graphics.h"
 #include <list>
 
+#include "mob_componet.h"
 #include "path_tools.h"
 
 using namespace std;
@@ -41,6 +42,8 @@ class Mob
 
 		bool loadSprites();
 		bool loadSprite(string spriteName);
+		
+		bool addComponent(string component, int offsetX, int offsety, int width, int height);
 	
 	private:
 		unsigned int _hitPoints = 100;
@@ -54,4 +57,5 @@ class Mob
 		short _accelerationMaxX = 40;
 		short _accelerationMaxY = 40;
 
+		list<MobComponent *> _components;
 };

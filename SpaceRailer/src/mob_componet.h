@@ -13,6 +13,12 @@ class MobComponent {
 
 		void setX(int value) { _coordX = value; }
 		void setY(int value) { _coordY = value; }
+		
+		int getParentX() { return _parentX; }
+		int getParentY() { return _parentY; }
+		
+		void setParentX(int value) { _parentX = value; }
+		void setParentY(int value) { _parentY = value; }
 
 		int getWidth() { return _width; }
 		int getHeight() { return _height; }
@@ -37,6 +43,8 @@ class MobComponent {
 	private:
 		int _coordX = 0;
 		int _coordY = 0;
+		int _parentX = 0;
+		int _parentY = 0;
 		int _width = 0;
 		int _height = 0;
 

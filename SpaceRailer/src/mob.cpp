@@ -36,10 +36,18 @@ bool Mob::process()
 	//setX(getX() + 1);
 	//setY(getY() - 1);
 	
+	//	Do all processing for this mob's components
+	for(list<MobComponent *>::iterator emc = _components.begin(); emc != _components.end(); emc++)
+	{
+		(*emc)->setParentX(getX());
+		(*emc)->setParentY(getY());
+		(*emc)->process();
+	}
 
 	return true;
 }
 
+//	This needs to handle rendering the mob itself and any associate components
 bool Mob::render() {
 
 	SDL_Rect box;
@@ -48,6 +56,12 @@ bool Mob::render() {
 	box.x = getX() - currentStage->getMapX();
 	box.y = getY() - currentStage->getMapY();
 	SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
+	
+	for(list<MobComponent *>::iterator emc = _components.begin(); emc != _components.end(); emc++)
+	{
+		(*emc)->render();
+	}
+	
 	return true;
 }
 
@@ -75,5 +89,24 @@ bool Mob::loadSprites()
 
 bool Mob::loadSprite(string spriteName)
 {
+	return true;
+}
+
+bool Mob::addComponent(string component, int offsetx, int offsety, int width, int height)
+{
+	MobComponent * tComponent = new MobComponent();
+	tComponent->setX(offsetx);
+	tComponent->setY(offsety);
+	tComponent->setWidth(width);
+	tComponent->setHeight(height);
+	
+	if(!tComponent->initialize(component, mobName))
+	{
+		cout << "Failed to load component: " + component + " " + mobName + "\n";
+		return false;
+	}
+	
+	_components.push_back(tComponent);
+	
 	return true;
 }

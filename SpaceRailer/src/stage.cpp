@@ -89,10 +89,13 @@ bool Stage::_initialize()
 	_player.setHeight(128);
 	_player.setX(30);
 	_player.setY(30);
+	
 	if (!_player.initialize())
 	{
 		cout << "player is already dead, failed to initialize";
 	}
+	
+	_player.addComponent("thruster0", -128, 64, 55, 55);
 
 	
 	return true;
