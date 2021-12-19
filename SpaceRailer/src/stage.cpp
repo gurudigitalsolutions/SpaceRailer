@@ -157,7 +157,9 @@ bool Stage::_initializeScripting()
 	//	Script exists, so lets initialize the API.  This must be done before
 	//	the call to Py_Initialize()
 	PyImport_AppendInittab("spacerailer", &PyInit_pySpaceRailerModule);
+
 	Py_Initialize();
+
 	PyRun_SimpleString("import sys");
 	string dpath = "sys.path.append(\"" + Path_Tools::getGameDataPath() + "resources/stages\")";
 	
@@ -177,4 +179,17 @@ bool Stage::_initializeScripting()
 	//	Looks like the python module has been loaded!
 	
 	return true;
+}
+
+//	Handle incoming functions from the Python API
+PyObject * Stage::processAPI(PyObject * self, PyObject * args, string method)
+{
+	if(method == "numargs") { return PyLong_FromLong(420); }
+	if(method == "getMapX") { return PyLong_FromLong(getMapX()); }
+	if(method == "getMapY") { return PyLong_FromLong(getMapY()); }
+	if(method == "getPlayerX") { return PyLong_FromLong(_player.getX()); }
+	if(method == "getPlayerY") { return PyLong_FromLong(_player.getY()); }
+		
+	
+	return NULL;
 }

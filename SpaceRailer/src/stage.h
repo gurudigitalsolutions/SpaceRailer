@@ -26,6 +26,7 @@ class Stage
 		
 		bool process();
 		bool render();
+		PyObject * processAPI(PyObject * self, PyObject * args, string method);
 
 		Player _player;
 		
@@ -41,7 +42,7 @@ class Stage
 		PyObject * _scriptFilename;
 		PyObject * _scriptModule;
 		PyObject * _scriptFunction;
-		
+
 		unsigned char _stageID = 0;
 		string _stageDirectory = "";
 		
