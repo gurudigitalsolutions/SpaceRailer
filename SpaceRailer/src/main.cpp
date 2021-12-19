@@ -16,7 +16,6 @@
 using namespace std;
 
 #include "main.h"
-#include "input.h"
 #include "scripting.h"
 
 
@@ -30,6 +29,9 @@ bool keepRunning = true;
 
 //	Initialize a configuration object
 Config config;
+
+//	Initialize an input object
+ProgramInput programInput;
 
 //	Initialize stage information.  currentStageID will be the number for
 //	the stage you are on, and currentStage will be the actual object that
@@ -147,14 +149,23 @@ void handleSDLEvent(SDL_Event * Event)
 		case SDL_MOUSEBUTTONDOWN: break;
 		case SDL_MOUSEBUTTONUP: break;
 		case SDL_MOUSEWHEEL: break;
-		case SDL_CONTROLLERAXISMOTION: break;
-		case SDL_CONTROLLERBUTTONDOWN: break;
-		case SDL_CONTROLLERBUTTONUP: break;
-		case SDL_CONTROLLERDEVICEADDED: break;
-		case SDL_CONTROLLERDEVICEREMOVED: break;
-		case SDL_CONTROLLERDEVICEREMAPPED: break;
-		case SDL_KEYDOWN: break;
-		case SDL_KEYUP: break;
+		
+		//	Pass input events to the input controller
+		case SDL_CONTROLLERAXISMOTION: 
+		case SDL_CONTROLLERBUTTONDOWN:
+		case SDL_CONTROLLERBUTTONUP:
+		case SDL_KEYDOWN:
+		case SDL_KEYUP:
+			programInput.handleInputEvent(Event);
+			break;
+
+		//	These will be handy :)
+		case SDL_CONTROLLERDEVICEADDED:
+		case SDL_CONTROLLERDEVICEREMOVED:
+		case SDL_CONTROLLERDEVICEREMAPPED:
+			programInput.handleConnectionEvent(Event);
+			break;
+		
 		case SDL_SYSWMEVENT: break;
 		case SDL_WINDOWEVENT: break;
 		default:
@@ -166,7 +177,7 @@ void handleSDLEvent(SDL_Event * Event)
 
 bool init()
 {
-	if(SDL_Init(SDL_INIT_VIDEO) < 0)
+	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0)
 	{
 		cout << "Unable to init SDL.\n";
 		return false;
@@ -205,6 +216,14 @@ bool init()
 	SDL_SetRenderDrawColor(Renderer, 0x00, 0x00, 0x00, 0xFF);
 	
 	
+	//	Initialize the input system
+	if(!programInput.initialize())
+	{
+		cout << "Unable to initialize input.  No way to play like that :(\n";
+		return false;
+	}
+	
+	//	Initialize the audio system
 	
 	return true;
 }

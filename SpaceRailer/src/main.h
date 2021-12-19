@@ -8,6 +8,7 @@
 #include <iostream>
 #include "config.h"
 #include "stage.h"
+#include "input.h"
 
 void handleRender();
 //void handleReshape(GLint newWidth, GLint newHeight);
@@ -28,6 +29,7 @@ extern short windowHeight;
 extern bool keepRunning;
 
 extern Config config;
+extern ProgramInput programInput;
 
 extern unsigned char currentStageID;
 extern Stage * currentStage;
