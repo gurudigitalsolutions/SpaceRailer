@@ -95,7 +95,8 @@ bool Stage::_initialize()
 		cout << "player is already dead, failed to initialize";
 	}
 	
-	_player.addComponent("thruster0", 0, 64, 55, 55);
+	//_player.addComponent("thruster0", 0, 64, 55, 55);
+	_player.addComponent("thruster0", 0, 64, 55, 55, COMPONENT_ATTACH_LOOSE, 40, 40);
 
 	
 	return true;
@@ -110,10 +111,10 @@ bool Stage::process()
 	InputData currentInputState = programInput.getCurrentInputState();
 	InputData previousInputState = programInput.getPreviousInputState();
 	
-	if(currentInputState.analogRight > 16384) { _player.setX(_player.getX() + 1); }
-	if(currentInputState.analogLeft > 16384) { _player.setX(_player.getX() - 1); }
-	if(currentInputState.analogUp > 16384) { _player.setY(_player.getY() - 1); }
-	if(currentInputState.analogDown > 16384) { _player.setY(_player.getY() + 1); }
+	if(currentInputState.analogRight > 16384) { _player.setX(_player.getX() + 3); }
+	if(currentInputState.analogLeft > 16384) { _player.setX(_player.getX() - 3); }
+	if(currentInputState.analogUp > 16384) { _player.setY(_player.getY() - 3); }
+	if(currentInputState.analogDown > 16384) { _player.setY(_player.getY() + 3); }
 	
 	_player.process();
 	return true;

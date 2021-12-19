@@ -92,6 +92,13 @@ bool Mob::loadSprite(string spriteName)
 	return true;
 }
 
+//	Add a pre-defined component to this mob.
+bool Mob::addComponent(MobComponent * nComponent)
+{
+	_components.push_back(nComponent);
+	return true;
+}
+
 bool Mob::addComponent(string component, int offsetx, int offsety, int width, int height)
 {
 	MobComponent * tComponent = new MobComponent();
@@ -106,7 +113,28 @@ bool Mob::addComponent(string component, int offsetx, int offsety, int width, in
 		return false;
 	}
 	
-	_components.push_back(tComponent);
+	return addComponent(tComponent);
+}
+
+bool Mob::addComponent(
+	string component, int offsetx, int offsety, int width, int height, 
+	componentAttachMode attachmode, unsigned char maxdistancex, unsigned char maxdistancey)
+{
+	MobComponent * tComponent = new MobComponent();
+	tComponent->setX(offsetx);
+	tComponent->setY(offsety);
+	tComponent->setWidth(width);
+	tComponent->setHeight(height);
 	
-	return true;
+	if(!tComponent->initialize(component, mobName))
+	{
+		cout << "Failed to load component: " + component + " " + mobName + "\n";
+		return false;
+	}
+	
+	tComponent->setAttachMode(attachmode);
+	tComponent->setAttachMaxDistanceX(maxdistancex);
+	tComponent->setAttachMaxDistanceY(maxdistancey);
+	
+	return addComponent(tComponent);
 }

@@ -10,6 +10,35 @@
 extern Stage * currentStage;
 
 bool MobComponent::process() {
+	
+	//	Determine the coordinates for this component.  If the attachMode is set
+	//	to sticky, then this is straighforward.  If it's loose, then we need
+	//	to do some minimal math
+	if(getAttachMode() == COMPONENT_ATTACH_STUCK)
+	{
+		setTempX(getX());
+		setTempY(getY());
+	}
+	else
+	{
+		//	This math is totally not right
+		//	I also think that because process is called so quickly that this
+		//	is essentially unperceptable.
+		//	You can see the jitter it causes though while stationary
+		if(abs(getParentX() - getX()) > getTempX())
+		{
+			if(getX() > getTempX()) { setTempX(getTempX() + 1); }
+			else { setTempX(getTempX() - 1); }
+		}
+		
+		if(abs(getParentY() - getY()) > getTempY())
+		{
+			if(getY() > getTempY()) { setTempY(getTempY() + 1); }
+			else { setTempY(getTempY() - 1); }
+		}
+	}
+	
+	
 	return false;
 }
 bool MobComponent::render() {
@@ -17,8 +46,8 @@ bool MobComponent::render() {
 	SDL_Rect box;
 	box.w = getWidth();
 	box.h = getHeight();
-	box.x = getParentX() + getX() - currentStage->getMapX();
-	box.y = getParentY() + getY() - currentStage->getMapY();
+	box.x = getParentX() + getTempX() - currentStage->getMapX();
+	box.y = getParentY() + getTempY() - currentStage->getMapY();
 	SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
 	
 	return true;
