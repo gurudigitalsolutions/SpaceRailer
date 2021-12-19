@@ -78,6 +78,12 @@ bool Stage::_initialize()
 		cout << "Scripting engine could not be initialized.\n";
 		return NULL;
 	}
+	
+	_scriptFunction = PyObject_GetAttrString(_scriptModule, "initialize");
+	if(_scriptFunction && PyCallable_Check(_scriptFunction))
+	{
+		PyObject_CallObject(_scriptFunction, NULL);
+	}
 
 	_player.setWidth(128);
 	_player.setHeight(128);
@@ -133,7 +139,7 @@ bool Stage::render()
 //	Initialize the scripting engine for this stage.
 bool Stage::_initializeScripting()
 {
-	return true;
+	
 	//	First, check that the stage python script exists.
 	FILE * fh = fopen((_stageDirectory + "stage.py").c_str(), "r");
 	if(fh == NULL)
@@ -146,10 +152,11 @@ bool Stage::_initializeScripting()
 	//	Open and import the script.
 	Py_Initialize();
 	PyRun_SimpleString("import sys");
-	PyRun_SimpleString("sys.path.append(\"./data/stages/stage_0/\")");
-	PyRun_SimpleString("print(sys.path)");
+	string dpath = "sys.path.append(\"" + Path_Tools::getGameDataPath() + "resources/stages\")";
 	
-	_scriptFilename = PyUnicode_DecodeFSDefault((_stageDirectory + "stage").c_str());
+	PyRun_SimpleString(dpath.c_str());
+	
+	_scriptFilename = PyUnicode_DecodeFSDefault("stage_0");
 	_scriptModule = PyImport_Import(_scriptFilename);
 	Py_DECREF(_scriptFilename);
 	
