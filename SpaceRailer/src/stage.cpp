@@ -88,7 +88,7 @@ bool Stage::initialize()
 
 	_player.setWidth(128);
 	_player.setHeight(128);
-	_player.setX(30);
+	//_player.setX(30);
 	_player.setY(30);
 	
 	if (!_player.initialize())
@@ -189,9 +189,29 @@ PyObject * Stage::processAPI(PyObject * self, PyObject * args, string method)
 	if(method == "getMapY") { return PyLong_FromLong(getMapY()); }
 	if(method == "getPlayerX") { return PyLong_FromLong(_player.getX()); }
 	if(method == "getPlayerY") { return PyLong_FromLong(_player.getY()); }
+	if(method == "setPlayerX") { return _script_setPlayerX(self, args); }
+	if(method == "setPlayerY") { return _script_setPlayerY(self, args); }
 	if(method == "getPlayerHP") { return PyLong_FromLong(_player.getHitPoints()); }
 	if(method == "getPlayerWidth") { return PyLong_FromLong(_player.getWidth()); }
 	if(method == "getPlayerHeight") { return PyLong_FromLong(_player.getHeight()); }
 	
 	return NULL;
+}
+
+PyObject * Stage::_script_setPlayerX(PyObject * self, PyObject * args)
+{
+	int newPlayerX;
+	if(!PyArg_ParseTuple(args, "i", &newPlayerX)) { return NULL; }
+	
+	_player.setX(newPlayerX);
+	return Py_True;
+}
+
+PyObject * Stage::_script_setPlayerY(PyObject * self, PyObject * args)
+{
+	int newPlayerY;
+	if(!PyArg_ParseTuple(args, "i", &newPlayerY)) { return NULL; }
+
+	_player.setY(newPlayerY);
+	return Py_True;
 }

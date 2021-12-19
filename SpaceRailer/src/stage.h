@@ -55,4 +55,7 @@ class Stage
 		
 		
 		bool _initializeScripting();
+		
+		PyObject * _script_setPlayerX(PyObject * self, PyObject * args);
+		PyObject * _script_setPlayerY(PyObject * self, PyObject * args)
 };

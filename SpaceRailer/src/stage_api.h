@@ -14,7 +14,8 @@ static PyObject * script_getPlayerY(PyObject * self, PyObject * args) { return s
 static PyObject * script_getPlayerHP(PyObject * self, PyObject * args) { return script_API(self, args, "getPlayerHP"); }
 static PyObject * script_getPlayerWidth(PyObject * self, PyObject * args) { return script_API(self, args, "getPlayerWidth"); }
 static PyObject * script_getPlayerHeight(PyObject * self, PyObject * args) { return script_API(self, args, "getPlayerHeight"); }
-
+static PyObject * script_setPlayerX(PyObject * self, PyObject * args) { return script_API(self, args, "setPlayerX"); }
+static PyObject * script_setPlayerY(PyObject * self, PyObject * args) { return script_API(self, args, "setPlayerY"); }
 
 static PyMethodDef pySpaceRailerMethods[] = {
 	{"numargs", script_NumArgs, METH_VARARGS, "Return the number of arguments received by the process."},
@@ -22,6 +23,8 @@ static PyMethodDef pySpaceRailerMethods[] = {
 	{"getMapY", script_getMapY, METH_VARARGS, "Return the y-coordinate of the top edge of the viewport."},
 	{"getPlayerX", script_getPlayerX, METH_VARARGS, "Return the x-coordinate of the player."},
 	{"getPlayerY", script_getPlayerY, METH_VARARGS, "Return the y-coordinate of the player."},
+	{"setPlayerX", script_setPlayerX, METH_VARARGS, "Sets the x-coordinate of the player."},
+	{"setPlayerY", script_setPlayerY, METH_VARARGS, "Sets the y-coordinate of the player."},
 	{"getPlayerHP", script_getPlayerHP, METH_VARARGS, "Return the current HP of the player."},
 	{"getPlayerWidth", script_getPlayerWidth, METH_VARARGS, "Return the width of the player sprite/object."},
 	{"getPlayerHeight", script_getPlayerHeight, METH_VARARGS, "Return the height of the player sprite/object."},
