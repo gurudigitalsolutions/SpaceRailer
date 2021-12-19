@@ -1,7 +1,6 @@
 #	Set all object files (pretty much all .cpp)
 OBJ = SpaceRailer/src/main.cpp \
 	SpaceRailer/src/input.cpp \
-	SpaceRailer/src/in_joystick.cpp \
 	SpaceRailer/src/scripting.cpp \
 	SpaceRailer/src/config.cpp \
 	SpaceRailer/src/stage.cpp \

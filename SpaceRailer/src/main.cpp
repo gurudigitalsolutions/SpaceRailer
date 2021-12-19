@@ -138,11 +138,29 @@ void handleCleanup()
 }
 
 
-//	onSDLEvent is called if there are any SDL Events to process.  These include
-//	stuff like window resizing, input, and I'm not really sure yet.
-void onSDLEvent(SDL_Event * Event)
+//	handleSDLEvent is called if there are any SDL Events to process.  These
+//	include stuff like window resizing, input, and I'm not really sure yet.
+void handleSDLEvent(SDL_Event * Event)
 {
-
+	switch(Event->type) {
+		case SDL_MOUSEMOTION: break;
+		case SDL_MOUSEBUTTONDOWN: break;
+		case SDL_MOUSEBUTTONUP: break;
+		case SDL_MOUSEWHEEL: break;
+		case SDL_CONTROLLERAXISMOTION: break;
+		case SDL_CONTROLLERBUTTONDOWN: break;
+		case SDL_CONTROLLERBUTTONUP: break;
+		case SDL_CONTROLLERDEVICEADDED: break;
+		case SDL_CONTROLLERDEVICEREMOVED: break;
+		case SDL_CONTROLLERDEVICEREMAPPED: break;
+		case SDL_KEYDOWN: break;
+		case SDL_KEYUP: break;
+		case SDL_SYSWMEVENT: break;
+		case SDL_WINDOWEVENT: break;
+		default:
+			printf("some SDL event\n");
+			break;
+	}
 }
 
 
@@ -206,7 +224,7 @@ void execute()
 		
 		while(SDL_PollEvent(&Event) != 0)
 		{
-			onSDLEvent(&Event);
+			handleSDLEvent(&Event);
 			
 			if(Event.type == SDL_QUIT) { keepRunning = false; }
 		}

@@ -1,5 +1,4 @@
 #include "input.h"
-#include "in_joystick.h"
 
 InputData ProgramInput::getInput()
 {

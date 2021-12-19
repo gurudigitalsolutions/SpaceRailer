@@ -20,7 +20,7 @@ SDL_Window * getSDLWindow();
 SDL_Renderer * getSDLRenderer();
 SDL_Surface * getSDLPrimarySurface();
 
-void onSDLEvent(SDL_Event * Event);
+void handleSDLEvent(SDL_Event * Event);
 
 extern short windowWidth;
 extern short windowHeight;
