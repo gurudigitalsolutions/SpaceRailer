@@ -53,6 +53,8 @@ class MobComponent {
 		unsigned char getAttachMaxDistanceY() { return _attachMaxDistanceY; }
 		void setAttachMaxDistanceX(unsigned char value) { _attachMaxDistanceX = value; }
 		void setAttachMaxDistanceY(unsigned char value) { _attachMaxDistanceY = value; }
+		
+		unsigned int getLastUpdateTick() { return _lastUpdateTick; }
 
 	private:
 		int _coordX = 0;
@@ -66,4 +68,5 @@ class MobComponent {
 		componentAttachMode _attachMode = COMPONENT_ATTACH_STUCK;
 		unsigned char _attachMaxDistanceX = 0;
 		unsigned char _attachMaxDistanceY = 0;
+		unsigned int _lastUpdateTick = 0;
 };

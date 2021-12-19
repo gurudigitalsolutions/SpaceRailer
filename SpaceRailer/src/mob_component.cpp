@@ -8,33 +8,41 @@
 #include "mob_componet.h"
 
 extern Stage * currentStage;
+extern unsigned int gameTickCount;
 
 bool MobComponent::process() {
 	
 	//	Determine the coordinates for this component.  If the attachMode is set
 	//	to sticky, then this is straighforward.  If it's loose, then we need
 	//	to do some minimal math
-	if(getAttachMode() == COMPONENT_ATTACH_STUCK)
+	//
+	//	For the time being, only update this every x ms
+	if(gameTickCount - getLastUpdateTick() > 100)
 	{
-		setTempX(getX());
-		setTempY(getY());
-	}
-	else
-	{
-		//	This math is totally not right
-		//	I also think that because process is called so quickly that this
-		//	is essentially unperceptable.
-		//	You can see the jitter it causes though while stationary
-		if(abs(getParentX() - getX()) > getTempX())
-		{
-			if(getX() > getTempX()) { setTempX(getTempX() + 1); }
-			else { setTempX(getTempX() - 1); }
-		}
+		_lastUpdateTick = gameTickCount;
 		
-		if(abs(getParentY() - getY()) > getTempY())
+		if(getAttachMode() == COMPONENT_ATTACH_STUCK)
 		{
-			if(getY() > getTempY()) { setTempY(getTempY() + 1); }
-			else { setTempY(getTempY() - 1); }
+			setTempX(getX());
+			setTempY(getY());
+		}
+		else
+		{
+			//	This math is totally not right
+			//	I also think that because process is called so quickly that this
+			//	is essentially unperceptable.
+			//	You can see the jitter it causes though while stationary
+			if(abs(getParentX() - getX()) > getTempX())
+			{
+				if(getX() > getTempX()) { setTempX(getTempX() + 1); }
+				else { setTempX(getTempX() - 1); }
+			}
+			
+			if(abs(getParentY() - getY()) > getTempY())
+			{
+				if(getY() > getTempY()) { setTempY(getTempY() + 1); }
+				else { setTempY(getTempY() - 1); }
+			}
 		}
 	}
 	
