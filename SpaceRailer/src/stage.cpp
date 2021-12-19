@@ -89,7 +89,7 @@ bool Stage::initialize()
 	_player.setWidth(128);
 	_player.setHeight(128);
 	//_player.setX(30);
-	_player.setY(30);
+	//_player.setY(30);
 	
 	if (!_player.initialize())
 	{

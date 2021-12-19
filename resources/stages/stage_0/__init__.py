@@ -6,4 +6,5 @@ def initialize():
 	print("Number of arguments: ",spacerailer.numargs())
 	print("x,y: ", spacerailer.getMapX(), spacerailer.getMapY())
 	print("px,py: ", spacerailer.getPlayerX(), spacerailer.getPlayerY())
-	spacerailer.setPlayerX(500)
+	spacerailer.setPlayerX(50)
+	spacerailer.setPlayerY(256)
