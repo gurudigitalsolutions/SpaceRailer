@@ -37,3 +37,5 @@ enum programMode { PROGRAM_BOOT, PROGRAM_MAINMENU, PROGRAM_GAME };
 SDL_Window * Window;
 SDL_Renderer * Renderer;
 SDL_Surface * PrimarySurface;
+
+extern unsigned int gameTickCount;

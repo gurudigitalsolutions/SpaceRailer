@@ -106,13 +106,11 @@ bool Stage::render()
 	SDL_SetRenderDrawColor(getSDLRenderer(), 0x00, 0x00, 0x00, 0xff);
 	SDL_RenderClear(getSDLRenderer());
 	
-	SDL_Rect box;
-	box.w = 30;
-	box.h = 30;
-	box.x = 50;
-	box.y = 50;
-	
 	_player.render();
+	
+	//	TODO
+	//	Loop...
+	//		EachMob.render()
 
 	//	Set draw color to green
 	//SDL_SetRenderDrawColor(getSDLRenderer(), 0x00, 0xff, 0x00, 0xff);

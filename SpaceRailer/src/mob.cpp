@@ -20,10 +20,11 @@
 	#include <SDL2/SDL.h>
 #endif
 //#include <dirent.h>
-
-
+#include "config.h"
+#include "stage.h"
 #include "mob.h"
 
+extern Stage * currentStage;
 using namespace std;
 
 //	Called each game tick to process mob stuff.  This includes physics and
@@ -42,8 +43,8 @@ bool Mob::render() {
 	SDL_Rect box;
 	box.w = getWidth();
 	box.h = getHeight();
-	box.x = getX();
-	box.y = getY();
+	box.x = getX() - currentStage->getMapX();
+	box.y = getY() - currentStage->getMapY();
 	SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
 	return true;
 }

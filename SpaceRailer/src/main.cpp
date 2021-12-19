@@ -37,6 +37,10 @@ Config config;
 unsigned char currentStageID = 0;
 Stage * currentStage;
 
+//	Initialize gameTickCount to 0.  This will be updated every process loop
+unsigned int gameTickCount = 0;
+unsigned int gameLastFrameTick = 0;
+
 programMode currentProgramMode = PROGRAM_BOOT;
 
 int _argc;
@@ -98,6 +102,8 @@ void handleRender()
 //	appropriate subsystem.
 void handleLoop()
 {
+	
+	
 	switch(currentProgramMode)
 	{
 		case PROGRAM_BOOT		: break;
@@ -180,6 +186,8 @@ bool init()
 	//	Set draw color to fully opaque black (RGBA)
 	SDL_SetRenderDrawColor(Renderer, 0x00, 0x00, 0x00, 0xFF);
 	
+	
+	
 	return true;
 }
 
@@ -193,6 +201,9 @@ void execute()
 	
 	while(keepRunning)
 	{
+		//	Set gameTickCount.  This is a timer that is accurate to a millisecond
+		gameTickCount = SDL_GetTicks();
+		
 		while(SDL_PollEvent(&Event) != 0)
 		{
 			onSDLEvent(&Event);
@@ -200,11 +211,19 @@ void execute()
 			if(Event.type == SDL_QUIT) { keepRunning = false; }
 		}
 		
+		//	Run process every game tick
 		handleLoop();
-		handleRender();
+		
+		//	Run render every 16ms.  This is just over 60fps, but the timer
+		//	isn't actually that accurate
+		if(gameTickCount - gameLastFrameTick > 16)
+		{
+			gameLastFrameTick = gameTickCount;
+			handleRender();
+		}
 		
 		//	Delayage
-		SDL_Delay(2);
+		SDL_Delay(1);
 	}
 	
 	handleCleanup();
