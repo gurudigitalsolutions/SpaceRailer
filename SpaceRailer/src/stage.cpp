@@ -53,7 +53,7 @@ Stage * Stage::load(unsigned char stageid)
 	newStage->_stageDirectory = stageDir;
 	newStage->_stageID = stageid;
 	
-	if(!newStage->_initialize()) { return NULL; }
+	//if(!newStage->_initialize()) { return NULL; }
 	
 	return newStage;
 }
@@ -61,7 +61,7 @@ Stage * Stage::load(unsigned char stageid)
 //	Initialize this stage.  This method will attempt to create a scripting
 //	interpreter for the stage, and then run the initialization sequence for
 //	the scripting engine.  If this fails, it will return false.
-bool Stage::_initialize()
+bool Stage::initialize()
 {
 	if(_stageDirectory == "")
 	{

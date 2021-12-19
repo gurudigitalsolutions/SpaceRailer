@@ -20,6 +20,7 @@ class Stage
 {
 	public:
 		static Stage * load(unsigned char stageid);
+		bool initialize();
 		
 		unsigned char getStageID() { return _stageID; }
 		
@@ -29,9 +30,11 @@ class Stage
 		Player _player;
 		
 		int getMapX() { return _mapX; }
+		//PyObject * script_getMapX(PyObject * self, PyObject * args) { return PyLong_FromLong(getMapX()); }
 		void setMapX(int value) { _mapX = value; }
 		
 		int getMapY() { return _mapY; }
+		//PyObject * script_getMapY(PyObject * self, PyObject * args) { return PyLong_FromLong(getMapY()); }
 		void setMapY(int value) { _mapY = value; }
 		
 	private:
@@ -49,6 +52,6 @@ class Stage
 		//	or something else.  
 		vector<Mob> _mobs;
 		
-		bool _initialize();
+		
 		bool _initializeScripting();
 };

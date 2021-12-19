@@ -69,12 +69,12 @@ int main(int argc, char ** argv)
 	
 	cout << "Reticulating splines...\n";
 	currentStage = Stage::load(currentStageID);
-	
-	if(currentStage == NULL)
+	if(!currentStage->initialize())
 	{
-		cout << "Failed to load stage.  :(\n";
-		return 0;
+		cout << "Splines deticulated.  Sorry.\n";
+		return 0; 
 	}
+	
 	
 	execute();
 	
