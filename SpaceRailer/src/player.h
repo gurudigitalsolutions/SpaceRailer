@@ -5,4 +5,5 @@ private:
 
 public:
 	bool initialize();
+	bool process();
 };
