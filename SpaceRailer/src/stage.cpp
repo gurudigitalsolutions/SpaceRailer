@@ -189,7 +189,9 @@ PyObject * Stage::processAPI(PyObject * self, PyObject * args, string method)
 	if(method == "getMapY") { return PyLong_FromLong(getMapY()); }
 	if(method == "getPlayerX") { return PyLong_FromLong(_player.getX()); }
 	if(method == "getPlayerY") { return PyLong_FromLong(_player.getY()); }
-		
+	if(method == "getPlayerHP") { return PyLong_FromLong(_player.getHitPoints()); }
+	if(method == "getPlayerWidth") { return PyLong_FromLong(_player.getWidth()); }
+	if(method == "getPlayerHeight") { return PyLong_FromLong(_player.getHeight()); }
 	
 	return NULL;
 }
