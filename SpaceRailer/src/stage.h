@@ -31,12 +31,20 @@ class Stage
 		Player _player;
 		
 		int getMapX() { return _mapX; }
-		//PyObject * script_getMapX(PyObject * self, PyObject * args) { return PyLong_FromLong(getMapX()); }
 		void setMapX(int value) { _mapX = value; }
 		
 		int getMapY() { return _mapY; }
-		//PyObject * script_getMapY(PyObject * self, PyObject * args) { return PyLong_FromLong(getMapY()); }
 		void setMapY(int value) { _mapY = value; }
+		
+		int getStageWidth() { return _stageWidth; }
+		int getStageHeight() { return _stageHeight; }
+		void setStageWidth(int value) { _stageWidth = value; }
+		void setStageHeight(int value) { _stageHeight = value; }
+		
+		int getScrollPixelsPerInterval() { return _scrollPixelsPerInterval; }
+		unsigned int getScrollIntervalMS() { return _scrollIntervalMS; }
+		void setScrollPixelsPerInterval(int value) { _scrollPixelsPerInterval = value; }
+		void setScrollIntervalMS(int value) { _scrollIntervalMS = value; }
 		
 	private:
 		PyObject * _scriptFilename;
@@ -48,11 +56,19 @@ class Stage
 		
 		int _mapX = 0;
 		int _mapY = 0;
+		int _stageWidth = 1920 * 4;
+		int _stageHeight = 1080 * 4;
+		
+		unsigned int _lastScrollTick = 0;
+		int _scrollPixelsPerInterval = 10;
+		unsigned int _scrollIntervalMS = 50;
 		
 		//	It's unclear to me if this should be an array, linked list, vector,
 		//	or something else.  
 		vector<Mob> _mobs;
+		vector<StageBackdrop *> _backdrops;
 		
+		float _plasma_effect(float x, float y, float time);
 		
 		bool _initializeScripting();
 		

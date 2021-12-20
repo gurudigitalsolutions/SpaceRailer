@@ -15,6 +15,7 @@
 
 using namespace std;
 
+#include "stage_backdrop.h"
 #include "main.h"
 #include "scripting.h"
 

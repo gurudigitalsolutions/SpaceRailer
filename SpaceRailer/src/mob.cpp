@@ -21,6 +21,7 @@
 #endif
 //#include <dirent.h>
 #include "config.h"
+#include "stage_backdrop.h"
 #include "stage.h"
 #include "mob.h"
 

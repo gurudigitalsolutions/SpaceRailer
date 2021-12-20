@@ -4,6 +4,7 @@
 	#include <SDL2/SDL.h>
 #endif
 #include "config.h"
+#include "stage_backdrop.h"
 #include "stage.h"
 #include "mob_componet.h"
 

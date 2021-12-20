@@ -8,7 +8,8 @@ OBJ = SpaceRailer/src/main.cpp \
 	SpaceRailer/src/path_tools.cpp \
 	SpaceRailer/src/player.cpp \
 	SpaceRailer/src/graphics.cpp \
-	SpaceRailer/src/mob_component.cpp
+	SpaceRailer/src/mob_component.cpp \
+	SpaceRailer/src/stage_backdrop.cpp
 
 #	Set any dependencies
 #DEPS = main.h

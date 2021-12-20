@@ -8,7 +8,7 @@
 #include <SDL2/SDL.h>
 #include <fstream>
 #include <string>
-
+#include <math.h>
 
 #ifdef _WIN32
 	//
@@ -20,16 +20,26 @@
 
 
 #include "config.h"
+#include "stage_backdrop.h"
 #include "stage.h"
 #include "input.h"
 #include "stage_api.h"
 
 extern ProgramInput programInput;
+extern unsigned int gameTickCount;
+
+extern short windowWidth;
+extern short windowHeight;
 
 extern char** getArgv();
 extern int getArgc();
 
 
+struct vec2
+{
+	float x;
+	float y;
+};
 
 using namespace std;
 
@@ -99,6 +109,9 @@ bool Stage::initialize()
 	//_player.addComponent("thruster0", 0, 64, 55, 55);
 	_player.addComponent("thruster0", 0, 64, 55, 55, COMPONENT_ATTACH_LOOSE, 40, 40);
 
+	StageBackdrop * nBackdrop = new StageBackdrop();
+	nBackdrop->initialize("Eta_Carinae_Nebula", 1920, 1080);
+	_backdrops.push_back(nBackdrop);
 	
 	return true;
 }
@@ -108,6 +121,29 @@ bool Stage::initialize()
 //	next frame from being rendered.
 bool Stage::process()
 {
+	//	Check if it's time to scroll the map
+	if(gameTickCount - _lastScrollTick >= getScrollIntervalMS())
+	{
+		//	This can actually do more precise math.  If the interval is say 10,
+		//	and it's been 12 ms, we could leave that 2 left over.  For now I'm
+		//	not going to worry about it.
+		_lastScrollTick = gameTickCount;
+		
+		int newMapX = getMapX() + getScrollPixelsPerInterval();
+		if(newMapX > getStageWidth() - windowWidth) { newMapX = getStageWidth() - windowWidth; }
+		
+		setMapX(newMapX);
+		_player.setX(_player.getX() + getScrollPixelsPerInterval());
+		
+		printf("mx,my: %d, %d    px,py: %d %d\n",
+			getMapX(),
+			getMapY(),
+			_player.getX(),
+			_player.getY()
+		);
+
+	}
+	
 	//	Check if the player is trying to move around.
 	InputData currentInputState = programInput.getCurrentInputState();
 	InputData previousInputState = programInput.getPreviousInputState();
@@ -121,12 +157,61 @@ bool Stage::process()
 	return true;
 }
 
+float Stage::_plasma_effect(float x, float y, float time)
+{
+	float v1, v2, v3;
+	struct vec2 coor;
+	
+	x = -0.05f + (float)x / 64;
+	y = -0.05f + (float)y / 64;
+	
+	v1 = sin(x * 10 + time);
+	v2 = sin(10 * (x * sin(time / 2) + y * cos(time / 3)) + time);
+	
+	coor.x = x + 0.05f * sin(time / 5);
+	coor.y = y + 0.05f * cos(time / 3);
+	v3 = sin(sqrt(100 * (coor.x * coor.x * coor.y * coor.y) + 1) + time);
+	
+	return (v1 + v2 + v3);
+}
+
 //	Render is called once per frame to render the screen.  Heavy processing
 //	should not be done here.
 bool Stage::render()
 {
+	//	Draw from the back to the front.  Otherwise things will be drawn over
 	SDL_SetRenderDrawColor(getSDLRenderer(), 0x00, 0x00, 0x00, 0xff);
 	SDL_RenderClear(getSDLRenderer());
+	
+	//	Render backdrops
+	for(auto esb : _backdrops)
+	{
+		esb->render();
+	}
+	/*for(list<StageBackdrop *>::iterator esb = _backdrops.begin(); esb != _backdrops.end(); esb++)
+	{
+		(*esb)->render();
+	}*/
+	
+	//	Totally awesome white snake
+	/*
+	int x,y;
+	float value;
+	for(x = 0; x < 128; x++)
+	{
+		for(y = 0; y < 128; y++)
+		{
+			value = _plasma_effect(x, y, gameTickCount * .0025);
+			SDL_SetRenderDrawColor(
+				getSDLRenderer(),
+				10 * (sin(value * 3.1415926)),
+				10 * (cos(value * 3.1415926)),
+				0,
+				255
+			);
+			SDL_RenderDrawPoint(getSDLRenderer(), x, y);
+		}
+	}*/
 	
 	_player.render();
 	
