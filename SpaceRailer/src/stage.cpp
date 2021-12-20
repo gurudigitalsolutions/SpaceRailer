@@ -131,17 +131,13 @@ bool Stage::process()
 		
 		int newMapX = getMapX() + getScrollPixelsPerInterval();
 		if(newMapX > getStageWidth() - windowWidth) { newMapX = getStageWidth() - windowWidth; }
+		else
+		{
+			_player.setX(_player.getX() + getScrollPixelsPerInterval());
+		}
 		
 		setMapX(newMapX);
-		_player.setX(_player.getX() + getScrollPixelsPerInterval());
 		
-		printf("mx,my: %d, %d    px,py: %d %d\n",
-			getMapX(),
-			getMapY(),
-			_player.getX(),
-			_player.getY()
-		);
-
 	}
 	
 	//	Check if the player is trying to move around.
