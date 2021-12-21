@@ -138,6 +138,7 @@ bool Stage::process()
 		
 		setMapX(newMapX);
 		
+		_callback_stageScrollEvent();
 	}
 	
 	//	Check if the player is trying to move around.
@@ -317,4 +318,13 @@ PyObject * Stage::_script_setStageScrollInterval(PyObject * self, PyObject * arg
 
 	setScrollIntervalMS(ssi);
 	return Py_True;
+}
+
+void Stage::_callback_stageScrollEvent()
+{
+	_scriptFunction = PyObject_GetAttrString(_scriptModule, "stageScrollEvent");
+	if(_scriptFunction && PyCallable_Check(_scriptFunction))
+	{
+		PyObject_CallObject(_scriptFunction, NULL);
+	}
 }
