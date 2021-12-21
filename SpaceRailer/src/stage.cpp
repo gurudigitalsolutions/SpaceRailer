@@ -277,6 +277,8 @@ PyObject * Stage::processAPI(PyObject * self, PyObject * args, string method)
 	if(method == "getPlayerHeight") { return PyLong_FromLong(_player.getHeight()); }
 	if(method == "getStageScrollPixelsPerInterval") { return PyLong_FromLong(getScrollPixelsPerInterval()); }
 	if(method == "setStageScrollPixelsPerInterval") { return _script_setStageScrollPixelsPerInterval(self, args); }
+	if(method == "getStageScrollInterval") { return PyLong_FromLong(getScrollIntervalMS()); }
+	if(method == "setStageScrollInterval") { return _script_setStageScrollInterval(self, args); }
 	
 	return NULL;
 }
@@ -305,5 +307,14 @@ PyObject * Stage::_script_setStageScrollPixelsPerInterval(PyObject * self, PyObj
 	if(!PyArg_ParseTuple(args, "i", &ssp)) { return NULL; }
 
 	setScrollPixelsPerInterval(ssp);
+	return Py_True;
+}
+
+PyObject * Stage::_script_setStageScrollInterval(PyObject * self, PyObject * args)
+{
+	int ssi;
+	if(!PyArg_ParseTuple(args, "i", &ssi)) { return NULL; }
+
+	setScrollIntervalMS(ssi);
 	return Py_True;
 }

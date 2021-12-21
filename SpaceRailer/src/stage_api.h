@@ -18,6 +18,8 @@ static PyObject * script_setPlayerX(PyObject * self, PyObject * args) { return s
 static PyObject * script_setPlayerY(PyObject * self, PyObject * args) { return script_API(self, args, "setPlayerY"); }
 static PyObject * script_getStageScrollPixelsPerInterval(PyObject * self, PyObject * args) { return script_API(self, args, "getStageScrollPixelsPerInterval"); }
 static PyObject * script_setStageScrollPixelsPerInterval(PyObject * self, PyObject * args) { return script_API(self, args, "setStageScrollPixelsPerInterval"); }
+static PyObject * script_getStageScrollInterval(PyObject * self, PyObject * args) { return script_API(self, args, "getStageScrollInterval"); }
+static PyObject * script_setStageScrollInterval(PyObject * self, PyObject * args) { return script_API(self, args, "setStageScrollInterval"); }
 
 static PyMethodDef pySpaceRailerMethods[] = {
 	{"numargs", script_NumArgs, METH_VARARGS, "Return the number of arguments received by the process."},
@@ -31,7 +33,9 @@ static PyMethodDef pySpaceRailerMethods[] = {
 	{"getPlayerWidth", script_getPlayerWidth, METH_VARARGS, "Return the width of the player sprite/object."},
 	{"getPlayerHeight", script_getPlayerHeight, METH_VARARGS, "Return the height of the player sprite/object."},
 	{"getStageScrollPixelsPerInterval", script_getStageScrollPixelsPerInterval, METH_VARARGS, "Return the number of pixels the stage scrolls each interval."},
-	{"setStageScrollPixelsPerInterval", script_setStageScrollPixelsPerInterval, METH_VARARGS, "Sets the number of pixels to scroll the stage map for every interval."},
+	{"setStageScrollPixelsPerInterval", script_setStageScrollPixelsPerInterval, METH_VARARGS, "Sets the number of pixels to scroll the stage map for every interval."},	
+	{"getStageScrollInterval", script_getStageScrollInterval, METH_VARARGS, "Return number of ms between stage scroll events."},
+	{"setStageScrollInterval", script_setStageScrollInterval, METH_VARARGS, "Sets the number of ms between stage scroll events."},
 	{NULL, NULL, 0, NULL}
 };
 
