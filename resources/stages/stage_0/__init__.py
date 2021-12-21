@@ -11,6 +11,12 @@ def initialize():
 	
 	spacerailer.setStageScrollPixelsPerInterval(6)
 	spacerailer.setStageScrollInterval(10)
+	
+	mobid = spacerailer.createMob("thruster0")
+	
+	print("MobID: ", mobid)
+	spacerailer.setMobX(mobid, 500)
+	spacerailer.setMobY(mobid, 200)
 
 
 """def stageScrollEvent():

@@ -77,5 +77,10 @@ class Stage
 		PyObject * _script_setPlayerY(PyObject * self, PyObject * args);
 		PyObject * _script_setStageScrollPixelsPerInterval(PyObject * self, PyObject * args);
 		PyObject * _script_setStageScrollInterval(PyObject * self, PyObject * args);
+		PyObject * _script_createMob(PyObject * self, PyObject * args);
+		PyObject * _script_getMobX(PyObject * self, PyObject * args);
+		PyObject * _script_getMobY(PyObject * self, PyObject * args);
+		PyObject * _script_setMobX(PyObject * self, PyObject * args);
+		PyObject * _script_setMobY(PyObject * self, PyObject * args);
 		void _callback_stageScrollEvent();
 };

@@ -109,10 +109,10 @@ bool Stage::initialize()
 	//_player.addComponent("thruster0", 0, 64, 55, 55);
 	//_player.addComponent("thruster0", 0, 64, 25, 25, COMPONENT_ATTACH_LOOSE, 40, 40);
 	Mob * newMob = new Mob();
-	newMob->setX(64);
-	newMob->setY(96);
-	newMob->setWidth(25);
-	newMob->setHeight(25);
+	newMob->setX(56);
+	newMob->setY(80);
+	newMob->setWidth(28);
+	newMob->setHeight(28);
 	newMob->initialize("thruster0");
 	newMob->setIsComponent(true);
 	newMob->setParent((Mob *)&_player);
@@ -203,11 +203,7 @@ bool Stage::render()
 		esb->render();
 	}
 	
-	//	Render mobs
-	for(auto esb : _mobs)
-	{
-		esb->render();
-	}
+	
 	
 	/*for(list<StageBackdrop *>::iterator esb = _backdrops.begin(); esb != _backdrops.end(); esb++)
 	{
@@ -235,6 +231,12 @@ bool Stage::render()
 	}*/
 	
 	_player.render();
+	
+	//	Render mobs
+	for(auto esb : _mobs)
+	{
+		esb->render();
+	}
 	
 	//	TODO
 	//	Loop...
@@ -309,6 +311,11 @@ PyObject * Stage::processAPI(PyObject * self, PyObject * args, string method)
 	if(method == "setStageScrollPixelsPerInterval") { return _script_setStageScrollPixelsPerInterval(self, args); }
 	if(method == "getStageScrollInterval") { return PyLong_FromLong(getScrollIntervalMS()); }
 	if(method == "setStageScrollInterval") { return _script_setStageScrollInterval(self, args); }
+	if(method == "createMob") { return _script_createMob(self, args); }
+	if(method == "getMobX") { return _script_getMobX(self, args); }
+	if(method == "getMobY") { return _script_getMobY(self, args); }
+	if(method == "setMobX") { return _script_setMobX(self, args); }
+	if(method == "setMobY") { return _script_setMobY(self, args); }
 	
 	return NULL;
 }
@@ -356,4 +363,58 @@ void Stage::_callback_stageScrollEvent()
 	{
 		PyObject_CallObject(_scriptFunction, NULL);
 	}
+}
+
+PyObject * Stage::_script_createMob(PyObject * self, PyObject * args)
+{
+	string mobtype;
+	if(!PyArg_ParseTuple(args, "s", &mobtype)) { return NULL; }
+	printf("MobName: %s\n", mobtype.c_str());
+	
+	Mob * newMob = new Mob();
+	newMob->initialize((string)mobtype);
+	
+	_mobs.push_back(newMob);
+	int mobid = _mobs.size() - 1;
+
+	printf("C MobID: %s %d\n", mobtype.c_str(), mobid);
+	return PyLong_FromLong(mobid);
+}
+
+PyObject * Stage::_script_getMobX(PyObject * self, PyObject * args)
+{
+	int mobid;
+	if(!PyArg_ParseTuple(args, "i", &mobid)) { return NULL; }
+	
+	return PyLong_FromLong(_mobs[mobid]->getX());
+}
+
+PyObject * Stage::_script_getMobY(PyObject * self, PyObject * args)
+{
+	int mobid;
+	if(!PyArg_ParseTuple(args, "i", &mobid)) { return NULL; }
+	
+	return PyLong_FromLong(_mobs[mobid]->getY());
+}
+
+PyObject * Stage::_script_setMobX(PyObject * self, PyObject * args)
+{
+	int mobid;
+	int newvalue;
+	
+	if(!PyArg_ParseTuple(args, "ii", &mobid, &newvalue)) { return NULL; }
+	_mobs[mobid]->setX(newvalue);
+	
+	return Py_True;
+}
+
+PyObject * Stage::_script_setMobY(PyObject * self, PyObject * args)
+{
+	int mobid;
+	int newvalue;
+	
+	if(!PyArg_ParseTuple(args, "ii", &mobid, &newvalue)) { return NULL; }
+	_mobs[mobid]->setY(newvalue);
+	
+	return Py_True;
 }

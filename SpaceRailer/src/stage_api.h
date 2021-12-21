@@ -20,6 +20,11 @@ static PyObject * script_getStageScrollPixelsPerInterval(PyObject * self, PyObje
 static PyObject * script_setStageScrollPixelsPerInterval(PyObject * self, PyObject * args) { return script_API(self, args, "setStageScrollPixelsPerInterval"); }
 static PyObject * script_getStageScrollInterval(PyObject * self, PyObject * args) { return script_API(self, args, "getStageScrollInterval"); }
 static PyObject * script_setStageScrollInterval(PyObject * self, PyObject * args) { return script_API(self, args, "setStageScrollInterval"); }
+static PyObject * script_createMob(PyObject * self, PyObject * args) { return script_API(self, args, "createMob"); }
+static PyObject * script_getMobX(PyObject * self, PyObject * args) { return script_API(self, args, "getMobX"); }
+static PyObject * script_getMobY(PyObject * self, PyObject * args) { return script_API(self, args, "getMobY"); }
+static PyObject * script_setMobX(PyObject * self, PyObject * args) { return script_API(self, args, "setMobX"); }
+static PyObject * script_setMobY(PyObject * self, PyObject * args) { return script_API(self, args, "setMobY"); }
 
 static PyMethodDef pySpaceRailerMethods[] = {
 	{"numargs", script_NumArgs, METH_VARARGS, "Return the number of arguments received by the process."},
@@ -36,6 +41,11 @@ static PyMethodDef pySpaceRailerMethods[] = {
 	{"setStageScrollPixelsPerInterval", script_setStageScrollPixelsPerInterval, METH_VARARGS, "Sets the number of pixels to scroll the stage map for every interval."},	
 	{"getStageScrollInterval", script_getStageScrollInterval, METH_VARARGS, "Return number of ms between stage scroll events."},
 	{"setStageScrollInterval", script_setStageScrollInterval, METH_VARARGS, "Sets the number of ms between stage scroll events."},
+	{"createMob", script_createMob, METH_VARARGS, "Create a new mob and return its ID."},
+	{"getMobX", script_getMobX, METH_VARARGS, "Return a mob's x-coordinate."},
+	{"getMobY", script_getMobY, METH_VARARGS, "Return a mob's y-coordinate."},
+	{"setMobX", script_setMobX, METH_VARARGS, "Set a mob's x-coordinate."},
+	{"setMobY", script_setMobY, METH_VARARGS, "Set a mob's y-coordinate."},
 	{NULL, NULL, 0, NULL}
 };
 
