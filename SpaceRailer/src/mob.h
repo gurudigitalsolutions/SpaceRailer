@@ -43,6 +43,12 @@ class Mob
 		bool loadSprites();
 		bool loadSprite(string spriteName);
 		
+		bool getIsComponent() { return _isComponent; }
+		void setIsComponent(bool value) { _isComponent = value; }
+		
+		Mob * getParent() { return _parent; }
+		void setParent(Mob * value) { _parent = value; }
+		
 		bool addComponent(MobComponent * nComponent);
 		bool addComponent(string component, int offsetX, int offsety, int width, int height);
 		bool addComponent(string component, int offsetX, int offsety, int width, int height, componentAttachMode attachmode, unsigned char maxdistancex, unsigned char maxdistancey);
@@ -52,6 +58,7 @@ class Mob
 		unsigned int _magicPoints = 0;
 		int _coordX = 0;
 		int _coordY = 0;
+		
 		int _width = 0;
 		int _height = 0;
 		short _accelerationX = 0;
@@ -60,4 +67,7 @@ class Mob
 		short _accelerationMaxY = 40;
 
 		list<MobComponent *> _components;
+		
+		bool _isComponent = false;
+		Mob * _parent;
 };

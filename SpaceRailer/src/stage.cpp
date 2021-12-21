@@ -107,7 +107,17 @@ bool Stage::initialize()
 	}
 	
 	//_player.addComponent("thruster0", 0, 64, 55, 55);
-	_player.addComponent("thruster0", 0, 64, 55, 55, COMPONENT_ATTACH_LOOSE, 40, 40);
+	//_player.addComponent("thruster0", 0, 64, 25, 25, COMPONENT_ATTACH_LOOSE, 40, 40);
+	Mob * newMob = new Mob();
+	newMob->setX(64);
+	newMob->setY(96);
+	newMob->setWidth(25);
+	newMob->setHeight(25);
+	newMob->initialize("thruster0");
+	newMob->setIsComponent(true);
+	newMob->setParent((Mob *)&_player);
+	addMob(newMob);
+	
 
 	StageBackdrop * nBackdrop = new StageBackdrop();
 	nBackdrop->initialize("Eta_Carinae_Nebula", 1920, 1080);
@@ -151,6 +161,13 @@ bool Stage::process()
 	if(currentInputState.analogDown > 16384) { _player.setY(_player.getY() + 3); }
 	
 	_player.process();
+	
+	//	Process data for each mob
+	for(auto esb : _mobs)
+	{
+		esb->process();
+	}
+	
 	return true;
 }
 
@@ -185,6 +202,13 @@ bool Stage::render()
 	{
 		esb->render();
 	}
+	
+	//	Render mobs
+	for(auto esb : _mobs)
+	{
+		esb->render();
+	}
+	
 	/*for(list<StageBackdrop *>::iterator esb = _backdrops.begin(); esb != _backdrops.end(); esb++)
 	{
 		(*esb)->render();
@@ -221,6 +245,11 @@ bool Stage::render()
 	//SDL_RenderFillRect(getSDLRenderer(), &box);
 	SDL_RenderPresent(getSDLRenderer());
 	return true;
+}
+
+void Stage::addMob(Mob * mob)
+{
+	_mobs.push_back(mob);
 }
 
 //	Initialize the scripting engine for this stage.

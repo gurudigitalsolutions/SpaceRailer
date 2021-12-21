@@ -46,6 +46,7 @@ class Stage
 		void setScrollPixelsPerInterval(int value) { _scrollPixelsPerInterval = value; }
 		void setScrollIntervalMS(int value) { _scrollIntervalMS = value; }
 		
+		void addMob(Mob * mob);
 	private:
 		PyObject * _scriptFilename;
 		PyObject * _scriptModule;
@@ -65,7 +66,7 @@ class Stage
 		
 		//	It's unclear to me if this should be an array, linked list, vector,
 		//	or something else.  
-		vector<Mob> _mobs;
+		vector<Mob *> _mobs;
 		vector<StageBackdrop *> _backdrops;
 		
 		float _plasma_effect(float x, float y, float time);

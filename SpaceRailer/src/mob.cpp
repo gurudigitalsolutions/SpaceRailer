@@ -38,12 +38,15 @@ bool Mob::process()
 	//setY(getY() - 1);
 	
 	//	Do all processing for this mob's components
-	for(list<MobComponent *>::iterator emc = _components.begin(); emc != _components.end(); emc++)
+	//	PROBABLY DELETE THIS!!!!11!!
+	/*for(list<MobComponent *>::iterator emc = _components.begin(); emc != _components.end(); emc++)
 	{
 		(*emc)->setParentX(getX());
 		(*emc)->setParentY(getY());
 		(*emc)->process();
-	}
+	}*/
+	
+	
 
 	return true;
 }
@@ -54,14 +57,24 @@ bool Mob::render() {
 	SDL_Rect box;
 	box.w = getWidth();
 	box.h = getHeight();
-	box.x = getX() - currentStage->getMapX();
-	box.y = getY() - currentStage->getMapY();
+	
+	if(!getIsComponent())
+	{
+		box.x = getX() - currentStage->getMapX();
+		box.y = getY() - currentStage->getMapY();
+	}
+	else
+	{
+		box.x = _parent->getX() + getX() - currentStage->getMapX();
+		box.y = _parent->getY() + getY() - currentStage->getMapY();
+	}
+	
 	SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
 	
-	for(list<MobComponent *>::iterator emc = _components.begin(); emc != _components.end(); emc++)
+	/*for(list<MobComponent *>::iterator emc = _components.begin(); emc != _components.end(); emc++)
 	{
 		(*emc)->render();
-	}
+	}*/
 	
 	return true;
 }

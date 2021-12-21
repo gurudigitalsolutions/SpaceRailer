@@ -13,8 +13,8 @@ def initialize():
 	spacerailer.setStageScrollInterval(10)
 
 
-def stageScrollEvent():
+"""def stageScrollEvent():
 	spacerailer.setStageScrollInterval(spacerailer.getStageScrollInterval() + 1)
 	
 	if spacerailer.getStageScrollInterval() > 100:
-		spacerailer.setStageScrollInterval(1)
+		spacerailer.setStageScrollInterval(1)"""
