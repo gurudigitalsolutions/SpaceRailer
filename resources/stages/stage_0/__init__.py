@@ -8,3 +8,5 @@ def initialize():
 	print("px,py: ", spacerailer.getPlayerX(), spacerailer.getPlayerY())
 	spacerailer.setPlayerX(50)
 	spacerailer.setPlayerY(256)
+	
+	spacerailer.setStageScrollPixelsPerInterval(6);
