@@ -80,8 +80,9 @@ bool Mob::render() {
 }
 
 
-bool Mob::initialize(string mobName) {
-	this->mobName = mobName;
+bool Mob::initialize(string mobname) {
+	printf("MobName (Mob::initialize): %s\n", mobname.c_str());
+	this->mobName = mobname;
 	return initialize();
 }
 

@@ -369,15 +369,13 @@ PyObject * Stage::_script_createMob(PyObject * self, PyObject * args)
 {
 	string mobtype;
 	if(!PyArg_ParseTuple(args, "s", &mobtype)) { return NULL; }
-	printf("MobName: %s\n", mobtype.c_str());
 	
 	Mob * newMob = new Mob();
-	newMob->initialize((string)mobtype);
+	newMob->initialize(mobtype.c_str());
 	
 	_mobs.push_back(newMob);
 	int mobid = _mobs.size() - 1;
 
-	printf("C MobID: %s %d\n", mobtype.c_str(), mobid);
 	return PyLong_FromLong(mobid);
 }
 
