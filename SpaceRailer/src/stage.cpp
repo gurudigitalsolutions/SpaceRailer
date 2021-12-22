@@ -108,7 +108,7 @@ bool Stage::initialize()
 	
 	//_player.addComponent("thruster0", 0, 64, 55, 55);
 	//_player.addComponent("thruster0", 0, 64, 25, 25, COMPONENT_ATTACH_LOOSE, 40, 40);
-	Mob * newMob = new Mob();
+	/*Mob * newMob = new Mob();
 	newMob->setX(56);
 	newMob->setY(80);
 	newMob->setWidth(28);
@@ -116,7 +116,7 @@ bool Stage::initialize()
 	newMob->initialize("thruster0");
 	newMob->setIsComponent(true);
 	newMob->setParent((Mob *)&_player);
-	addMob(newMob);
+	addMob(newMob);*/
 	
 
 	StageBackdrop * nBackdrop = new StageBackdrop();
@@ -323,6 +323,10 @@ PyObject * Stage::processAPI(PyObject * self, PyObject * args, string method)
 	if(method == "setMobHeight") { return _script_setMobHeight(self, args); }
 	if(method == "getMobAngle") { return _script_getMobAngle(self, args); }
 	if(method == "setMobAngle") { return _script_setMobAngle(self, args); }
+	if(method == "getMobIsComponent") { return _script_getMobIsComponent(self, args); }
+	if(method == "setMobIsComponent") { return _script_setMobIsComponent(self, args); }
+	if(method == "getMobParent") { return _script_getMobParent(self, args); }
+	if(method == "setMobParent") { return _script_setMobParent(self, args); }
 	
 	return NULL;
 }
@@ -481,6 +485,65 @@ PyObject * Stage::_script_setMobAngle(PyObject * self, PyObject * args)
 	
 	if(!PyArg_ParseTuple(args, "id", &mobid, &newvalue)) { return NULL; }
 	_mobs[mobid]->setRenderAngle(newvalue);
+	
+	Py_RETURN_TRUE;
+}
+
+PyObject * Stage::_script_getMobParent(PyObject * self, PyObject * args)
+{
+	int mobid;
+	if(!PyArg_ParseTuple(args, "i", &mobid)) { return NULL; }
+
+	//	In most cases, we can just return the mobid from the vector of _mobs.
+	//	However, there might be a special case where the parent is the _player
+	//	or some other special mob.
+	
+	//	Check if this mob even HAS a parent
+	if(_mobs[mobid]->getParent()) { return PyLong_FromLong(-1); }
+	
+	//	Check if the mob's parent is the player
+	if(_mobs[mobid]->getParent() == &_player) { return PyLong_FromLong(-2); }
+	
+	for(unsigned int emob = 0; emob < _mobs.size(); emob++)
+	{
+		Mob * tMob = _mobs[emob]->getParent();
+		if(tMob != NULL
+		&& tMob == _mobs[emob])
+		{
+			return PyLong_FromLong(emob);
+		}
+	}
+	
+	//	No parent was found for this mob
+	return PyLong_FromLong(-1);
+}
+
+PyObject * Stage::_script_setMobParent(PyObject * self, PyObject * args)
+{
+	int mobid;
+	int newvalue;
+	
+	if(!PyArg_ParseTuple(args, "ii", &mobid, &newvalue)) { return NULL; }
+	_mobs[mobid]->setParent(_mobs[newvalue]);
+	
+	Py_RETURN_TRUE;
+}
+
+PyObject * Stage::_script_getMobIsComponent(PyObject * self, PyObject * args)
+{
+	int mobid;
+	if(!PyArg_ParseTuple(args, "i", &mobid)) { return NULL; }
+	
+	return (_mobs[mobid]->getIsComponent() ? Py_True : Py_False);
+}
+
+PyObject * Stage::_script_setMobIsComponent(PyObject * self, PyObject * args)
+{
+	int mobid;
+	bool newvalue;
+	
+	if(!PyArg_ParseTuple(args, "ip", &mobid, &newvalue)) { return NULL; }
+	_mobs[mobid]->setIsComponent(newvalue);
 	
 	Py_RETURN_TRUE;
 }

@@ -31,6 +31,10 @@ static PyObject * script_setMobWidth(PyObject * self, PyObject * args) { return 
 static PyObject * script_setMobHeight(PyObject * self, PyObject * args) { return script_API(self, args, "setMobHeight"); }
 static PyObject * script_getMobAngle(PyObject * self, PyObject * args) { return script_API(self, args, "getMobAngle"); }
 static PyObject * script_setMobAngle(PyObject * self, PyObject * args) { return script_API(self, args, "setMobAngle"); }
+static PyObject * script_getMobParent(PyObject * self, PyObject * args) { return script_API(self, args, "getMobParent"); }
+static PyObject * script_setMobParent(PyObject * self, PyObject * args) { return script_API(self, args, "setMobParent"); }
+static PyObject * script_getMobIsComponent(PyObject * self, PyObject * args) { return script_API(self, args, "getMobIsComponent"); }
+static PyObject * script_setMobIsComponent(PyObject * self, PyObject * args) { return script_API(self, args, "setMobIsComponent"); }
 
 static PyMethodDef pySpaceRailerMethods[] = {
 	{"numargs", script_NumArgs, METH_VARARGS, "Return the number of arguments received by the process."},
@@ -58,6 +62,10 @@ static PyMethodDef pySpaceRailerMethods[] = {
 	{"setMobHeight", script_setMobHeight, METH_VARARGS, "Set a mob's height."},
 	{"setMobAngle", script_setMobAngle, METH_VARARGS, "Set a mob's angle."},
 	{"getMobAngle", script_getMobAngle, METH_VARARGS, "Get a mob's angle."},
+	{"getMobParent", script_getMobParent, METH_VARARGS, "Get a mob's parent mob ID."},
+	{"setMobParent", script_setMobParent, METH_VARARGS, "Set a mob's parent mob ID."},
+	{"getMobIsComponent", script_getMobIsComponent, METH_VARARGS, "Get a mob's comopnent status."},
+	{"setMobIsComponent", script_setMobIsComponent, METH_VARARGS, "Set a mob's component status."},
 	{NULL, NULL, 0, NULL}
 };
 

@@ -89,5 +89,9 @@ class Stage
 		PyObject * _script_setMobHeight(PyObject * self, PyObject * args);
 		PyObject * _script_getMobAngle(PyObject * self, PyObject * args);
 		PyObject * _script_setMobAngle(PyObject * self, PyObject * args);
+		PyObject * _script_getMobParent(PyObject * self, PyObject * args);
+		PyObject * _script_setMobParent(PyObject * self, PyObject * args);
+		PyObject * _script_getMobIsComponent(PyObject * self, PyObject * args);
+		PyObject * _script_setMobIsComponent(PyObject * self, PyObject * args);
 		void _callback_stageScrollEvent();
 };

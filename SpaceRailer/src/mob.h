@@ -52,6 +52,8 @@ class Mob
 		Mob * getParent() { return _parent; }
 		void setParent(Mob * value) { _parent = value; }
 		
+		//	Components are no longer used.  Leaving these here until we know
+		//	we have all the features converted over.
 		bool addComponent(MobComponent * nComponent);
 		bool addComponent(string component, int offsetX, int offsety, int width, int height);
 		bool addComponent(string component, int offsetX, int offsety, int width, int height, componentAttachMode attachmode, unsigned char maxdistancex, unsigned char maxdistancey);
