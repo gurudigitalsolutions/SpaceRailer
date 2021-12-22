@@ -25,6 +25,10 @@ static PyObject * script_getMobX(PyObject * self, PyObject * args) { return scri
 static PyObject * script_getMobY(PyObject * self, PyObject * args) { return script_API(self, args, "getMobY"); }
 static PyObject * script_setMobX(PyObject * self, PyObject * args) { return script_API(self, args, "setMobX"); }
 static PyObject * script_setMobY(PyObject * self, PyObject * args) { return script_API(self, args, "setMobY"); }
+static PyObject * script_getMobWidth(PyObject * self, PyObject * args) { return script_API(self, args, "getMobWidth"); }
+static PyObject * script_getMobHeight(PyObject * self, PyObject * args) { return script_API(self, args, "getMobHeight"); }
+static PyObject * script_setMobWidth(PyObject * self, PyObject * args) { return script_API(self, args, "setMobWidth"); }
+static PyObject * script_setMobHeight(PyObject * self, PyObject * args) { return script_API(self, args, "setMobHeight"); }
 
 static PyMethodDef pySpaceRailerMethods[] = {
 	{"numargs", script_NumArgs, METH_VARARGS, "Return the number of arguments received by the process."},
@@ -46,6 +50,10 @@ static PyMethodDef pySpaceRailerMethods[] = {
 	{"getMobY", script_getMobY, METH_VARARGS, "Return a mob's y-coordinate."},
 	{"setMobX", script_setMobX, METH_VARARGS, "Set a mob's x-coordinate."},
 	{"setMobY", script_setMobY, METH_VARARGS, "Set a mob's y-coordinate."},
+	{"getMobWidth", script_getMobWidth, METH_VARARGS, "Return a mob's current width."},
+	{"getMobHeight", script_getMobHeight, METH_VARARGS, "Return a mob's current height."},
+	{"setMobWidth", script_setMobWidth, METH_VARARGS, "Set a mob's width."},
+	{"setMobHeight", script_setMobHeight, METH_VARARGS, "Set a mob's height."},
 	{NULL, NULL, 0, NULL}
 };
 

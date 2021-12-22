@@ -316,6 +316,10 @@ PyObject * Stage::processAPI(PyObject * self, PyObject * args, string method)
 	if(method == "getMobY") { return _script_getMobY(self, args); }
 	if(method == "setMobX") { return _script_setMobX(self, args); }
 	if(method == "setMobY") { return _script_setMobY(self, args); }
+	if(method == "getMobWidth") { return _script_getMobWidth(self, args); }
+	if(method == "getMobHeight") { return _script_getMobHeight(self, args); }
+	if(method == "setMobWidth") { return _script_setMobWidth(self, args); }
+	if(method == "setMobHeight") { return _script_setMobHeight(self, args); }
 	
 	return NULL;
 }
@@ -417,6 +421,44 @@ PyObject * Stage::_script_setMobY(PyObject * self, PyObject * args)
 	
 	if(!PyArg_ParseTuple(args, "ii", &mobid, &newvalue)) { return NULL; }
 	_mobs[mobid]->setY(newvalue);
+	
+	Py_RETURN_TRUE;
+}
+
+PyObject * Stage::_script_getMobWidth(PyObject * self, PyObject * args)
+{
+	int mobid;
+	if(!PyArg_ParseTuple(args, "i", &mobid)) { return NULL; }
+	
+	return PyLong_FromLong(_mobs[mobid]->getWidth());
+}
+
+PyObject * Stage::_script_getMobHeight(PyObject * self, PyObject * args)
+{
+	int mobid;
+	if(!PyArg_ParseTuple(args, "i", &mobid)) { return NULL; }
+	
+	return PyLong_FromLong(_mobs[mobid]->getHeight());
+}
+
+PyObject * Stage::_script_setMobWidth(PyObject * self, PyObject * args)
+{
+	int mobid;
+	int newvalue;
+	
+	if(!PyArg_ParseTuple(args, "ii", &mobid, &newvalue)) { return NULL; }
+	_mobs[mobid]->setWidth(newvalue);
+	
+	Py_RETURN_TRUE;
+}
+
+PyObject * Stage::_script_setMobHeight(PyObject * self, PyObject * args)
+{
+	int mobid;
+	int newvalue;
+	
+	if(!PyArg_ParseTuple(args, "ii", &mobid, &newvalue)) { return NULL; }
+	_mobs[mobid]->setHeight(newvalue);
 	
 	Py_RETURN_TRUE;
 }
