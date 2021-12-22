@@ -540,10 +540,10 @@ PyObject * Stage::_script_getMobIsComponent(PyObject * self, PyObject * args)
 PyObject * Stage::_script_setMobIsComponent(PyObject * self, PyObject * args)
 {
 	int mobid;
-	bool newvalue;
+	int newvalue;
 	
 	if(!PyArg_ParseTuple(args, "ip", &mobid, &newvalue)) { return NULL; }
-	_mobs[mobid]->setIsComponent(newvalue);
+	_mobs[mobid]->setIsComponent((newvalue == 1 ? true : false));
 	
 	Py_RETURN_TRUE;
 }
