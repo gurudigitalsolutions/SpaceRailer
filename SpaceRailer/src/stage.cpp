@@ -326,7 +326,7 @@ PyObject * Stage::_script_setPlayerX(PyObject * self, PyObject * args)
 	if(!PyArg_ParseTuple(args, "i", &newPlayerX)) { return NULL; }
 	
 	_player.setX(newPlayerX);
-	return Py_True;
+	Py_RETURN_TRUE;
 }
 
 PyObject * Stage::_script_setPlayerY(PyObject * self, PyObject * args)
@@ -335,7 +335,7 @@ PyObject * Stage::_script_setPlayerY(PyObject * self, PyObject * args)
 	if(!PyArg_ParseTuple(args, "i", &newPlayerY)) { return NULL; }
 
 	_player.setY(newPlayerY);
-	return Py_True;
+	Py_RETURN_TRUE;
 }
 
 PyObject * Stage::_script_setStageScrollPixelsPerInterval(PyObject * self, PyObject * args)
@@ -344,7 +344,7 @@ PyObject * Stage::_script_setStageScrollPixelsPerInterval(PyObject * self, PyObj
 	if(!PyArg_ParseTuple(args, "i", &ssp)) { return NULL; }
 
 	setScrollPixelsPerInterval(ssp);
-	return Py_True;
+	Py_RETURN_TRUE;
 }
 
 PyObject * Stage::_script_setStageScrollInterval(PyObject * self, PyObject * args)
@@ -353,7 +353,7 @@ PyObject * Stage::_script_setStageScrollInterval(PyObject * self, PyObject * arg
 	if(!PyArg_ParseTuple(args, "i", &ssi)) { return NULL; }
 
 	setScrollIntervalMS(ssi);
-	return Py_True;
+	Py_RETURN_TRUE;
 }
 
 void Stage::_callback_stageScrollEvent()
@@ -367,16 +367,17 @@ void Stage::_callback_stageScrollEvent()
 
 PyObject * Stage::_script_createMob(PyObject * self, PyObject * args)
 {
-	string mobtype;
+	char mobtype[256];
+	
 	if(!PyArg_ParseTuple(args, "s", &mobtype)) { return NULL; }
 	
 	Mob * newMob = new Mob();
-	newMob->initialize(mobtype.c_str());
-	
-	_mobs.push_back(newMob);
-	int mobid = _mobs.size() - 1;
+	newMob->initialize((string)mobtype);
 
-	return PyLong_FromLong(mobid);
+	_mobs.push_back(newMob);
+	ssize_t mobid = _mobs.size() - 1;
+
+	return PyLong_FromSsize_t(mobid);
 }
 
 PyObject * Stage::_script_getMobX(PyObject * self, PyObject * args)
@@ -403,7 +404,7 @@ PyObject * Stage::_script_setMobX(PyObject * self, PyObject * args)
 	if(!PyArg_ParseTuple(args, "ii", &mobid, &newvalue)) { return NULL; }
 	_mobs[mobid]->setX(newvalue);
 	
-	return Py_True;
+	Py_RETURN_TRUE;
 }
 
 PyObject * Stage::_script_setMobY(PyObject * self, PyObject * args)
@@ -414,5 +415,5 @@ PyObject * Stage::_script_setMobY(PyObject * self, PyObject * args)
 	if(!PyArg_ParseTuple(args, "ii", &mobid, &newvalue)) { return NULL; }
 	_mobs[mobid]->setY(newvalue);
 	
-	return Py_True;
+	Py_RETURN_TRUE;
 }

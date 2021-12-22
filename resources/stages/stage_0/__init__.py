@@ -14,9 +14,9 @@ def initialize():
 	
 	mobid = spacerailer.createMob("thruster0")
 	
-	print("MobID: ", mobid)
-	spacerailer.setMobX(mobid, 500)
-	spacerailer.setMobY(mobid, 200)
+	#print("MobID: ", mobid)
+	#spacerailer.setMobX(mobid, 500)
+	#spacerailer.setMobY(mobid, 200)
 
 
 """def stageScrollEvent():
