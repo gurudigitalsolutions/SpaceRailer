@@ -63,6 +63,32 @@ void ProgramInput::handleInputEvent(SDL_Event * Event)
 	//printf("Input event received.\n");
 	previousInputState = currentInputState;
 	
+	if(Event->type == SDL_KEYDOWN
+	|| Event->type == SDL_KEYUP)
+	{
+		//	Keyboard events.  These should also be mapped for player control.
+		if(((SDL_KeyboardEvent *)Event)->keysym.sym == SDLK_a)
+		{	currentInputState.analogLeft = (((SDL_KeyboardEvent *)Event)->type == SDL_KEYDOWN ? 32767 : 0);	}
+		
+		if(((SDL_KeyboardEvent *)Event)->keysym.sym == SDLK_d)
+		{	currentInputState.analogRight = (((SDL_KeyboardEvent *)Event)->type == SDL_KEYDOWN ? 32767 : 0);	}
+		
+		if(((SDL_KeyboardEvent *)Event)->keysym.sym == SDLK_w)
+		{	currentInputState.analogUp = (((SDL_KeyboardEvent *)Event)->type == SDL_KEYDOWN ? 32767 : 0);	}
+		
+		if(((SDL_KeyboardEvent *)Event)->keysym.sym == SDLK_s)
+		{	currentInputState.analogDown = (((SDL_KeyboardEvent *)Event)->type == SDL_KEYDOWN ? 32767 : 0);	}
+		
+		if(((SDL_KeyboardEvent *)Event)->keysym.sym == SDLK_SPACE)
+		{	currentInputState.buttonFire = (((SDL_KeyboardEvent *)Event)->type == SDL_KEYDOWN ? true : false);	}
+		
+		if(((SDL_KeyboardEvent *)Event)->keysym.sym == SDLK_r)
+		{	currentInputState.buttonActivate = (((SDL_KeyboardEvent *)Event)->type == SDL_KEYDOWN ? true: false);	}
+		
+		if(((SDL_KeyboardEvent *)Event)->keysym.sym == SDLK_ESCAPE)
+		{	currentInputState.buttonPause = (((SDL_KeyboardEvent *)Event)->type == SDL_KEYDOWN ? true : false);	}
+	}
+	
 	//	Start with button up/down events
 	if(Event->type == SDL_JOYBUTTONDOWN
 	|| Event->type == SDL_JOYBUTTONUP)
