@@ -29,6 +29,8 @@ static PyObject * script_getMobWidth(PyObject * self, PyObject * args) { return 
 static PyObject * script_getMobHeight(PyObject * self, PyObject * args) { return script_API(self, args, "getMobHeight"); }
 static PyObject * script_setMobWidth(PyObject * self, PyObject * args) { return script_API(self, args, "setMobWidth"); }
 static PyObject * script_setMobHeight(PyObject * self, PyObject * args) { return script_API(self, args, "setMobHeight"); }
+static PyObject * script_getMobAngle(PyObject * self, PyObject * args) { return script_API(self, args, "getMobAngle"); }
+static PyObject * script_setMobAngle(PyObject * self, PyObject * args) { return script_API(self, args, "setMobAngle"); }
 
 static PyMethodDef pySpaceRailerMethods[] = {
 	{"numargs", script_NumArgs, METH_VARARGS, "Return the number of arguments received by the process."},
@@ -54,6 +56,8 @@ static PyMethodDef pySpaceRailerMethods[] = {
 	{"getMobHeight", script_getMobHeight, METH_VARARGS, "Return a mob's current height."},
 	{"setMobWidth", script_setMobWidth, METH_VARARGS, "Set a mob's width."},
 	{"setMobHeight", script_setMobHeight, METH_VARARGS, "Set a mob's height."},
+	{"setMobAngle", script_setMobAngle, METH_VARARGS, "Set a mob's angle."},
+	{"getMobAngle", script_getMobAngle, METH_VARARGS, "Get a mob's angle."},
 	{NULL, NULL, 0, NULL}
 };
 

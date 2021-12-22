@@ -120,7 +120,8 @@ bool Stage::initialize()
 	
 
 	StageBackdrop * nBackdrop = new StageBackdrop();
-	nBackdrop->initialize("Eta_Carinae_Nebula", 1920, 1080);
+	//nBackdrop->initialize("Eta_Carinae_Nebula", 1920, 1080);
+	nBackdrop->initialize("tiled-background-cave-1", 1200, 540);
 	_backdrops.push_back(nBackdrop);
 	
 	return true;
@@ -320,6 +321,8 @@ PyObject * Stage::processAPI(PyObject * self, PyObject * args, string method)
 	if(method == "getMobHeight") { return _script_getMobHeight(self, args); }
 	if(method == "setMobWidth") { return _script_setMobWidth(self, args); }
 	if(method == "setMobHeight") { return _script_setMobHeight(self, args); }
+	if(method == "getMobAngle") { return _script_getMobAngle(self, args); }
+	if(method == "setMobAngle") { return _script_setMobAngle(self, args); }
 	
 	return NULL;
 }
@@ -459,6 +462,25 @@ PyObject * Stage::_script_setMobHeight(PyObject * self, PyObject * args)
 	
 	if(!PyArg_ParseTuple(args, "ii", &mobid, &newvalue)) { return NULL; }
 	_mobs[mobid]->setHeight(newvalue);
+	
+	Py_RETURN_TRUE;
+}
+
+PyObject * Stage::_script_getMobAngle(PyObject * self, PyObject * args)
+{
+	int mobid;
+	if(!PyArg_ParseTuple(args, "i", &mobid)) { return NULL; }
+	
+	return PyFloat_FromDouble(_mobs[mobid]->getRenderAngle());
+}
+
+PyObject * Stage::_script_setMobAngle(PyObject * self, PyObject * args)
+{
+	int mobid;
+	double newvalue;
+	
+	if(!PyArg_ParseTuple(args, "id", &mobid, &newvalue)) { return NULL; }
+	_mobs[mobid]->setRenderAngle(newvalue);
 	
 	Py_RETURN_TRUE;
 }

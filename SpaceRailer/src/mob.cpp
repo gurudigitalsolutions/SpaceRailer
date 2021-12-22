@@ -69,12 +69,9 @@ bool Mob::render() {
 		box.y = _parent->getY() + getY() - currentStage->getMapY();
 	}
 	
-	SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
+	//SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
+	SDL_RenderCopyEx(getSDLRenderer(), sprites.front(), NULL, &box, _renderAngle, NULL, SDL_FLIP_NONE);
 	
-	/*for(list<MobComponent *>::iterator emc = _components.begin(); emc != _components.end(); emc++)
-	{
-		(*emc)->render();
-	}*/
 	
 	return true;
 }

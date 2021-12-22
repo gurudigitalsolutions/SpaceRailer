@@ -29,6 +29,9 @@ class Mob
 		void setWidth(int value) { _width = value; }
 		void setHeight(int value) { _height = value; }
 		
+		double getRenderAngle() { return _renderAngle; }
+		void setRenderAngle(double value) { _renderAngle = value; }
+		
 		list<SDL_Texture *> sprites;
 
 		bool isFriendly;
@@ -61,6 +64,8 @@ class Mob
 		
 		int _width = 0;
 		int _height = 0;
+		double _renderAngle = 0.0;
+
 		short _accelerationX = 0;
 		short _accelerationY = 0;
 		short _accelerationMaxX = 40;

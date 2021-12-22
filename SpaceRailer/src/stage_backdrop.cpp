@@ -20,7 +20,7 @@ bool StageBackdrop::render()
 	box.w = getWidth();
 	box.h = getHeight();
 
-	box.x = (getRenderWidth() * currentStage->getMapX() / currentStage->getStageWidth()) * -1;
+	box.x = (getRenderWidth() * currentStage->getMapX() / (currentStage->getStageWidth() + windowWidth)) * -1;
 	box.y = getRenderHeight() * currentStage->getMapY() / currentStage->getStageHeight();
 	
 	//box.x = getX() - currentStage->getMapX();
