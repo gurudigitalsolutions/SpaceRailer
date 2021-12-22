@@ -367,12 +367,15 @@ void Stage::_callback_stageScrollEvent()
 
 PyObject * Stage::_script_createMob(PyObject * self, PyObject * args)
 {
-	char mobtype[256];
+	char * pymobtype;
 	
-	if(!PyArg_ParseTuple(args, "s", &mobtype)) { return NULL; }
+	
+	if(!PyArg_ParseTuple(args, "s", &pymobtype)) { return NULL; }
+	printf("FIlename: %s\n", pymobtype);
+	//string mobtype = (char *)&pymobtype;
 	
 	Mob * newMob = new Mob();
-	newMob->initialize((string)mobtype);
+	newMob->initialize((string)pymobtype);
 
 	_mobs.push_back(newMob);
 	ssize_t mobid = _mobs.size() - 1;
