@@ -36,6 +36,9 @@ void Path_Tools::_getSystemDataPaths(string* dp1, string* dp2, string* dp3) {
 	#ifdef _WIN32
 		*dp1 = (string)getenv("APPDATA") + "/SpaceRailer/";
 		*dp2 = (string)getenv("PROGRAMDATA") + "/SpaceRailer/";
+		//char install[256];
+		//getcwd(install, 256);
+		//*dp3 = (string) install + "/";
 		*dp3 = (string)"";
 		//cout << appdata << "\n" << (string)install << "\n" << progdata << "\n";
 	#else
@@ -52,7 +55,6 @@ bool Path_Tools::pathExists(const string& path_to_check)
 	// Windows systems
 	#ifdef _WIN32
 		DWORD ftyp = GetFileAttributesA(path_to_check.c_str());
-
 		if (ftyp == INVALID_FILE_ATTRIBUTES) {
 			//cout << "Stage directory not found.\n";
 			return false;  // something is wrong with your path!

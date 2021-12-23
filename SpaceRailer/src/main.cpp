@@ -70,7 +70,7 @@ int main(int argc, char ** argv)
 	
 	cout << "Reticulating splines...\n";
 	currentStage = Stage::load(currentStageID);
-	if(!currentStage->initialize())
+	if(currentStage == NULL || !currentStage->initialize())
 	{
 		cout << "Splines deticulated.  Sorry.\n";
 		return 0; 
