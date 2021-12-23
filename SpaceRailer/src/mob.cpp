@@ -25,6 +25,9 @@
 #include "stage.h"
 #include "mob.h"
 
+extern short windowWidth;
+extern short windowHeight;
+
 extern Stage * currentStage;
 
 
@@ -45,7 +48,11 @@ bool Mob::process()
 		(*emc)->setParentY(getY());
 		(*emc)->process();
 	}*/
-	
+	if (!getIsStatic()) 
+	{
+		if (getX() > currentStage->getMapX() + windowWidth - getWidth()) { setX(currentStage->getMapX() + windowWidth - getWidth()); }
+		if (getY() > currentStage->getMapY() + windowHeight - getHeight()) { setY(currentStage->getMapY() + windowHeight - getHeight()); }
+	}
 	
 
 	return true;

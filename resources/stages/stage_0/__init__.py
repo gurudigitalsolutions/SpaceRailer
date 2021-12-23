@@ -4,6 +4,7 @@ print("I'm printed from a python file :) :) :)")
 playerThrusterID = 0
 firstMob = 0
 
+enemies = {}
 
 def initialize():
 	print("I'm initializing from within the python script for the stage!")
@@ -36,6 +37,15 @@ def initialize():
 	spacerailer.setMobParent(playerThrusterID, -2)
 	
 	spacerailer.setMobIsComponent(playerThrusterID, True)
+
+	temp = spacerailer.createMob("enemy1")
+	spacerailer.setMobX(temp, 512)
+	spacerailer.setMobY(temp, 80)
+	spacerailer.setMobWidth(temp, 128)
+	spacerailer.setMobHeight(temp, 128)
+	
+	enemies = {temp: {"name": "firstenemy"}}
+	print("did i crash?")
 	
 
 

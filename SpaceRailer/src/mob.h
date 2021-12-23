@@ -46,6 +46,9 @@ class Mob
 		bool loadSprites();
 		bool loadSprite(string spriteName);
 		
+		bool getIsStatic() { return _isStatic; }
+		bool setIsStatic(bool value) { _isStatic = value; }
+
 		bool getIsComponent() { return _isComponent; }
 		void setIsComponent(bool value) { _isComponent = value; }
 		
@@ -75,6 +78,7 @@ class Mob
 
 		list<MobComponent *> _components;
 		
+		bool _isStatic = false;
 		bool _isComponent = false;
 		Mob * _parent;
 };

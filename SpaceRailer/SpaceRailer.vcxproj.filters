@@ -83,5 +83,8 @@
     <ClInclude Include="src\stage_backdrop.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\stage_api.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
