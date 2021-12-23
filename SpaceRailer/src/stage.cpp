@@ -148,7 +148,7 @@ bool Stage::process()
 			
 			for(unsigned int emob = 0; emob < _mobs.size(); emob++)
 			{
-				if(!_mobs[emob]->getIsStationary())
+				if(_mobs[emob]->getIsStationary())
 				{
 					_mobs[emob]->setX(_mobs[emob]->getX() + getScrollPixelsPerInterval());
 				}
