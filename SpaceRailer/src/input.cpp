@@ -67,8 +67,6 @@ void ProgramInput::handleInputEvent(SDL_Event * Event)
 	if (Event->type == SDL_KEYDOWN
 		|| Event->type == SDL_KEYUP)
 	{
-		if (Event->type == SDL_KEYUP) { printf("keyup"); }
-
 		//	Keyboard events.  These should also be mapped for player control.
 		if(((SDL_KeyboardEvent *)Event)->keysym.sym == SDLK_a)
 		{	currentInputState.analogLeft = (((SDL_KeyboardEvent *)Event)->type == SDL_KEYDOWN ? 32767 : 0);	}

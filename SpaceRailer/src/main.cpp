@@ -203,7 +203,7 @@ bool init()
 		SDL_WINDOWPOS_UNDEFINED,
 		windowWidth,
 		windowHeight,
-		SDL_WINDOW_SHOWN
+		SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE
 	);
 	
 	if(Window == NULL)

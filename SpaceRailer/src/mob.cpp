@@ -50,16 +50,24 @@ bool Mob::process()
 		(*emc)->process();
 	}*/
 
-	unsigned int timesincelastupdate = gameTickCount - getLastUpdateTick();
-	
-	if(timesincelastupdate > 25)
+	if(getVelocityX() > 0)
 	{
-	
-		setX(getX() + ((getVelocityX() * timesincelastupdate) / 1000));
-		//setY(getY() + getVelocityY() / 1000 * timesincelastupdate);
+		unsigned int timesincelastupdate = gameTickCount - getLastUpdateTick();
 		
+		if(timesincelastupdate > 25)
+		{
+			double tdistance = getVelocityX() / 1000.0f;
+			tdistance = tdistance * timesincelastupdate;
+			
+			printf("Velocity %d distance %f\n", getVelocityX(), tdistance);
+			printf("X before update: %d\n", getX());
+			setX(getX() + tdistance);
+			//setX(getX() + ((getVelocityX() * timesincelastupdate) / 1000));
+			//setY(getY() + getVelocityY() / 1000 * timesincelastupdate);
+			
 
-		setLastUpdateTick(gameTickCount);
+			setLastUpdateTick(gameTickCount);
+		}
 	}
 	return true;
 }
@@ -171,7 +179,7 @@ bool Mob::createProjectile()
 	newProjectile->setY(getY() + (getHeight() / 2));
 	newProjectile->setHeight(16);
 	newProjectile->setWidth(16);
-	newProjectile->setVelocityX(50);
+	newProjectile->setVelocityX(240);
 	newProjectile->initialize("bullet1");
 	currentStage->addMob(newProjectile);
 	
