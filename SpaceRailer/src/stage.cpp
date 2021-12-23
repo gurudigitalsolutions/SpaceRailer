@@ -172,8 +172,12 @@ bool Stage::process()
 	// make it shoot something?
 	if (currentInputState.buttonFire) {
 		if (!previousInputState.buttonFire) {
-			//shoot!!!
-			cout << "shoot \n";
+			if(gameTickCount - _player.getLastShotTick() > _player.getShotCooldown_ms())
+			{
+				_player.setLastShotTick(gameTickCount);
+				_player.createProjectile();
+				cout << "shoot \n";
+			}
 		}
 	}
 	

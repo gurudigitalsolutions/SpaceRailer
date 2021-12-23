@@ -154,3 +154,16 @@ bool Mob::addComponent(
 	
 	return addComponent(tComponent);
 }
+
+bool Mob::createProjectile()
+{
+	Mob * newProjectile = new Mob();
+	newProjectile->setX(getX() + getWidth());
+	newProjectile->setY(getY() + (getHeight() / 2));
+	newProjectile->setHeight(16);
+	newProjectile->setWidth(16);
+	newProjectile->initialize("bullet1");
+	currentStage->addMob(newProjectile);
+	
+	return true;
+}

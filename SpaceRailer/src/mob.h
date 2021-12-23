@@ -55,10 +55,13 @@ class Mob
 		Mob * getParent() { return _parent; }
 		void setParent(Mob * value) { _parent = value; }
 		
-		int getShotCooldown_ms() {return _shotCooldown_ms;}
-		void setShotCooldown_ms(int value) { _shotCooldown_ms = value; }
+		unsigned int getShotCooldown_ms() {return _shotCooldown_ms;}
+		void setShotCooldown_ms(unsigned int value) { _shotCooldown_ms = value; }
 
-
+		unsigned int getLastShotTick() { return _lastShotTick; }
+		void setLastShotTick(unsigned int value) { _lastShotTick = value; }
+		
+		bool createProjectile();
 
 		//	Components are no longer used.  Leaving these here until we know
 		//	we have all the features converted over.
@@ -81,7 +84,8 @@ class Mob
 		short _accelerationMaxX = 40;
 		short _accelerationMaxY = 40;
 
-		int _shotCooldown_ms = 100;
+		unsigned int _shotCooldown_ms = 1000;
+		unsigned int _lastShotTick = 0;
 
 		list<MobComponent *> _components;
 		
