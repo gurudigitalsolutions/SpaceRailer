@@ -60,3 +60,8 @@ def stageScrollEvent():
 	spacerailer.setMobAngle(firstMob, spacerailer.getMobAngle(firstMob) + 3)
 	if spacerailer.getMobAngle(firstMob) > 360:
 		spacerailer.setMobAngle(firstMob, spacerailer.getMobAngle(firstMob) - 360)
+		
+
+def mobProcess():
+	#	Process stuff that mobs should do
+	print("I'm processing mobs")

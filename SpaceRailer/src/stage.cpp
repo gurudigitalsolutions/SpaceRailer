@@ -172,6 +172,7 @@ bool Stage::process()
 	_player.process();
 	
 	//	Process data for each mob
+	_callback_mobProcess();
 	for(auto esb : _mobs)
 	{
 		esb->process();
@@ -380,6 +381,15 @@ PyObject * Stage::_script_setStageScrollInterval(PyObject * self, PyObject * arg
 void Stage::_callback_stageScrollEvent()
 {
 	_scriptFunction = PyObject_GetAttrString(_scriptModule, "stageScrollEvent");
+	if(_scriptFunction && PyCallable_Check(_scriptFunction))
+	{
+		PyObject_CallObject(_scriptFunction, NULL);
+	}
+}
+
+void Stage::_callback_mobProcess()
+{
+	_scriptFunction = PyObject_GetAttrString(_scriptModule, "mobProcess");
 	if(_scriptFunction && PyCallable_Check(_scriptFunction))
 	{
 		PyObject_CallObject(_scriptFunction, NULL);
