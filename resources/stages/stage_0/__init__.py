@@ -15,14 +15,7 @@ def initialize():
 	spacerailer.setStageScrollPixelsPerInterval(6)
 	spacerailer.setStageScrollInterval(50)
 	
-	#	Create the thruster for the player
-	playerThrusterID = spacerailer.createMob("thruster0")
-	spacerailer.setMobX(playerThrusterID, 56)
-	spacerailer.setMobY(playerThrusterID, 80)
-	spacerailer.setMobWidth(playerThrusterID, 28)
-	spacerailer.setMobHeight(playerThrusterID, 28)
-	#spacerailer.setParent(playerThrusterID, -2)
-	#spacerailer.setIsComponent(playerThrusterID, True)
+	
 	
 	firstMob = spacerailer.createMob("thruster0")
 	
@@ -33,6 +26,14 @@ def initialize():
 	spacerailer.setMobHeight(firstMob, 128)
 	spacerailer.setMobAngle(firstMob, 90)
 	
+	#	Create the thruster for the player
+	playerThrusterID = spacerailer.createMob("thruster0")
+	spacerailer.setMobX(playerThrusterID, 56)
+	spacerailer.setMobY(playerThrusterID, 80)
+	spacerailer.setMobWidth(playerThrusterID, 28)
+	spacerailer.setMobHeight(playerThrusterID, 28)
+	spacerailer.setParent(playerThrusterID, -2)
+	#spacerailer.setIsComponent(playerThrusterID, True)
 	
 	
 
