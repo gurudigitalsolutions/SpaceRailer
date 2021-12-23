@@ -145,6 +145,14 @@ bool Stage::process()
 		else
 		{
 			_player.setX(_player.getX() + getScrollPixelsPerInterval());
+			
+			for(unsigned int emob = 0; emob < _mobs.size(); emob++)
+			{
+				if(!_mobs[emob]->getIsStationary())
+				{
+					_mobs[emob]->setX(_mobs[emob]->getX() + getScrollPixelsPerInterval());
+				}
+			}
 		}
 		
 		setMapX(newMapX);
