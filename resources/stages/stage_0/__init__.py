@@ -7,6 +7,8 @@ firstMob = 0
 enemies = {}
 
 def initialize():
+	global enemies
+	
 	print("I'm initializing from within the python script for the stage!")
 	print("Number of arguments: ",spacerailer.numargs())
 	print("x,y: ", spacerailer.getMapX(), spacerailer.getMapY())
@@ -16,8 +18,6 @@ def initialize():
 	
 	spacerailer.setStageScrollPixelsPerInterval(6)
 	spacerailer.setStageScrollInterval(50)
-	
-	
 	
 	firstMob = spacerailer.createMob("thruster0")
 	
@@ -45,7 +45,9 @@ def initialize():
 	spacerailer.setMobHeight(temp, 128)
 	spacerailer.setMobIsStationary(temp, True)
 	
+	
 	enemies = {temp: {"name": "firstenemy"}}
+	print(enemies)
 	print("did i crash?")
 	
 
@@ -64,4 +66,20 @@ def stageScrollEvent():
 
 def mobProcess():
 	#	Process stuff that mobs should do
-	print("I'm processing mobs")
+	tenemyid = findMobID("firstenemy")
+	
+	if tenemyid > -1:
+		print("Found enemy id", tenemyid)
+		spacerailer.setMobX(tenemyid, spacerailer.getMobX(tenemyid) + 1)
+	
+def findMobID(mobname):
+	global enemies
+	
+	print("Finding id for ", mobname)
+	print(enemies)
+	for key in enemies:
+		if enemies[key]["name"] == mobname:
+			return key
+			
+	print("enemy not found!")
+	return -1
