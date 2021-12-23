@@ -4,6 +4,7 @@ print("I'm printed from a python file :) :) :)")
 playerThrusterID = 0
 firstMob = 0
 
+
 def initialize():
 	print("I'm initializing from within the python script for the stage!")
 	print("Number of arguments: ",spacerailer.numargs())
@@ -32,9 +33,9 @@ def initialize():
 	spacerailer.setMobY(playerThrusterID, 80)
 	spacerailer.setMobWidth(playerThrusterID, 28)
 	spacerailer.setMobHeight(playerThrusterID, 28)
-	spacerailer.setParent(playerThrusterID, -2)
-	#spacerailer.setIsComponent(playerThrusterID, True)
+	spacerailer.setMobParent(playerThrusterID, -2)
 	
+	spacerailer.setMobIsComponent(playerThrusterID, True)
 	
 
 

@@ -81,7 +81,15 @@ bool Stage::initialize()
 	
 	// TODO	Check if the proper resources are available
 	//	Start with the graphics directory
-
+	_player.setWidth(128);
+	_player.setHeight(128);
+	//_player.setX(30);
+	//_player.setY(30);
+	
+	if (!_player.initialize())
+	{
+		cout << "player is already dead, failed to initialize\n";
+	}
 	
 	//	Attempt to launch the scripting engine for this stage
 	if(!_initializeScripting())
@@ -96,15 +104,7 @@ bool Stage::initialize()
 		PyObject_CallObject(_scriptFunction, NULL);
 	}
 
-	_player.setWidth(128);
-	_player.setHeight(128);
-	//_player.setX(30);
-	//_player.setY(30);
 	
-	if (!_player.initialize())
-	{
-		cout << "player is already dead, failed to initialize\n";
-	}
 	
 	//_player.addComponent("thruster0", 0, 64, 55, 55);
 	//_player.addComponent("thruster0", 0, 64, 25, 25, COMPONENT_ATTACH_LOOSE, 40, 40);
@@ -520,10 +520,20 @@ PyObject * Stage::_script_getMobParent(PyObject * self, PyObject * args)
 
 PyObject * Stage::_script_setMobParent(PyObject * self, PyObject * args)
 {
+	printf("setting mob parent\n");
+	
 	int mobid;
 	int newvalue;
 	
 	if(!PyArg_ParseTuple(args, "ii", &mobid, &newvalue)) { return NULL; }
+	
+	if(newvalue == -2)
+	{
+		printf("Assigning player as mob %d parent.\n", mobid);
+		_mobs[mobid]->setParent((Mob *)&_player);
+		Py_RETURN_TRUE;
+	}
+	
 	_mobs[mobid]->setParent(_mobs[newvalue]);
 	
 	Py_RETURN_TRUE;
@@ -542,8 +552,12 @@ PyObject * Stage::_script_setMobIsComponent(PyObject * self, PyObject * args)
 	int mobid;
 	int newvalue;
 	
-	if(!PyArg_ParseTuple(args, "ip", &mobid, &newvalue)) { return NULL; }
+	printf("c setting mob component\n");
+	
+	if(!PyArg_ParseTuple(args, "ii", &mobid, &newvalue)) { return NULL; }
 	_mobs[mobid]->setIsComponent((newvalue == 1 ? true : false));
+	
+	printf("setMobIsComponent: %d\n", newvalue);
 	
 	Py_RETURN_TRUE;
 }
