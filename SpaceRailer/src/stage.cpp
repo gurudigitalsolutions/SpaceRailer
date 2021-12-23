@@ -168,6 +168,14 @@ bool Stage::process()
 	if(currentInputState.analogLeft > 16384) { _player.setX(_player.getX() - 3); }
 	if(currentInputState.analogUp > 16384) { _player.setY(_player.getY() - 3); }
 	if(currentInputState.analogDown > 16384) { _player.setY(_player.getY() + 3); }
+
+	// make it shoot something?
+	if (currentInputState.buttonFire) {
+		if (!previousInputState.buttonFire) {
+			//shoot!!!
+			cout << "shoot \n";
+		}
+	}
 	
 	_player.process();
 	

@@ -55,6 +55,11 @@ class Mob
 		Mob * getParent() { return _parent; }
 		void setParent(Mob * value) { _parent = value; }
 		
+		int getShotCooldown_ms() {return _shotCooldown_ms;}
+		void setShotCooldown_ms(int value) { _shotCooldown_ms = value; }
+
+
+
 		//	Components are no longer used.  Leaving these here until we know
 		//	we have all the features converted over.
 		bool addComponent(MobComponent * nComponent);
@@ -75,6 +80,8 @@ class Mob
 		short _accelerationY = 0;
 		short _accelerationMaxX = 40;
 		short _accelerationMaxY = 40;
+
+		int _shotCooldown_ms = 100;
 
 		list<MobComponent *> _components;
 		
