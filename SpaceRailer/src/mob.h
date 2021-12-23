@@ -29,6 +29,12 @@ class Mob
 		void setWidth(int value) { _width = value; }
 		void setHeight(int value) { _height = value; }
 		
+		int getVelocityX() { return _velocityX; }
+		int getVelocityY() { return _velocityY; }
+		
+		void setVelocityX(int value) { _velocityX = value; }
+		void setVelocityY(int value) { _velocityY = value; }
+		
 		double getRenderAngle() { return _renderAngle; }
 		void setRenderAngle(double value) { _renderAngle = value; }
 		
@@ -61,6 +67,9 @@ class Mob
 		unsigned int getLastShotTick() { return _lastShotTick; }
 		void setLastShotTick(unsigned int value) { _lastShotTick = value; }
 		
+		unsigned int getLastUpdateTick() { return _lastUpdateTick; }
+		void setLastUpdateTick(unsigned int value) { _lastUpdateTick = value; }
+		
 		bool createProjectile();
 
 		//	Components are no longer used.  Leaving these here until we know
@@ -83,7 +92,11 @@ class Mob
 		short _accelerationY = 0;
 		short _accelerationMaxX = 40;
 		short _accelerationMaxY = 40;
+		
+		short _velocityX = 0;
+		short _velocityY = 0;
 
+		unsigned int _lastUpdateTick = 0;
 		unsigned int _shotCooldown_ms = 1000;
 		unsigned int _lastShotTick = 0;
 

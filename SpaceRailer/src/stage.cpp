@@ -158,6 +158,8 @@ bool Stage::process()
 		setMapX(newMapX);
 		
 		_callback_stageScrollEvent();
+		
+		
 	}
 	
 	//	Check if the player is trying to move around.

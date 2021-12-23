@@ -29,6 +29,7 @@ extern short windowWidth;
 extern short windowHeight;
 
 extern Stage * currentStage;
+extern unsigned int gameTickCount;
 
 
 using namespace std;
@@ -49,9 +50,17 @@ bool Mob::process()
 		(*emc)->process();
 	}*/
 
-
+	unsigned int timesincelastupdate = gameTickCount - getLastUpdateTick();
 	
+	if(timesincelastupdate > 25)
+	{
+	
+		setX(getX() + ((getVelocityX() * timesincelastupdate) / 1000));
+		//setY(getY() + getVelocityY() / 1000 * timesincelastupdate);
+		
 
+		setLastUpdateTick(gameTickCount);
+	}
 	return true;
 }
 
@@ -162,6 +171,7 @@ bool Mob::createProjectile()
 	newProjectile->setY(getY() + (getHeight() / 2));
 	newProjectile->setHeight(16);
 	newProjectile->setWidth(16);
+	newProjectile->setVelocityX(50);
 	newProjectile->initialize("bullet1");
 	currentStage->addMob(newProjectile);
 	
