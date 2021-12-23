@@ -323,11 +323,13 @@ PyObject * Stage::processAPI(PyObject * self, PyObject * args, string method)
 	if(method == "setMobHeight") { return _script_setMobHeight(self, args); }
 	if(method == "getMobAngle") { return _script_getMobAngle(self, args); }
 	if(method == "setMobAngle") { return _script_setMobAngle(self, args); }
-	if(method == "getMobIsComponent") { return _script_getMobIsComponent(self, args); }
-	if(method == "setMobIsComponent") { return _script_setMobIsComponent(self, args); }
+	if (method == "getMobIsComponent") { return _script_getMobIsComponent(self, args); }
+	if (method == "setMobIsComponent") { return _script_setMobIsComponent(self, args); }
 	if(method == "getMobParent") { return _script_getMobParent(self, args); }
 	if(method == "setMobParent") { return _script_setMobParent(self, args); }
-	
+	if (method == "getMobIsStationary") { return _script_getMobIsStationary(self, args); }
+	if (method == "setMobIsStationary") { return _script_setMobIsStationary(self, args); }
+
 	return NULL;
 }
 
@@ -561,3 +563,28 @@ PyObject * Stage::_script_setMobIsComponent(PyObject * self, PyObject * args)
 	
 	Py_RETURN_TRUE;
 }
+
+PyObject* Stage::_script_getMobIsStationary(PyObject* self, PyObject* args)
+{
+	int mobid;
+	if (!PyArg_ParseTuple(args, "i", &mobid)) { return NULL; }
+
+	return (_mobs[mobid]->getIsStationary() ? Py_True : Py_False);
+}
+
+PyObject* Stage::_script_setMobIsStationary(PyObject* self, PyObject* args)
+{
+	int mobid;
+	int newvalue;
+
+	printf("c setting mob stationary\n");
+
+	if (!PyArg_ParseTuple(args, "ii", &mobid, &newvalue)) { return NULL; }
+	_mobs[mobid]->setIsStationary((newvalue == 1 ? true : false));
+
+	printf("setMobIsStationary: %d\n", newvalue);
+
+	Py_RETURN_TRUE;
+}
+
+

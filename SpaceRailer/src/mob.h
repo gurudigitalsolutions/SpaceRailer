@@ -47,7 +47,7 @@ class Mob
 		bool loadSprite(string spriteName);
 		
 		bool getIsStationary() { return _isStationary; }
-		bool setIsStationary(bool value) { _isStationary = value; }
+		void setIsStationary(bool value) { _isStationary = value; }
 
 		bool getIsComponent() { return _isComponent; }
 		void setIsComponent(bool value) { _isComponent = value; }

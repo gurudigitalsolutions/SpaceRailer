@@ -43,6 +43,7 @@ def initialize():
 	spacerailer.setMobY(temp, 80)
 	spacerailer.setMobWidth(temp, 128)
 	spacerailer.setMobHeight(temp, 128)
+	spacerailer.setMobIsStationary(temp, True)
 	
 	enemies = {temp: {"name": "firstenemy"}}
 	print("did i crash?")

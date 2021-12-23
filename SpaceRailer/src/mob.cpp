@@ -48,6 +48,7 @@ bool Mob::process()
 		(*emc)->setParentY(getY());
 		(*emc)->process();
 	}*/
+
 	if (!getIsStationary()) 
 	{
 		if (getX() > currentStage->getMapX() + windowWidth - getWidth()) { setX(currentStage->getMapX() + windowWidth - getWidth()); }
