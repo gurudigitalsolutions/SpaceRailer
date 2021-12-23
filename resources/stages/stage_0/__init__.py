@@ -69,17 +69,30 @@ def mobProcess():
 	tenemyid = findMobID("firstenemy")
 	
 	if tenemyid > -1:
-		print("Found enemy id", tenemyid)
-		spacerailer.setMobX(tenemyid, spacerailer.getMobX(tenemyid) + 1)
+		
+		tx = spacerailer.getMobX(tenemyid)
+		print("1")
+		ty = spacerailer.getMobY(tenemyid)
+		print("2")
+		px = spacerailer.getPlayerX()
+		print("3")
+		py = spacerailer.getPlayerY()
+		print("Yeah updating enemy")
+		if py > ty:
+			ty = ty + 1
+			
+		if py < ty:
+			ty = ty - 1
+		
+		print("Setting mob y")
+		spacerailer.setMobY(tenemyid, ty)
 	
 def findMobID(mobname):
 	global enemies
 	
-	print("Finding id for ", mobname)
-	print(enemies)
+	
 	for key in enemies:
 		if enemies[key]["name"] == mobname:
 			return key
 			
-	print("enemy not found!")
 	return -1
