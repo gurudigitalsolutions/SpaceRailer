@@ -416,7 +416,7 @@ PyObject * Stage::_script_createMob(PyObject * self, PyObject * args)
 
 PyObject * Stage::_script_getMobX(PyObject * self, PyObject * args)
 {
-	printf("Getting mobx");
+	//printf("Getting mobx");
 	int mobid;
 	if(!PyArg_ParseTuple(args, "i", &mobid)) { return NULL; }
 	
