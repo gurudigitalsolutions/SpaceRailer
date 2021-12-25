@@ -59,9 +59,9 @@ bool Mob::process()
 			double tdistance = getVelocityX() / 1000.0f;
 			tdistance = tdistance * timesincelastupdate;
 			
-			printf("Velocity %d distance %f\n", getVelocityX(), tdistance);
-			printf("X before update: %d\n", getX());
-			setX(getX() + tdistance);
+			//printf("Velocity %d distance %f\n", getVelocityX(), tdistance);
+			//printf("X before update: %d\n", getX());
+			setX(getX() + ceil(tdistance));
 			//setX(getX() + ((getVelocityX() * timesincelastupdate) / 1000));
 			//setY(getY() + getVelocityY() / 1000 * timesincelastupdate);
 			
@@ -179,9 +179,12 @@ bool Mob::createProjectile()
 	newProjectile->setY(getY() + (getHeight() / 2));
 	newProjectile->setHeight(16);
 	newProjectile->setWidth(16);
-	newProjectile->setVelocityX(240);
+	newProjectile->setVelocityX(200);
 	newProjectile->initialize("bullet1");
+	newProjectile->setLastUpdateTick(gameTickCount);
 	currentStage->addMob(newProjectile);
+	
+	
 	
 	return true;
 }

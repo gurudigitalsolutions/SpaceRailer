@@ -16,7 +16,7 @@ def initialize():
 	spacerailer.setPlayerX(50)
 	spacerailer.setPlayerY(256)
 	
-	spacerailer.setStageScrollPixelsPerInterval(6)
+	spacerailer.setStageScrollPixelsPerInterval(3)
 	spacerailer.setStageScrollInterval(50)
 	
 	firstMob = spacerailer.createMob("thruster0")
