@@ -9,6 +9,7 @@ extern Stage * currentStage;
 
 bool Player::initialize()
 {
+	printf("In player initilize\n");
 	return Mob::initialize("playership");
 }
 

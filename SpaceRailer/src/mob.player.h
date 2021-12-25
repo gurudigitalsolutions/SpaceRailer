@@ -4,6 +4,6 @@ class Player : public Mob {
 private:
 
 public:
-	bool initialize();
-	bool process();
+	bool initialize() override;
+	bool process() override;
 };

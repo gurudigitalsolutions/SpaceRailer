@@ -38,18 +38,17 @@ using namespace std;
 //	scripting.
 bool Mob::process()
 {
-	//setX(getX() + 1);
-	//setY(getY() - 1);
-	
-	//	Do all processing for this mob's components
-	//	PROBABLY DELETE THIS!!!!11!!
-	/*for(list<MobComponent *>::iterator emc = _components.begin(); emc != _components.end(); emc++)
+	if(!_processVelocity())
 	{
-		(*emc)->setParentX(getX());
-		(*emc)->setParentY(getY());
-		(*emc)->process();
-	}*/
+		//	Velocity processing failed
+	}
+	
+	return true;
+}
 
+//	Process velocity/movement for this mob.
+bool Mob::_processVelocity()
+{
 	if(getVelocityX() > 0)
 	{
 		unsigned int timesincelastupdate = gameTickCount - getLastUpdateTick();
@@ -63,6 +62,7 @@ bool Mob::process()
 			setLastUpdateTick(gameTickCount);
 		}
 	}
+	
 	return true;
 }
 
@@ -95,7 +95,7 @@ bool Mob::render() {
 bool Mob::initialize(string mobname) {
 	printf("MobName (Mob::initialize): %s\n", mobname.c_str());
 	this->mobName = mobname;
-	return initialize();
+	return Mob::initialize();
 }
 
 bool Mob::initialize()
@@ -168,7 +168,7 @@ bool Mob::addComponent(
 
 bool Mob::createProjectile()
 {
-	Mob * newProjectile = new Mob();
+	Projectile * newProjectile = new Projectile();
 	newProjectile->setX(getX() + getWidth());
 	newProjectile->setY(getY() + (getHeight() / 2));
 	newProjectile->setHeight(16);
@@ -176,6 +176,9 @@ bool Mob::createProjectile()
 	newProjectile->setVelocityX(200);
 	newProjectile->initialize("bullet1");
 	newProjectile->setLastUpdateTick(gameTickCount);
+	newProjectile->setIsProjectile(true);
+	newProjectile->setTracer(5);
+	newProjectile->setParent(this);
 	currentStage->addMob(newProjectile);
 	
 	

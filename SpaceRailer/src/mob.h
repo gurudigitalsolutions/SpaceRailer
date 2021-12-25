@@ -43,11 +43,10 @@ class Mob
 		bool isFriendly;
 		string mobName;
 
-		bool process();
-
-		bool render();
-		bool initialize(string mobName);
-		bool initialize();
+		virtual bool process();
+		virtual bool render();
+		virtual bool initialize(string mobName);
+		virtual bool initialize();
 
 		bool loadSprites();
 		bool loadSprite(string spriteName);
@@ -57,6 +56,9 @@ class Mob
 
 		bool getIsComponent() { return _isComponent; }
 		void setIsComponent(bool value) { _isComponent = value; }
+		
+		bool getIsProjectile() { return _isProjectile; }
+		void setIsProjectile(bool value) { _isProjectile = value; }
 		
 		Mob * getParent() { return _parent; }
 		void setParent(Mob * value) { _parent = value; }
@@ -79,6 +81,8 @@ class Mob
 		bool addComponent(string component, int offsetX, int offsety, int width, int height, componentAttachMode attachmode, unsigned char maxdistancex, unsigned char maxdistancey);
 	
 	private:
+		
+		
 		unsigned int _hitPoints = 100;
 		unsigned int _magicPoints = 0;
 		int _coordX = 0;
@@ -104,5 +108,11 @@ class Mob
 		
 		bool _isStationary = false;
 		bool _isComponent = false;
+		bool _isProjectile = false;
+		
+		
+	protected:
+		bool _processVelocity();
+		
 		Mob * _parent;
 };

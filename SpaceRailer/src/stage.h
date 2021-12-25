@@ -4,7 +4,8 @@
 #include <vector>
 #include <Python.h>
 //#include "mob.h"
-#include "player.h"
+#include "mob.player.h"
+#include "mob.projectile.h"
 
 
 extern Config config;
