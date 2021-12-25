@@ -49,7 +49,8 @@ Stage * Stage::load(unsigned char stageid)
 {
 	cout << "Game data path: '" << Path_Tools::getGameDataPath() << "'\n";
 
-	string stageDir = config.getStageDir() + "stage_" + to_string(stageid) + "/";
+	//string stageDir = config.getStageDir() + "stage_" + to_string(stageid) + "/";
+	string stageDir = Path_Tools::getStageDataPath("stage_" + to_string(stageid)) + "/";
 	cout << "Loading stage: " << stageDir << "\n";
 	
 	
@@ -286,7 +287,7 @@ bool Stage::_initializeScripting()
 	FILE * fh = fopen((_stageDirectory + "__init__.py").c_str(), "r");
 	if(fh == NULL)
 	{
-		cout << "stage.py missing for this stage.\n";
+		cout << "__init__.py missing for this stage.\n";
 		return false;
 	}
 	fclose(fh);

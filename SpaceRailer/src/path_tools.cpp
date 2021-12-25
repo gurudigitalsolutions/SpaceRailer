@@ -28,7 +28,15 @@ string Path_Tools::getGameDataPath() {
 	return _gameDataPath;
 }
 
+string Path_Tools::getStageDataPath(string stagename) {
+	return Path_Tools::getStageDataPath() + "/" + stagename;
+}
 
+string Path_Tools::getStageDataPath() {
+	return Path_Tools::getGameDataPath() + "resources/stages";
+	
+	
+}
 
 // Gets the array of paths to check for game's data
 // Returns OS specific array of paths to check
