@@ -71,20 +71,29 @@ def mobProcess():
 	if tenemyid > -1:
 		
 		tx = spacerailer.getMobX(tenemyid)
-		#print("1")
 		ty = spacerailer.getMobY(tenemyid)
-		#print("2")
 		px = spacerailer.getPlayerX()
-		#print("3")
 		py = spacerailer.getPlayerY()
-		#print("Yeah updating enemy")
+		pw = spacerailer.getPlayerWidth()
+		
+
 		if py > ty:
 			ty = ty + 1
 			
 		if py < ty:
 			ty = ty - 1
+			
+		if tx - (px + pw) < 100:
+			tx = tx + 1
+			
+		if tx - (px + pw) > 100:
+			tx = tx - 1
+			
+		if tx < 250:
+			tx = tx + 1
 		
 		#print("Setting mob y")
+		spacerailer.setMobX(tenemyid, tx)
 		spacerailer.setMobY(tenemyid, ty)
 	
 def findMobID(mobname):

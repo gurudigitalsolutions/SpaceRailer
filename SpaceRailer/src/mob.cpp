@@ -58,14 +58,8 @@ bool Mob::process()
 		{
 			double tdistance = getVelocityX() / 1000.0f;
 			tdistance = tdistance * timesincelastupdate;
-			
-			//printf("Velocity %d distance %f\n", getVelocityX(), tdistance);
-			//printf("X before update: %d\n", getX());
 			setX(getX() + ceil(tdistance));
-			//setX(getX() + ((getVelocityX() * timesincelastupdate) / 1000));
-			//setY(getY() + getVelocityY() / 1000 * timesincelastupdate);
 			
-
 			setLastUpdateTick(gameTickCount);
 		}
 	}
