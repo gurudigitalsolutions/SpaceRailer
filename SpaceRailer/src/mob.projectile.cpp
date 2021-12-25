@@ -57,6 +57,7 @@ bool Projectile::render()
 		}
 		
 		SDL_SetTextureAlphaMod(sprites.front(), 255 / (ep + 1));
+		SDL_SetTextureColorMod(sprites.front(), 255 , 255 / (ep + 1), 255 / (ep + 1));
 	
 		SDL_RenderCopyEx(
 			getSDLRenderer(), 
@@ -70,6 +71,7 @@ bool Projectile::render()
 	}
 	
 	SDL_SetTextureAlphaMod(sprites.front(), 255);
+	SDL_SetTextureColorMod(sprites.front(), 255, 255, 255);
 	
 	
 	return true;
