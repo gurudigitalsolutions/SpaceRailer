@@ -55,6 +55,8 @@ bool Projectile::render()
 			box.x = _parent->getX() + getX() - (ep * (getWidth() / 2)) - currentStage->getMapX();
 			box.y = _parent->getY() + getY() - currentStage->getMapY();
 		}
+		
+		SDL_SetTextureAlphaMod(sprites.front(), 255 / (ep + 1));
 	
 		SDL_RenderCopyEx(
 			getSDLRenderer(), 
@@ -67,7 +69,7 @@ bool Projectile::render()
 		);
 	}
 	
-	
+	SDL_SetTextureAlphaMod(sprites.front(), 255);
 	
 	
 	return true;
