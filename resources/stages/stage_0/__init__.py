@@ -1,4 +1,5 @@
 import spacerailer
+import mob
 import enemy1
 import os
 
@@ -126,7 +127,7 @@ def mobDestroyed(mobid):
 		print("spawning jamal")
 		temp = spacerailer.createMob("enemy1")
 		spacerailer.setMobX(temp, spacerailer.getPlayerX() + 1000)
-		spacerailer.setMobY(temp, 1500)
+		spacerailer.setMobY(temp, 1000)
 		spacerailer.setMobWidth(temp, 128)
 		spacerailer.setMobHeight(temp, 128)
 		spacerailer.setMobIsStationary(temp, True)
