@@ -72,6 +72,7 @@ class Mob
 		unsigned int getLastUpdateTick() { return _lastUpdateTick; }
 		void setLastUpdateTick(unsigned int value) { _lastUpdateTick = value; }
 		
+		bool checkCollision(int x, int y, int width, int height);
 		bool createProjectile();
 
 		//	Components are no longer used.  Leaving these here until we know

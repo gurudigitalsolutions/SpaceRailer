@@ -49,7 +49,7 @@ bool Mob::process()
 //	Process velocity/movement for this mob.
 bool Mob::_processVelocity()
 {
-	if(getVelocityX() > 0)
+	if(abs(getVelocityX()) > 0)
 	{
 		unsigned int timesincelastupdate = gameTickCount - getLastUpdateTick();
 		
@@ -58,6 +58,20 @@ bool Mob::_processVelocity()
 			double tdistance = getVelocityX() / 1000.0f;
 			tdistance = tdistance * timesincelastupdate;
 			setX(getX() + ceil(tdistance));
+			
+			setLastUpdateTick(gameTickCount);
+		}
+	}
+	
+	if(abs(getVelocityY()) > 0)
+	{
+		unsigned int timesincelastupdate = gameTickCount - getLastUpdateTick();
+		
+		if(timesincelastupdate > 25)
+		{
+			double tdistance = getVelocityY() / 1000.0f;
+			tdistance = tdistance * timesincelastupdate;
+			setX(getY() + ceil(tdistance));
 			
 			setLastUpdateTick(gameTickCount);
 		}
@@ -166,6 +180,16 @@ bool Mob::addComponent(
 	return addComponent(tComponent);
 }
 
+bool Mob::checkCollision(int x, int y, int width, int height)
+{
+	if(getY() + getHeight() < y) { return false; }
+	if(getY() > y + height) { return false; }
+	if(getX() + getWidth() < x) { return false; }
+	if(getX() > x + width) { return false; }
+	
+	return true;
+}
+
 bool Mob::createProjectile()
 {
 	Projectile * newProjectile = new Projectile();
@@ -173,7 +197,11 @@ bool Mob::createProjectile()
 	newProjectile->setY(getY() + (getHeight() / 2));
 	newProjectile->setHeight(16);
 	newProjectile->setWidth(16);
-	newProjectile->setVelocityX(200);
+	
+	newProjectile->setVelocityX(750);
+	newProjectile->setVelocityY(10 - rand() % 20);
+	newProjectile->setShotCooldown_ms(500);
+	
 	newProjectile->initialize("bullet1");
 	newProjectile->setLastUpdateTick(gameTickCount);
 	newProjectile->setIsProjectile(true);

@@ -193,6 +193,40 @@ bool Stage::process()
 		esb->process();
 	}
 	
+	//	Check for collisions
+	for(int emob = -1; emob < (int)_mobs.size(); emob++)
+	{
+		//	Get a pointer to the mob we are checking
+		Mob * tmob;
+		Mob * inmob;
+		
+		if(emob == -1) { tmob = (Mob *)&_player; }
+		else { tmob = _mobs[emob]; }
+		
+		if(tmob != nullptr)
+		{
+			//	Loop through each other mob in the list and check if this mob
+			//	has collided with the sub-mob
+			for(int ecol = emob + 1; ecol < (int)_mobs.size(); ecol++)
+			{
+				inmob = _mobs[ecol];
+				if(inmob != nullptr)
+				{
+					if(_mobs[ecol]->checkCollision(
+						tmob->getX(),
+						tmob->getY(),
+						tmob->getWidth(),
+						tmob->getHeight()
+					))
+					{
+						//	The outer mob has collided with the inner mob.
+						printf("Collision detected!!!!\n");
+					}
+				}
+			}
+		}
+	}
+	
 	return true;
 }
 

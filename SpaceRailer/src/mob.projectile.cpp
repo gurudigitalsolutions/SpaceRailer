@@ -47,7 +47,7 @@ bool Projectile::render()
 	{
 		if(!getIsComponent())
 		{
-			box.x = getX() - (ep * (getWidth() / 2)) - currentStage->getMapX();
+			box.x = getX() - (ep * 2) - currentStage->getMapX();
 			box.y = getY() - currentStage->getMapY();
 		}
 		else
@@ -71,7 +71,7 @@ bool Projectile::render()
 			SDL_FLIP_NONE
 		);
 		
-		if(cAlpha >= 25) { cAlpha -= 25; }
+		if(cAlpha >= 50) { cAlpha -= 50; }
 	}
 	
 	SDL_SetTextureAlphaMod(sprites.front(), 255);
