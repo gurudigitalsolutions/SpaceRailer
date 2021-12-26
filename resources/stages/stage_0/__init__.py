@@ -65,7 +65,12 @@ def stageScrollEvent():
 
 def mobProcess():
 	#	Process stuff that mobs should do
-	tenemyid = findMobID("firstenemy")
+	processEnemyType1("firstenemy")
+	processEnemyType1("james")
+	processEnemyType1("jamal")
+		
+def processEnemyType1(name):
+	tenemyid = findMobID(name)
 	
 	if tenemyid > -1:
 		
@@ -77,16 +82,20 @@ def mobProcess():
 		
 
 		if py > ty:
-			ty = ty + 1
+			if spacerailer.checkMobCollisionAt(tenemyid, tx, ty + 1) == -1:
+				ty = ty + 1
 			
 		if py < ty:
-			ty = ty - 1
+			if spacerailer.checkMobCollisionAt(tenemyid, tx, ty - 1) == -1:
+				ty = ty - 1
 			
 		if tx - (px + pw) < 100:
-			tx = tx + 1
+			if spacerailer.checkMobCollisionAt(tenemyid, tx + 1, ty) == -1:
+				tx = tx + 1
 			
 		if tx - (px + pw) > 100:
-			tx = tx - 1
+			if spacerailer.checkMobCollisionAt(tenemyid, tx - 1, ty) == -1:
+				tx = tx - 1
 			
 		if tx < 250:
 			tx = tx + 1
@@ -102,8 +111,28 @@ def mobDestroyed(mobid):
 	#	Check if it was the first enemy that was destroyed.  If so, then spawn
 	#	3 new ships in it's place
 	fenemyid = findMobID("firstenemy")
-	#if mobid == fenemyid:
-		#well eventually..  maybe...
+	if mobid == fenemyid:
+		print("spawning james and jamal")
+		temp = spacerailer.createMob("enemy1")
+		spacerailer.setMobX(temp, spacerailer.getPlayerX() + 1000)
+		spacerailer.setMobY(temp, -500)
+		spacerailer.setMobWidth(temp, 128)
+		spacerailer.setMobHeight(temp, 128)
+		spacerailer.setMobIsStationary(temp, True)
+		
+		print("adding james to enemy list")
+		enemies[temp] = {"name": "james"}
+		
+		print("spawning jamal")
+		temp = spacerailer.createMob("enemy1")
+		spacerailer.setMobX(temp, spacerailer.getPlayerX() + 1000)
+		spacerailer.setMobY(temp, 1500)
+		spacerailer.setMobWidth(temp, 128)
+		spacerailer.setMobHeight(temp, 128)
+		spacerailer.setMobIsStationary(temp, True)
+		
+		enemies[temp] = {"name": "jamal"}
+		print("james and jamal spawned")
 		
 	del enemies[mobid]
 	
