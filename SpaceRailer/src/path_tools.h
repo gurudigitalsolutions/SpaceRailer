@@ -24,4 +24,5 @@ public:
 	static string getGameDataPath();
 	static string getStageDataPath();
 	static string getStageDataPath(string stagename);
+	static string getMobsDataPath();
 };

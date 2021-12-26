@@ -37,6 +37,7 @@ static PyObject* script_getMobIsComponent(PyObject* self, PyObject* args) { retu
 static PyObject* script_setMobIsComponent(PyObject* self, PyObject* args) { return script_API(self, args, "setMobIsComponent"); }
 static PyObject* script_getMobIsStationary(PyObject* self, PyObject* args) { return script_API(self, args, "getMobIsStationary"); }
 static PyObject* script_setMobIsStationary(PyObject* self, PyObject* args) { return script_API(self, args, "setMobIsStationary"); }
+static PyObject * script_checkMobCollisionAt(PyObject * self, PyObject * args) { return script_API(self, args, "checkMobCollisionAt"); }
 
 static PyMethodDef pySpaceRailerMethods[] = {
 	{"numargs", script_NumArgs, METH_VARARGS, "Return the number of arguments received by the process."},
@@ -70,6 +71,7 @@ static PyMethodDef pySpaceRailerMethods[] = {
 	{"setMobIsComponent", script_setMobIsComponent, METH_VARARGS, "Set a mob's component status."},
 	{"getMobIsStationary", script_getMobIsStationary, METH_VARARGS, "Get a mob's stationary status."},
 	{"setMobIsStationary", script_setMobIsStationary, METH_VARARGS, "Set a mob's stationary status."},
+	{"checkMobCollisionAt", script_checkMobCollisionAt, METH_VARARGS, "Check if a mob will collide with another object at a given x,y."},
 	{NULL, NULL, 0, NULL}
 };
 

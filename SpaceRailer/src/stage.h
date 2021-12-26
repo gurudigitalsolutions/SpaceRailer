@@ -96,6 +96,7 @@ class Stage
 		PyObject* _script_setMobIsComponent(PyObject* self, PyObject* args);
 		PyObject* _script_getMobIsStationary(PyObject* self, PyObject* args);
 		PyObject* _script_setMobIsStationary(PyObject* self, PyObject* args);
+		PyObject * _script_checkMobCollisionAt(PyObject * self, PyObject * args);
 		void _callback_stageScrollEvent();
 		void _callback_mobProcess();
 		void _callback_mobDestroyed(int mobid);

@@ -38,6 +38,10 @@ string Path_Tools::getStageDataPath() {
 	
 }
 
+string Path_Tools::getMobsDataPath() {
+	return Path_Tools::getGameDataPath() + "resources/mobs";
+}
+
 // Gets the array of paths to check for game's data
 // Returns OS specific array of paths to check
 void Path_Tools::_getSystemDataPaths(string* dp1, string* dp2, string* dp3) {

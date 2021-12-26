@@ -348,8 +348,11 @@ bool Stage::_initializeScripting()
 	Py_Initialize();
 
 	PyRun_SimpleString("import sys");
-	string dpath = "sys.path.append(\"" + Path_Tools::getGameDataPath() + "resources/stages\")";
 	
+	string dpath = "sys.path.append(\"" + Path_Tools::getGameDataPath() + "resources/stages\")";
+	PyRun_SimpleString(dpath.c_str());
+	
+	dpath = "sys.path.append(\"" + Path_Tools::getMobsDataPath() + "\")";
 	PyRun_SimpleString(dpath.c_str());
 	
 	_scriptFilename = PyUnicode_DecodeFSDefault("stage_0");
@@ -364,6 +367,9 @@ bool Stage::_initializeScripting()
 	}
 	
 	//	Looks like the python module has been loaded!
+	_scriptFilename = PyUnicode_DecodeFSDefault("enemy1");
+	PyImport_Import(_scriptFilename);
+	Py_DECREF(_scriptFilename);
 	
 	return true;
 }

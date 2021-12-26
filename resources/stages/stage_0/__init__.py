@@ -1,10 +1,13 @@
 import spacerailer
-print("I'm printed from a python file :) :) :)")
+import enemy1
+import os
 
 playerThrusterID = 0
 firstMob = 0
 
 enemies = {}
+
+print("CWD: ", os.getcwd())
 
 def initialize():
 	global enemies
@@ -96,6 +99,12 @@ def mobProcess():
 def mobDestroyed(mobid):
 	global enemies
 	
+	#	Check if it was the first enemy that was destroyed.  If so, then spawn
+	#	3 new ships in it's place
+	fenemyid = findMobID("firstenemy")
+	#if mobid == fenemyid:
+		#well eventually..  maybe...
+		
 	del enemies[mobid]
 	
 	

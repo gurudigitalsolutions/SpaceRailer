@@ -77,6 +77,7 @@ PyObject* Stage::processAPI(PyObject* self, PyObject* args, string method)
 	if (method == "setMobParent") { return _script_setMobParent(self, args); }
 	if (method == "getMobIsStationary") { return _script_getMobIsStationary(self, args); }
 	if (method == "setMobIsStationary") { return _script_setMobIsStationary(self, args); }
+	if (method == "checkMobCollisionAt") { return _script_checkMobCollisionAt(self, args); }
 
 	return NULL;
 }
@@ -355,4 +356,48 @@ PyObject* Stage::_script_setMobIsStationary(PyObject* self, PyObject* args)
 	printf("setMobIsStationary: %d\n", newvalue);
 
 	Py_RETURN_TRUE;
+}
+
+PyObject* Stage::_script_checkMobCollisionAt(PyObject* self, PyObject* args)
+{
+	int mobid;
+	int x;
+	int y;
+	
+	if (!PyArg_ParseTuple(args, "iii", &mobid, &x, &y)) { return NULL; }
+	
+	//	Basically just loop through all of the mobs, then check if a collision
+	//	occurs.
+	Mob * target;
+	
+	for(int emob = -1; emob < (int)_mobs.size(); emob++)
+	{
+		//	We don't need to check the testing mob
+		if(emob != mobid)
+		{
+			if(emob == -1) { target = (Mob *)&_player; }
+			else { target = _mobs[emob]; }
+			
+			if(target != nullptr)
+			{
+				if(target->checkCollision(
+					x,
+					y,
+					_mobs[mobid]->getWidth(),
+					_mobs[mobid]->getHeight()
+				))
+				{
+					//	The mob we are checking WOULD collide with the mob that
+					//	is testing.
+					
+					//	The player is the first mob.  This should return -2
+					if(emob == -1) { return PyLong_FromLong(-2); }
+					
+					return PyLong_FromLong(emob);
+				}
+			}
+		}
+	}
+
+	return PyLong_FromLong(-1);
 }
