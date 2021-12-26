@@ -188,12 +188,22 @@ bool Stage::process()
 	
 	//	Process data for each mob
 	_callback_mobProcess();
-	for(auto esb : _mobs)
+	for(int emob = 0; emob < (int)_mobs.size(); emob++)
 	{
-		esb->process();
+		_mobs[emob]->process();
+		
+		if(_mobs[emob]->getMarkForDestroy())
+		{
+			//	Whatever happened during this mob's processing has indicated
+			//	that the mob should be destroyed.
+			//	I'm really not sure if this is proper
+			_mobs[emob] = new Mob();
+		}
 	}
 	
-	//	Check for collisions
+	
+	//	Check for collisions.  First, look through ALL mobs, starting with
+	//	the player and continuing on with all others.
 	for(int emob = -1; emob < (int)_mobs.size(); emob++)
 	{
 		//	Get a pointer to the mob we are checking
@@ -220,7 +230,7 @@ bool Stage::process()
 					))
 					{
 						//	The outer mob has collided with the inner mob.
-						printf("Collision detected!!!!\n");
+						tmob->registerCollision(inmob);
 					}
 				}
 			}
@@ -292,10 +302,14 @@ bool Stage::render()
 	_player.render();
 	
 	//	Render mobs
-	for(auto esb : _mobs)
+	for(int emob = 0; emob < (int)_mobs.size(); emob++)
 	{
-		esb->render();
+		if(_mobs[emob] != nullptr)
+		{
+			_mobs[emob]->render();
+		}
 	}
+	
 	
 	//	TODO
 	//	Loop...

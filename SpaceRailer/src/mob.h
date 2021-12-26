@@ -2,6 +2,7 @@
 #include <string>
 #include "graphics.h"
 #include <list>
+#include <queue>
 
 #include "mob_componet.h"
 #include "path_tools.h"
@@ -60,6 +61,9 @@ class Mob
 		bool getIsProjectile() { return _isProjectile; }
 		void setIsProjectile(bool value) { _isProjectile = value; }
 		
+		bool getMarkForDestroy() { return _markForDestroy; }
+		void setMarkForDestroy(bool value) { _markForDestroy = value; }
+		
 		Mob * getParent() { return _parent; }
 		void setParent(Mob * value) { _parent = value; }
 		
@@ -74,6 +78,8 @@ class Mob
 		
 		bool checkCollision(int x, int y, int width, int height);
 		bool createProjectile();
+		
+		bool registerCollision(Mob * target);
 
 		//	Components are no longer used.  Leaving these here until we know
 		//	we have all the features converted over.
@@ -100,6 +106,8 @@ class Mob
 		
 		short _velocityX = 0;
 		short _velocityY = 0;
+		
+		bool _markForDestroy;
 
 		unsigned int _lastUpdateTick = 0;
 		unsigned int _shotCooldown_ms = 1000;
@@ -111,6 +119,7 @@ class Mob
 		bool _isComponent = false;
 		bool _isProjectile = false;
 		
+		queue<Mob *> _collisionQueue;
 		
 	protected:
 		bool _processVelocity();

@@ -34,10 +34,43 @@ extern unsigned int gameTickCount;
 
 using namespace std;
 
+
 //	Called each game tick to process mob stuff.  This includes physics and
 //	scripting.
 bool Mob::process()
 {
+	//	Check if there are any queued events before processing physics
+	//	for this mob.  This will start with registered collisions.
+	while(!_collisionQueue.empty())
+	{
+		Mob * target = _collisionQueue.front();
+		
+		//	Am I a projectile?
+		if(getIsProjectile())
+		{
+			//	Ok, deal projectile damage to the target
+			target->setMarkForDestroy(true);
+			
+			//	Honestly, until this is more advanced I should die too
+			//setMarkForDestroy(true);
+		}
+		
+		//	Is the target a projectile?
+		if(target->getIsProjectile())
+		{
+			//	I must take projectile damage
+			setMarkForDestroy(true);
+			
+			//	The projectile should also be disappeared
+			//target->setMarkForDestroy(true);
+		}
+		
+		_collisionQueue.pop();
+	}
+	
+	//	Check if I'm supposed to die after the collision detection.
+	if(getMarkForDestroy()) { return true; }
+	
 	if(!_processVelocity())
 	{
 		//	Velocity processing failed
@@ -187,6 +220,14 @@ bool Mob::checkCollision(int x, int y, int width, int height)
 	if(getX() + getWidth() < x) { return false; }
 	if(getX() > x + width) { return false; }
 	
+	return true;
+}
+
+//	Add a collision event to the collision queue.  This will be processed on
+//	the next process() call.
+bool Mob::registerCollision(Mob * target)
+{
+	_collisionQueue.push(target);
 	return true;
 }
 
