@@ -197,6 +197,7 @@ bool Stage::process()
 			//	Whatever happened during this mob's processing has indicated
 			//	that the mob should be destroyed.
 			//	I'm really not sure if this is proper
+			_callback_mobDestroyed(emob);
 			_mobs[emob] = new Mob();
 		}
 	}

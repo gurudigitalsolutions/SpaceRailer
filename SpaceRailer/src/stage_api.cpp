@@ -135,6 +135,18 @@ void Stage::_callback_mobProcess()
 	}
 }
 
+void Stage::_callback_mobDestroyed(int mobid)
+{
+	_scriptFunction = PyObject_GetAttrString(_scriptModule, "mobDestroyed");
+	if(_scriptFunction && PyCallable_Check(_scriptFunction))
+	{
+		PyObject * args;
+		args = Py_BuildValue("(i)", mobid);
+		PyObject_CallObject(_scriptFunction, args);
+		Py_DECREF(args);
+	}
+}
+
 PyObject* Stage::_script_createMob(PyObject* self, PyObject* args)
 {
 	char* pymobtype;

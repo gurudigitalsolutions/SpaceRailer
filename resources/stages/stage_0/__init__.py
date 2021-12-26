@@ -45,12 +45,8 @@ def initialize():
 	spacerailer.setMobHeight(temp, 128)
 	spacerailer.setMobIsStationary(temp, True)
 	
-	
 	enemies = {temp: {"name": "firstenemy"}}
-	print(enemies)
-	print("did i crash?")
 	
-
 
 
 def stageScrollEvent():
@@ -95,6 +91,13 @@ def mobProcess():
 		#print("Setting mob y")
 		spacerailer.setMobX(tenemyid, tx)
 		spacerailer.setMobY(tenemyid, ty)
+		
+
+def mobDestroyed(mobid):
+	global enemies
+	
+	del enemies[mobid]
+	
 	
 def findMobID(mobname):
 	global enemies
