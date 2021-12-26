@@ -41,6 +41,8 @@ bool Projectile::render()
 	box.w = getWidth();
 	box.h = getHeight();
 	
+	uint8_t cAlpha = 255;
+	
 	for(int ep = 0; ep < (getTracer() + 1); ep++)
 	{
 		if(!getIsComponent())
@@ -56,8 +58,8 @@ bool Projectile::render()
 			box.y = _parent->getY() + getY() - currentStage->getMapY();
 		}
 		
-		SDL_SetTextureAlphaMod(sprites.front(), 255 / (ep + 1));
-		SDL_SetTextureColorMod(sprites.front(), 255 , 255 / (ep + 1), 255 / (ep + 1));
+		SDL_SetTextureAlphaMod(sprites.front(), cAlpha);
+		SDL_SetTextureColorMod(sprites.front(), 0, cAlpha, 0);
 	
 		SDL_RenderCopyEx(
 			getSDLRenderer(), 
@@ -68,6 +70,8 @@ bool Projectile::render()
 			NULL, 
 			SDL_FLIP_NONE
 		);
+		
+		if(cAlpha >= 25) { cAlpha -= 25; }
 	}
 	
 	SDL_SetTextureAlphaMod(sprites.front(), 255);
