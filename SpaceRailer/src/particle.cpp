@@ -38,12 +38,18 @@ bool Particle::render()
 	box.x = ((int)getX() - currentStage->getMapX());
 	box.y = ((int)getY() - currentStage->getMapY());
 	
+	SDL_Rect clipBox;
+	clipBox.x = _textureX1;
+	clipBox.y = _textureY1;
+	clipBox.w = _textureX2 - _textureX1;
+	clipBox.h = _textureY2 - _textureY1;
+	
 	//printf("Rendering particle x,y %d, %d   %f, %f\n", box.x, box.y, getX(), getY());
 	//SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
 	SDL_RenderCopyEx(
 		getSDLRenderer(), 
 		_texture, 
-		NULL, 
+		NULL,				//	Clip box 
 		&box, 
 		0.0, 				//	Render angle
 		NULL, 

@@ -47,5 +47,5 @@ class ParticleEmitter
 		
 		SDL_Texture * _texture;
 		
-		bool _initializeParticle(Particle * particle);
+		bool _initializeParticle(Particle * particle, int particleno);
 };

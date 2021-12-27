@@ -28,7 +28,7 @@ bool ParticleEmitter::process()
 				//	may have been too long at this point and this should stop!
 				if(gameTickCount - getCreatedTick() < getLifeTickCount())
 				{
-					_initializeParticle(&_particles[epart]);
+					_initializeParticle(&_particles[epart], epart);
 				}
 				else
 				{
@@ -76,13 +76,13 @@ bool ParticleEmitter::initialize()
 	
 	for(int epart = 0; epart < ((int)sizeof(_particles) / (int)sizeof(_particles[0])); epart++)
 	{
-		_initializeParticle(&_particles[epart]);
+		_initializeParticle(&_particles[epart], epart);
 	}
 	
 	return true;
 }
 
-bool ParticleEmitter::_initializeParticle(Particle * particle)
+bool ParticleEmitter::_initializeParticle(Particle * particle, int particleno)
 {
 	particle->setTexture(_texture);
 	particle->setLastUpdateTick(gameTickCount);
@@ -95,6 +95,12 @@ bool ParticleEmitter::_initializeParticle(Particle * particle)
 	particle->setX((double)getX());
 	particle->setY((double)getY());
 	
+	particle->setTextureCoords(
+		50,
+		50,
+		250,
+		190
+	);
 	
 	particle->setActive(true);
 	
