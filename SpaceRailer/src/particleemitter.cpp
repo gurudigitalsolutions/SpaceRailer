@@ -95,11 +95,18 @@ bool ParticleEmitter::_initializeParticle(Particle * particle, int particleno)
 	particle->setX((double)getX());
 	particle->setY((double)getY());
 	
+	int texX, texY;
+	texX = particleno % 16;
+	texY = particleno / 16;
+	
+	SDL_Point texSize;
+	SDL_QueryTexture(_texture, NULL, NULL, &texSize.x, &texSize.y);
+	
 	particle->setTextureCoords(
-		50,
-		50,
-		250,
-		190
+		(texSize.x / 16) * texX,
+		(texSize.y / 16) * texY,
+		(texSize.x / 16) * texX + (texSize.x / 16),
+		(texSize.y / 16) * texY + (texSize.y / 16)
 	);
 	
 	particle->setActive(true);

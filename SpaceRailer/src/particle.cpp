@@ -49,7 +49,7 @@ bool Particle::render()
 	SDL_RenderCopyEx(
 		getSDLRenderer(), 
 		_texture, 
-		NULL,				//	Clip box 
+		&clipBox,				//	Clip box 
 		&box, 
 		0.0, 				//	Render angle
 		NULL, 
