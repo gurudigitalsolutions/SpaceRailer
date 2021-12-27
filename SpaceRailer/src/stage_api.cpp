@@ -17,8 +17,9 @@
 #include <dirent.h>
 #endif
 
-
-
+#include "graphics.h"
+#include "particle.h"
+#include "particleemitter.h"
 #include "config.h"
 #include "stage_backdrop.h"
 #include "stage.h"

@@ -81,11 +81,6 @@ class Mob
 		
 		bool registerCollision(Mob * target);
 
-		//	Components are no longer used.  Leaving these here until we know
-		//	we have all the features converted over.
-		bool addComponent(MobComponent * nComponent);
-		bool addComponent(string component, int offsetX, int offsety, int width, int height);
-		bool addComponent(string component, int offsetX, int offsety, int width, int height, componentAttachMode attachmode, unsigned char maxdistancex, unsigned char maxdistancey);
 	
 	private:
 		

@@ -17,8 +17,8 @@
 	#include <dirent.h>
 #endif
 
-
-
+#include "particle.h"
+#include "particleemitter.h"
 #include "config.h"
 #include "stage_backdrop.h"
 #include "stage.h"
@@ -124,6 +124,13 @@ bool Stage::initialize()
 	//nBackdrop->initialize("Eta_Carinae_Nebula", 1920, 1080);
 	nBackdrop->initialize("tiled-background-cave-1", 1200, 540);
 	_backdrops.push_back(nBackdrop);
+	
+	//	Test for particle engine
+	testEmitter.setX(900);
+	testEmitter.setY(200);
+	testEmitter.setTexture(_player.sprites.front());
+	testEmitter.initialize();
+
 	
 	return true;
 }
@@ -238,6 +245,8 @@ bool Stage::process()
 		}
 	}
 	
+	testEmitter.process();
+	
 	return true;
 }
 
@@ -312,13 +321,8 @@ bool Stage::render()
 	}
 	
 	
-	//	TODO
-	//	Loop...
-	//		EachMob.render()
-
-	//	Set draw color to green
-	//SDL_SetRenderDrawColor(getSDLRenderer(), 0x00, 0xff, 0x00, 0xff);
-	//SDL_RenderFillRect(getSDLRenderer(), &box);
+	testEmitter.render();
+	
 	SDL_RenderPresent(getSDLRenderer());
 	return true;
 }

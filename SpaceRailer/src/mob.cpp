@@ -20,6 +20,8 @@
 	#include <SDL2/SDL.h>
 #endif
 //#include <dirent.h>
+#include "particle.h"
+#include "particleemitter.h"
 #include "config.h"
 #include "stage_backdrop.h"
 #include "stage.h"
@@ -166,52 +168,7 @@ bool Mob::loadSprite(string spriteName)
 	return true;
 }
 
-//	Add a pre-defined component to this mob.
-bool Mob::addComponent(MobComponent * nComponent)
-{
-	_components.push_back(nComponent);
-	return true;
-}
 
-bool Mob::addComponent(string component, int offsetx, int offsety, int width, int height)
-{
-	MobComponent * tComponent = new MobComponent();
-	tComponent->setX(offsetx);
-	tComponent->setY(offsety);
-	tComponent->setWidth(width);
-	tComponent->setHeight(height);
-	
-	if(!tComponent->initialize(component, mobName))
-	{
-		cout << "Failed to load component: " + component + " " + mobName + "\n";
-		return false;
-	}
-	
-	return addComponent(tComponent);
-}
-
-bool Mob::addComponent(
-	string component, int offsetx, int offsety, int width, int height, 
-	componentAttachMode attachmode, unsigned char maxdistancex, unsigned char maxdistancey)
-{
-	MobComponent * tComponent = new MobComponent();
-	tComponent->setX(offsetx);
-	tComponent->setY(offsety);
-	tComponent->setWidth(width);
-	tComponent->setHeight(height);
-	
-	if(!tComponent->initialize(component, mobName))
-	{
-		cout << "Failed to load component: " + component + " " + mobName + "\n";
-		return false;
-	}
-	
-	tComponent->setAttachMode(attachmode);
-	tComponent->setAttachMaxDistanceX(maxdistancex);
-	tComponent->setAttachMaxDistanceY(maxdistancey);
-	
-	return addComponent(tComponent);
-}
 
 bool Mob::checkCollision(int x, int y, int width, int height)
 {

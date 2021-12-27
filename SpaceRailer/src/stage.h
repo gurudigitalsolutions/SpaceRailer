@@ -74,6 +74,8 @@ class Stage
 		
 		bool _initializeScripting();
 		
+		ParticleEmitter testEmitter;
+		
 		
 		PyObject * _script_setPlayerX(PyObject * self, PyObject * args);
 		PyObject * _script_setPlayerY(PyObject * self, PyObject * args);

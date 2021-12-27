@@ -1,3 +1,4 @@
+#include "graphics.h"
 
 using namespace std;
 
@@ -11,6 +12,11 @@ class Particle
 		float getZ() { return _z; }
 		void setZ(float value) { _z = value; }
 		
+		int getWidth() { return _width; }
+		int getHeight() { return _height; }
+		void setWidth(int value) { _width = value; }
+		void setHeight(int value) { _height = value; }
+		
 		float getVelocityX() { return _velocityX; }
 		float getVelocityY() { return _velocityY; }
 		float getVelocityZ() { return _velocityZ; }
@@ -21,13 +27,25 @@ class Particle
 		void setTexture(SDL_Texture * value) { _texture = value; }
 		void setTextureCoords(int x1, int x2, int y1, int y2);
 		
+		bool getActive() { return _active; }
+		void setActive(bool value) { _active = value; }
+		
+		unsigned int getLastUpdateTick() { return _lastUpdateTick; }
+		void setLastUpdateTick(unsigned int value) { _lastUpdateTick = value; }
+		
 		bool process();
 		bool render();
 	
 	private:
+		bool _active = false;
+		unsigned int _lastUpdateTick = 0;
+		
 		float _x = 0.0;
 		float _y = 0.0;
 		float _z = 0.0;
+		
+		int _width = 16;
+		int _height = 16;
 		
 		float _velocityX = 0.0;
 		float _velocityY = 0.0;
