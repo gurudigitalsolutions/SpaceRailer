@@ -11,7 +11,8 @@ OBJ = SpaceRailer/src/main.cpp \
 	SpaceRailer/src/graphics.cpp \
 	SpaceRailer/src/mob_component.cpp \
 	SpaceRailer/src/stage_backdrop.cpp \
-	SpaceRailer/src/stage_api.cpp
+	SpaceRailer/src/stage_api.cpp \
+	SpaceRailer/src/particleemitter.cpp
 
 #	Set any dependencies
 #DEPS = main.h
