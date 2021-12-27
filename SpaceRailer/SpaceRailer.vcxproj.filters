@@ -39,16 +39,22 @@
     <ClCompile Include="src\graphics.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\player.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\mob_component.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\stage_backdrop.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\stage_api.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mob.player.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mob.projectile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\particle.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\particleemitter.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,16 +83,22 @@
     <ClInclude Include="src\graphics.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\player.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\mob_componet.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\stage_backdrop.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\stage_api.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mob.player.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mob.projectile.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\particle.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\particleemitter.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

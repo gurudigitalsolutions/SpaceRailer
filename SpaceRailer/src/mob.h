@@ -4,7 +4,6 @@
 #include <list>
 #include <queue>
 
-#include "mob_componet.h"
 #include "path_tools.h"
 
 using namespace std;
@@ -108,7 +107,6 @@ class Mob
 		unsigned int _shotCooldown_ms = 1000;
 		unsigned int _lastShotTick = 0;
 
-		list<MobComponent *> _components;
 		
 		bool _isStationary = false;
 		bool _isComponent = false;
