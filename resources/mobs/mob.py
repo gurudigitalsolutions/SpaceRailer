@@ -4,6 +4,7 @@ print("I'm printing from inside the Mob.py module")
 
 class Mob:
 	ID = -1
+	mobType = ""
 	
 	def __init__(self):
 		pass
