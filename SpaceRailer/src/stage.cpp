@@ -245,7 +245,7 @@ bool Stage::process()
 		}
 	}
 	
-	testEmitter.process();
+	if(testEmitter.getActive()) { testEmitter.process(); }
 	
 	return true;
 }

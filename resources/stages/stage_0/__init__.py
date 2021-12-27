@@ -17,7 +17,7 @@ def initialize():
 	spacerailer.setPlayerX(50)
 	spacerailer.setPlayerY(256)
 	
-	spacerailer.setStageScrollPixelsPerInterval(0)
+	spacerailer.setStageScrollPixelsPerInterval(3)
 	spacerailer.setStageScrollInterval(50)
 	
 	

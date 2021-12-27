@@ -33,12 +33,20 @@ class Particle
 		unsigned int getLastUpdateTick() { return _lastUpdateTick; }
 		void setLastUpdateTick(unsigned int value) { _lastUpdateTick = value; }
 		
+		unsigned int getCreatedTick() { return _createdTick; }
+		void setCreatedTick(unsigned int value) { _createdTick = value; }
+		
+		unsigned int getLifeTickCount() { return _lifeTickCount; }
+		void setLifeTickCount(unsigned int value) { _lifeTickCount = value; }
+		
 		bool process();
 		bool render();
 	
 	private:
 		bool _active = false;
 		unsigned int _lastUpdateTick = 0;
+		unsigned int _createdTick = 0;
+		unsigned int _lifeTickCount = 500;
 		
 		float _x = 0.0;
 		float _y = 0.0;
