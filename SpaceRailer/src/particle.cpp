@@ -44,6 +44,11 @@ bool Particle::render()
 	clipBox.w = _textureX2 - _textureX1;
 	clipBox.h = _textureY2 - _textureY1;
 	
+	SDL_SetTextureAlphaMod(
+		_texture, 
+		128
+	);
+	
 	//printf("Rendering particle x,y %d, %d   %f, %f\n", box.x, box.y, getX(), getY());
 	//SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
 	SDL_RenderCopyEx(
@@ -55,6 +60,8 @@ bool Particle::render()
 		NULL, 
 		SDL_FLIP_NONE
 	);
+	
+	SDL_SetTextureAlphaMod(_texture, 255);
 	
 	return true;
 }
