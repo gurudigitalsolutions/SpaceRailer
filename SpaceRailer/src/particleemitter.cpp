@@ -87,10 +87,10 @@ bool ParticleEmitter::_initializeParticle(Particle * particle, int particleno)
 	particle->setTexture(_texture);
 	particle->setLastUpdateTick(gameTickCount);
 	particle->setCreatedTick(gameTickCount);
-	particle->setLifeTickCount(rand() % 1000);
+	particle->setLifeTickCount(1000);
 	
-	particle->setVelocityX(250 - (rand() % 500));
-	particle->setVelocityY(250 - (rand() % 500));
+	particle->setVelocityX(100 - (rand() % 200));
+	particle->setVelocityY(100 - (rand() % 200));
 	
 	
 	

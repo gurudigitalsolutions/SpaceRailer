@@ -70,12 +70,11 @@ class Stage
 		//	or something else.  
 		vector<Mob *> _mobs;
 		vector<StageBackdrop *> _backdrops;
+		vector<ParticleEmitter *> _emitters;
 		
 		float _plasma_effect(float x, float y, float time);
 		
 		bool _initializeScripting();
-		
-		ParticleEmitter testEmitter;
 		
 		
 		PyObject * _script_setPlayerX(PyObject * self, PyObject * args);

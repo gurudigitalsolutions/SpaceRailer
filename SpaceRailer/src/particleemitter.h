@@ -37,7 +37,7 @@ class ParticleEmitter
 	private:
 		unsigned int _lastUpdateTick = 0;
 		unsigned int _createdTick = 0;
-		unsigned int _lifeTickCount = 2500;
+		unsigned int _lifeTickCount = 10000;
 		
 		bool _active = true;
 		

@@ -44,9 +44,19 @@ bool Particle::render()
 	clipBox.w = _textureX2 - _textureX1;
 	clipBox.h = _textureY2 - _textureY1;
 	
+	unsigned int ticksAlive = gameTickCount - getCreatedTick();
+	double prctLife = ticksAlive / (getLifeTickCount() == 0 ? 1 : getLifeTickCount());
+	uint8_t alpha = 255;
+	
+	if(prctLife > .5) { alpha = 192; }
+	if(prctLife > .6) { alpha = 160; }
+	if(prctLife > .7) { alpha = 128; }
+	if(prctLife > .8) { alpha = 96; }
+	if(prctLife > .9) { alpha = 64; }
+	
 	SDL_SetTextureAlphaMod(
 		_texture, 
-		128
+		alpha
 	);
 	
 	//printf("Rendering particle x,y %d, %d   %f, %f\n", box.x, box.y, getX(), getY());

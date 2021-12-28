@@ -127,11 +127,12 @@ bool Stage::initialize()
 	_backdrops.push_back(nBackdrop);
 	
 	//	Test for particle engine
-	testEmitter.setX(900);
-	testEmitter.setY(200);
-	testEmitter.setTexture(_player.sprites.front());
-	testEmitter.initialize();
-
+	ParticleEmitter * testEmitter = new ParticleEmitter();
+	testEmitter->setX(900);
+	testEmitter->setY(200);
+	testEmitter->setTexture(_player.sprites.front());
+	testEmitter->initialize();
+	_emitters.push_back(testEmitter);
 	
 	return true;
 }
@@ -192,6 +193,13 @@ bool Stage::process()
 		}
 	}
 	
+	if(currentInputState.buttonPause) {
+		while(1)
+		{
+			sleep(1);
+		}
+	}
+	
 	_player.process();
 	
 	//	Process data for each mob
@@ -205,6 +213,13 @@ bool Stage::process()
 			//	Whatever happened during this mob's processing has indicated
 			//	that the mob should be destroyed.
 			//	I'm really not sure if this is proper
+			ParticleEmitter * nEmitter = new ParticleEmitter();
+			nEmitter->setX(_mobs[emob]->getX());
+			nEmitter->setY(_mobs[emob]->getY());
+			nEmitter->setTexture(_mobs[emob]->sprites.front());
+			nEmitter->initialize();
+			_emitters.push_back(nEmitter);
+			
 			_callback_mobDestroyed(emob);
 			_mobs[emob] = new Mob();
 		}
@@ -246,7 +261,11 @@ bool Stage::process()
 		}
 	}
 	
-	if(testEmitter.getActive()) { testEmitter.process(); }
+	//	Process all particle emitters
+	for(int eemit = 0; eemit < (int)_emitters.size(); eemit++)
+	{
+		if(_emitters[eemit]->getActive()) { _emitters[eemit]->process(); }
+	}
 	
 	return true;
 }
@@ -321,8 +340,11 @@ bool Stage::render()
 		}
 	}
 	
-	
-	testEmitter.render();
+	//	Render particle emitters and particles
+	for(int eemit = 0; eemit < (int)_emitters.size(); eemit++)
+	{
+		if(_emitters[eemit]->getActive()) { _emitters[eemit]->render(); }
+	}
 	
 	SDL_RenderPresent(getSDLRenderer());
 	return true;
