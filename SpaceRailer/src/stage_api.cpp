@@ -121,7 +121,15 @@ PyObject* Stage::_script_setStageScrollInterval(PyObject* self, PyObject* args)
 
 void Stage::_callback_stageScrollEvent()
 {
-	_scriptFunction = PyObject_GetAttrString(_scriptModule, "stageScrollEvent");
+	try
+	{
+		_scriptFunction = PyObject_GetAttrString(_scriptModule, "stageScrollEvent");
+	}
+	catch (const std::exception& e)
+	{
+		PyErr_PrintEx(0);
+	}
+
 	if (_scriptFunction && PyCallable_Check(_scriptFunction))
 	{
 		PyObject_CallObject(_scriptFunction, NULL);
@@ -131,6 +139,7 @@ void Stage::_callback_stageScrollEvent()
 void Stage::_callback_mobProcess()
 {
 	_scriptFunction = PyObject_GetAttrString(_scriptModule, "mobProcess");
+
 	if (_scriptFunction && PyCallable_Check(_scriptFunction))
 	{
 		PyObject_CallObject(_scriptFunction, NULL);

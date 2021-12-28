@@ -55,6 +55,7 @@ Stage * Stage::load(unsigned char stageid)
 	
 	
 	if (!Path_Tools::pathExists(stageDir)) {
+		printf("stageDir not found in Stage::load (%s)\n", stageDir.c_str());
 		return NULL;
 	}
 

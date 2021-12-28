@@ -123,7 +123,7 @@ def mobDestroyed(mobid):
 		temp.setY(1000)
 		addMobID(temp.ID, "jamal", temp)
 		
-	del enemies[mobid]
+	del mobs[mobid]
 	
 	
 def findMobID(mobname):

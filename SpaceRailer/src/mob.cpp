@@ -118,6 +118,8 @@ bool Mob::_processVelocity()
 //	This needs to handle rendering the mob itself and any associate components
 bool Mob::render() {
 
+	if (sprites.size() == 0) { return false; }
+
 	SDL_Rect box;
 	box.w = getWidth();
 	box.h = getHeight();
