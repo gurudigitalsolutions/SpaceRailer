@@ -108,8 +108,11 @@ bool ParticleEmitter::_initializeParticle(Particle * particle, int particleno)
 		(texSize.y / 16) * texY + (texSize.y / 16)
 	);
 	
-	particle->setX((double)getX() + (texSize.x / 2) - ((texSize.x / 16) * texX));
-	particle->setY((double)getY() + (texSize.y / 2) - ((texSize.y / 16) * texY));
+	//particle->setX((double)getX() + (texSize.x / 2) - ((texSize.x / 16) * texX));
+	//particle->setY((double)getY() + (texSize.y / 2) - ((texSize.y / 16) * texY));
+	
+	particle->setX((double)getX() + (texSize.x) - ((texSize.x / 16) * texX));
+	particle->setY((double)getY() + (texSize.y) - ((texSize.y / 16) * texY));
 	
 	particle->setActive(true);
 	
