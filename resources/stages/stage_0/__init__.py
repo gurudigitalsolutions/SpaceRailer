@@ -20,17 +20,6 @@ def initialize():
 	spacerailer.setStageScrollPixelsPerInterval(3)
 	spacerailer.setStageScrollInterval(50)
 	
-	
-	firstMob = Mob()
-	firstMob.ID = spacerailer.createMob("thruster0")
-	print("MobID: ", firstMob)
-
-	firstMob.setX(2000)
-	firstMob.setY(200)
-	firstMob.setWidth(128)
-	firstMob.setHeight(128)
-	firstMob.setAngle(90)
-	
 	#	Create the thruster for the player
 	playerThrusterID = spacerailer.createMob("thruster0")
 	spacerailer.setMobX(playerThrusterID, 56)
@@ -38,8 +27,20 @@ def initialize():
 	spacerailer.setMobWidth(playerThrusterID, 28)
 	spacerailer.setMobHeight(playerThrusterID, 28)
 	spacerailer.setMobParent(playerThrusterID, -2)
-	
 	spacerailer.setMobIsComponent(playerThrusterID, True)
+	
+	#	Create a random floating thruster
+	"""firstMob = Mob()
+	firstMob.ID = spacerailer.createMob("thruster0")
+	print("MobID: ", firstMob.ID)
+
+	firstMob.setX(2000)
+	firstMob.setY(200)
+	firstMob.setWidth(128)
+	firstMob.setHeight(128)
+	firstMob.setAngle(90)"""
+	
+	
 
 	temp = FirstEnemy()
 	temp.setX(512)
@@ -58,9 +59,9 @@ def stageScrollEvent():
 	global firstMob	
 	
 	
-	firstMob.setAngle(firstMob.getAngle() + 3)
+	"""firstMob.setAngle(firstMob.getAngle() + 3)
 	if firstMob.getAngle() > 360:
-		firstMob.setAngle(firstMob.getAngle() - 360)
+		firstMob.setAngle(firstMob.getAngle() - 360)"""
 
 
 def mobProcess():

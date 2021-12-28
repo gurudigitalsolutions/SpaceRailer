@@ -142,7 +142,8 @@ void Stage::_callback_mobProcess()
 
 	if (_scriptFunction && PyCallable_Check(_scriptFunction))
 	{
-		PyObject_CallObject(_scriptFunction, NULL);
+		PyObject * result = PyObject_CallObject(_scriptFunction, NULL);
+		Py_DECREF(result);
 	}
 }
 
