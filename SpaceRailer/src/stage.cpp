@@ -20,6 +20,7 @@
 #include "particle.h"
 #include "particleemitter.h"
 #include "particleemitter.mobexplosion.h"
+#include "particleemitter.simpleexplosion.h"
 #include "config.h"
 #include "stage_backdrop.h"
 #include "stage.h"
@@ -128,12 +129,12 @@ bool Stage::initialize()
 	_backdrops.push_back(nBackdrop);
 	
 	//	Test for particle engine
-	ParticleEmitter * testEmitter = new ParticleEmitter();
+	/*ParticleEmitter * testEmitter = new ParticleEmitter();
 	testEmitter->setX(900);
 	testEmitter->setY(200);
 	testEmitter->setTexture(_player.sprites.front());
 	testEmitter->initialize();
-	_emitters.push_back(testEmitter);
+	_emitters.push_back(testEmitter);*/
 	
 	return true;
 }
@@ -213,14 +214,26 @@ bool Stage::process()
 		{
 			//	Whatever happened during this mob's processing has indicated
 			//	that the mob should be destroyed.
-			//	I'm really not sure if this is proper
-			//ParticleEmitter * nEmitter = new ParticleEmitter();
-			MobExplosion * nEmitter = new MobExplosion();
-			nEmitter->setX(_mobs[emob]->getX());
-			nEmitter->setY(_mobs[emob]->getY());
-			nEmitter->setTexture(_mobs[emob]->sprites.front());
-			nEmitter->initialize();
-			_emitters.push_back((ParticleEmitter *)nEmitter);
+			
+			//	Check if an explosion should be created.  If so, then we need
+			//	to initialize the effect here.
+			if(!_mobs[emob]->getIsProjectile())
+			{
+				MobExplosion * nEmitter = new MobExplosion();
+				nEmitter->setX(_mobs[emob]->getX());
+				nEmitter->setY(_mobs[emob]->getY());
+				nEmitter->setTexture(_mobs[emob]->sprites.front());
+				nEmitter->initialize();
+				_emitters.push_back((ParticleEmitter *)nEmitter);
+				
+				//	Make a second emitter for the fireball explosion
+				SimpleExplosion * fEmitter = new SimpleExplosion();
+				fEmitter->setX(_mobs[emob]->getX());
+				fEmitter->setY(_mobs[emob]->getY());
+				fEmitter->setTexture(Graphics::loadTexture(Path_Tools::getGameDataPath() + "resources/particles/star.png"));
+				fEmitter->initialize();
+				_emitters.push_back((ParticleEmitter *)fEmitter);
+			}
 			
 			_callback_mobDestroyed(emob);
 			_mobs[emob] = new Mob();

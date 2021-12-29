@@ -54,7 +54,7 @@ bool Mob::process()
 			target->setMarkForDestroy(true);
 			
 			//	Honestly, until this is more advanced I should die too
-			//setMarkForDestroy(true);
+			setMarkForDestroy(true);
 		}
 		
 		//	Is the target a projectile?
@@ -64,7 +64,7 @@ bool Mob::process()
 			setMarkForDestroy(true);
 			
 			//	The projectile should also be disappeared
-			//target->setMarkForDestroy(true);
+			target->setMarkForDestroy(true);
 		}
 		
 		_collisionQueue.pop();
@@ -193,7 +193,7 @@ bool Mob::registerCollision(Mob * target)
 bool Mob::createProjectile()
 {
 	Projectile * newProjectile = new Projectile();
-	newProjectile->setX(getX() + getWidth());
+	newProjectile->setX(getX() + getWidth() + 1);
 	newProjectile->setY(getY() + (getHeight() / 2));
 	newProjectile->setHeight(16);
 	newProjectile->setWidth(16);
