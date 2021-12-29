@@ -15,8 +15,8 @@
 
 using namespace std;
 
-#include "particle.h"
-#include "particleemitter.h"
+#include "particles/particle.h"
+#include "particles/particleemitter.h"
 #include "stage_backdrop.h"
 #include "main.h"
 #include "scripting.h"

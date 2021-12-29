@@ -17,10 +17,10 @@
 	#include <dirent.h>
 #endif
 
-#include "particle.h"
-#include "particleemitter.h"
-#include "particleemitter.mobexplosion.h"
-#include "particleemitter.simpleexplosion.h"
+#include "particles/particle.h"
+#include "particles/particleemitter.h"
+#include "particles/particleemitter.mobexplosion.h"
+#include "particles/particleemitter.simpleexplosion.h"
 #include "config.h"
 #include "stage_backdrop.h"
 #include "stage.h"

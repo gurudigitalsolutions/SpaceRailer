@@ -20,8 +20,8 @@
 	#include <SDL2/SDL.h>
 #endif
 //#include <dirent.h>
-#include "particle.h"
-#include "particleemitter.h"
+#include "particles/particle.h"
+#include "particles/particleemitter.h"
 #include "config.h"
 #include "stage_backdrop.h"
 #include "stage.h"

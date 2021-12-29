@@ -1,9 +1,9 @@
-#include "graphics.h"
+#include "../graphics.h"
 #include "particle.h"
 #include "particleemitter.h"
-#include "config.h"
-#include "stage_backdrop.h"
-#include "stage.h"
+#include "../config.h"
+#include "../stage_backdrop.h"
+#include "../stage.h"
 
 
 extern Stage * currentStage;
@@ -48,6 +48,11 @@ bool Particle::render()
 	SDL_SetTextureAlphaMod(
 		_texture, 
 		getAlpha()
+	);
+	
+	SDL_SetTextureBlendMode(
+		_texture,
+		SDL_BLENDMODE_BLEND
 	);
 	
 	//printf("Rendering particle x,y %d, %d   %f, %f\n", box.x, box.y, getX(), getY());

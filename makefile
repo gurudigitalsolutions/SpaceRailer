@@ -11,10 +11,10 @@ OBJ = SpaceRailer/src/main.cpp \
 	SpaceRailer/src/graphics.cpp \
 	SpaceRailer/src/stage_backdrop.cpp \
 	SpaceRailer/src/stage_api.cpp \
-	SpaceRailer/src/particleemitter.cpp \
-	SpaceRailer/src/particle.cpp \
-	SpaceRailer/src/particleemitter.mobexplosion.cpp \
-	SpaceRailer/src/particleemitter.simpleexplosion.cpp
+	SpaceRailer/src/particles/particleemitter.cpp \
+	SpaceRailer/src/particles/particle.cpp \
+	SpaceRailer/src/particles/particleemitter.mobexplosion.cpp \
+	SpaceRailer/src/particles/particleemitter.simpleexplosion.cpp
 
 #	Set any dependencies
 #DEPS = main.h
