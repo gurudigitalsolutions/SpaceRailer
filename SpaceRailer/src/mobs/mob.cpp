@@ -174,12 +174,17 @@ bool Mob::loadSprite(string spriteName)
 
 bool Mob::checkCollision(int x, int y, int width, int height)
 {
-	if(getY() + getHeight() < y) { return false; }
-	if(getY() > y + height) { return false; }
-	if(getX() + getWidth() < x) { return false; }
-	if(getX() > x + width) { return false; }
-	
+	//printf("getHitboxY %d getHitboxX %d getHitboxHeight %d getHitboxWidth %d\n", getHitboxY(), getHitboxX(), getHitboxHeight(), getHitboxWidth());
+	if (getYWithHitbox() + getHitboxHeight() < y) { return false; }
+	if (getYWithHitbox() > y + height) { return false; }
+	if (getXWithHitbox() + getHitboxWidth() < x) { return false; }
+	if (getXWithHitbox() > x + width) { return false; }
+
 	return true;
+	
+	
+	int myX, myY, myW, myH;
+
 }
 
 //	Add a collision event to the collision queue.  This will be processed on

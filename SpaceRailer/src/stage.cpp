@@ -263,10 +263,10 @@ bool Stage::process()
 				if(inmob != nullptr)
 				{
 					if(_mobs[ecol]->checkCollision(
-						tmob->getX(),
-						tmob->getY(),
-						tmob->getWidth(),
-						tmob->getHeight()
+						tmob->getXWithHitbox(),
+						tmob->getYWithHitbox(),
+						tmob->getHitboxWidth(),
+						tmob->getHitboxHeight()
 					))
 					{
 						//	The outer mob has collided with the inner mob.

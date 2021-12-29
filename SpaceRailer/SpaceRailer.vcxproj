@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="src\config.cpp" />
     <ClCompile Include="src\graphics.cpp" />
     <ClCompile Include="src\input.cpp" />

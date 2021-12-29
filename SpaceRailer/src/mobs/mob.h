@@ -28,6 +28,33 @@ class Mob
 
 		void setWidth(int value) { _width = value; }
 		void setHeight(int value) { _height = value; }
+
+		int getHitboxX() { return _hitboxX; }
+		int getHitboxY() { return _hitboxY; }
+
+		int getXWithHitbox() {
+			if (getHitboxX() == -1) { return getX();  }
+			return getX() + getHitboxX();
+		}
+		int getYWithHitbox() {
+			if (getHitboxY() == -1) { return getY(); }
+			return getY() + getHitboxY();
+		}
+
+		void setHitboxX(int value) { _hitboxX = value; }
+		void setHitboxY(int value) { _hitboxY = value; }
+
+		int getHitboxWidth() { 
+			if (getHitboxX() == -1) { return getWidth(); }
+			return _hitboxWidth;
+		}
+		int getHitboxHeight() { 
+			if (getHitboxY() == -1) { return getHeight(); }
+			return _hitboxHeight;
+		}
+
+		void setHitboxWidth(int value) { _hitboxWidth = value; }
+		void seHitboxtHeight(int value) { _hitboxHeight = value; }
 		
 		int getVelocityX() { return _velocityX; }
 		int getVelocityY() { return _velocityY; }
@@ -92,6 +119,11 @@ class Mob
 		int _width = 0;
 		int _height = 0;
 		double _renderAngle = 0.0;
+
+		int _hitboxX = -1;
+		int _hitboxY = -1;
+		int _hitboxWidth = -1;
+		int _hitboxHeight = -1;
 
 		short _accelerationX = 0;
 		short _accelerationY = 0;

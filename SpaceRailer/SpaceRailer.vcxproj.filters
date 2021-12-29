@@ -66,6 +66,9 @@
     <ClCompile Include="src\particles\particleemitter.simpleexplosion.cpp">
       <Filter>src\particles</Filter>
     </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>src\mobs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\config.h">
