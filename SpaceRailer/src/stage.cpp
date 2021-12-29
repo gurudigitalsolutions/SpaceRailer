@@ -228,8 +228,8 @@ bool Stage::process()
 				
 				//	Make a second emitter for the fireball explosion
 				SimpleExplosion * fEmitter = new SimpleExplosion();
-				fEmitter->setX(_mobs[emob]->getX());
-				fEmitter->setY(_mobs[emob]->getY());
+				fEmitter->setX(_mobs[emob]->getX() + (_mobs[emob]->getWidth() / 2));
+				fEmitter->setY(_mobs[emob]->getY() + (_mobs[emob]->getHeight() / 2));
 				fEmitter->setTexture(Graphics::loadTexture(Path_Tools::getGameDataPath() + "resources/particles/star.png"));
 				fEmitter->initialize();
 				_emitters.push_back((ParticleEmitter *)fEmitter);

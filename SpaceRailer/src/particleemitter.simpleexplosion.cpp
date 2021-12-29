@@ -87,7 +87,7 @@ bool SimpleExplosion::initialize()
 	setLastUpdateTick(gameTickCount);
 	setCreatedTick(gameTickCount);
 	
-	setRespawnLoopSetPoint(2);
+	setRespawnLoopSetPoint(1);
 	setRespawnLoopCount(0);
 	
 	for(int epart = 0; epart < ((int)sizeof(_particles) / (int)sizeof(_particles[0])); epart++)
@@ -142,7 +142,7 @@ bool SimpleExplosion::_initializeParticle(Particle * particle, int particleno)
 	
 	//	Now we can calculate x and y velocities based on the angle.  We first
 	//	need to decided a total velocity
-	int speed = rand() % 200;
+	int speed = rand() % 50;
 	
 	particle->setVelocityX(speed * cos(angle));
 	particle->setVelocityY(speed * sin(angle));
