@@ -8,11 +8,19 @@ firstMob = {}
 
 mobs = {}
 
+#	stageWave and stageCounter are used to keep track of how for into the stage
+#	the player is.  These can be used by the script to know when to change
+#	stage properties, spawn enemies, etc.
+stageWave = 0
+stageCounter = 0
+
 print("CWD: ", os.getcwd())
 
 def initialize():
 	global mobs
 	global firstMob
+	global stageWave
+	global stageCounter
 	
 	spacerailer.setPlayerX(50)
 	spacerailer.setPlayerY(256)
@@ -29,36 +37,78 @@ def initialize():
 	spacerailer.setMobParent(playerThrusterID, -2)
 	spacerailer.setMobIsComponent(playerThrusterID, True)
 	
-	#	Create a random floating thruster
-	"""firstMob = Mob()
-	firstMob.ID = spacerailer.createMob("thruster0")
-	print("MobID: ", firstMob.ID)
-
-	firstMob.setX(2000)
-	firstMob.setY(200)
-	firstMob.setWidth(128)
-	firstMob.setHeight(128)
-	firstMob.setAngle(90)"""
+	stageWave = 0
+	stageCounter = 0
 	
+	#	Load backdrops for the stage
+	#	Setup any other details
 	
-
-	temp = FirstEnemy()
-	temp.setX(512)
-	temp.setY(80)
-	temp.setIsStationary(True)
-	
-	mobs = { 
-		temp.ID: {
-			"name": "firstenemy",
-			"data": temp
-		}
-	}
 
 
 def stageScrollEvent():
-	global firstMob	
+	global mobs
+	global firstMob
+	global stageWave
+	global stageCounter
 	
+	if(stageWave == 0 
+		and spacerailer.getMapX() >= 100
+		and stageCounter == 0):
 	
+		spacerailer.setStageScrollPixelsPerInterval(0)
+		stageCounter = stageCounter + 1
+		
+		temp = FirstEnemy()
+		temp.setX(2000)
+		temp.setY(180)
+		temp.setIsStationary(True)
+		
+		mobs = { 
+			temp.ID: {
+				"name": "firstenemy",
+				"data": temp
+			}
+		}
+		
+	if(stageWave == 0
+		and stageCounter == 1):
+		fenemyid = findMobID("firstenemy")
+		jamesid = findMobID("james")
+		jamalid = findMobID("jamal")
+		
+		if(fenemyid == -1
+			and jamesid == -1
+			and jamalid == -1):
+			
+			stageCounter = 2
+			spacerailer.setStageScrollPixelsPerInterval(5)
+			
+			temp = FirstEnemy()
+			temp.setX(spacerailer.getPlayerX() + 1000)
+			temp.setY(-500)
+			addMobID(temp.ID, "bob", temp)
+			
+			temp = FirstEnemy()
+			temp.setX(spacerailer.getPlayerX() + 1000)
+			temp.setY(-300)
+			addMobID(temp.ID, "billy", temp)
+			
+			temp = FirstEnemy()
+			temp.setX(spacerailer.getPlayerX() + 1000)
+			temp.setY(-100)
+			addMobID(temp.ID, "jerry", temp)
+			
+			temp = FirstEnemy()
+			temp.setX(spacerailer.getPlayerX() + 1000)
+			temp.setY(300)
+			addMobID(temp.ID, "lester", temp)
+			
+			temp = FirstEnemy()
+			temp.setX(spacerailer.getPlayerX() + 1000)
+			temp.setY(500)
+			addMobID(temp.ID, "dave", temp)
+			
+			
 	"""firstMob.setAngle(firstMob.getAngle() + 3)
 	if firstMob.getAngle() > 360:
 		firstMob.setAngle(firstMob.getAngle() - 360)"""
@@ -69,6 +119,11 @@ def mobProcess():
 	processEnemyType1("firstenemy")
 	processEnemyType1("james")
 	processEnemyType1("jamal")
+	processEnemyType1("bob")
+	processEnemyType1("billy")
+	processEnemyType1("jerry")
+	processEnemyType1("lester")
+	processEnemyType1("dave")
 	
 		
 def processEnemyType1(name):

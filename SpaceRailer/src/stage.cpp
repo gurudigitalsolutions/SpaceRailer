@@ -124,7 +124,7 @@ bool Stage::initialize()
 
 	StageBackdrop * nBackdrop = new StageBackdrop();
 	//nBackdrop->initialize("Eta_Carinae_Nebula", 1920, 1080);
-	nBackdrop->initialize("tiled-background-cave-1", 1200, 540);
+	nBackdrop->initialize("space-background-1", 1024, 600);
 	_backdrops.push_back(nBackdrop);
 	
 	//	Test for particle engine

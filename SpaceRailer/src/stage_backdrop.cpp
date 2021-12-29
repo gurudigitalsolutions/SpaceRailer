@@ -20,8 +20,8 @@ bool StageBackdrop::process()
 bool StageBackdrop::render()
 {
 	SDL_Rect box;
-	box.w = getWidth();
-	box.h = getHeight();
+	box.w = getWidth() + windowWidth;
+	box.h = getHeight() + windowHeight;
 
 	box.x = (getRenderWidth() * currentStage->getMapX() / (currentStage->getStageWidth() + windowWidth)) * -1;
 	box.y = getRenderHeight() * currentStage->getMapY() / currentStage->getStageHeight();
