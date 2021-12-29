@@ -178,8 +178,9 @@ def mobDestroyed(mobid):
 		temp.setX(spacerailer.getPlayerX() + 1000)
 		temp.setY(1000)
 		addMobID(temp.ID, "jamal", temp)
-		
-	del mobs[mobid]
+	
+	if mobid in mobs:
+		mobs.pop(mobid)
 	
 	
 def findMobID(mobname):
