@@ -4,10 +4,10 @@ OBJ = SpaceRailer/src/main.cpp \
 	SpaceRailer/src/scripting.cpp \
 	SpaceRailer/src/config.cpp \
 	SpaceRailer/src/stage.cpp \
-	SpaceRailer/src/mob.cpp \
+	SpaceRailer/src/mobs/mob.cpp \
 	SpaceRailer/src/path_tools.cpp \
-	SpaceRailer/src/mob.player.cpp \
-	SpaceRailer/src/mob.projectile.cpp \
+	SpaceRailer/src/mobs/mob.player.cpp \
+	SpaceRailer/src/mobs/mob.projectile.cpp \
 	SpaceRailer/src/graphics.cpp \
 	SpaceRailer/src/stage_backdrop.cpp \
 	SpaceRailer/src/stage_api.cpp \

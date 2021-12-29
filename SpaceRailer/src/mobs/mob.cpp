@@ -20,11 +20,11 @@
 	#include <SDL2/SDL.h>
 #endif
 //#include <dirent.h>
-#include "particles/particle.h"
-#include "particles/particleemitter.h"
-#include "config.h"
-#include "stage_backdrop.h"
-#include "stage.h"
+#include "../particles/particle.h"
+#include "../particles/particleemitter.h"
+#include "../config.h"
+#include "../stage_backdrop.h"
+#include "../stage.h"
 #include "mob.h"
 
 extern short windowWidth;

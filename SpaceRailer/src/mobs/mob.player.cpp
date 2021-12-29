@@ -1,9 +1,9 @@
-#include "graphics.h"
-#include "particles/particle.h"
-#include "particles/particleemitter.h"
-#include "config.h"
-#include "stage_backdrop.h"
-#include "stage.h"
+#include "../graphics.h"
+#include "../particles/particle.h"
+#include "../particles/particleemitter.h"
+#include "../config.h"
+#include "../stage_backdrop.h"
+#include "../stage.h"
 
 extern short windowWidth;
 extern short windowHeight;

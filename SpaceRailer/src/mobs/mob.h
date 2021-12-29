@@ -1,10 +1,10 @@
 #pragma once
 #include <string>
-#include "graphics.h"
+#include "../graphics.h"
 #include <list>
 #include <queue>
 
-#include "path_tools.h"
+#include "../path_tools.h"
 
 using namespace std;
 

@@ -4,8 +4,8 @@
 #include <vector>
 #include <Python.h>
 //#include "mob.h"
-#include "mob.player.h"
-#include "mob.projectile.h"
+#include "mobs/mob.player.h"
+#include "mobs/mob.projectile.h"
 
 
 
