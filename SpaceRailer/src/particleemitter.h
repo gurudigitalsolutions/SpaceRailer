@@ -9,43 +9,55 @@ using namespace std;
 class ParticleEmitter
 {
 	public:
-		unsigned int getLastUpdateTick() { return _lastUpdateTick; }
-		void setLastUpdateTick(unsigned int value) { _lastUpdateTick = value; }
+		virtual unsigned int getLastUpdateTick() { return _lastUpdateTick; }
+		virtual void setLastUpdateTick(unsigned int value) { _lastUpdateTick = value; }
 		
-		unsigned int getCreatedTick() { return _createdTick; }
-		void setCreatedTick(unsigned int value) { _createdTick = value; }
+		virtual unsigned int getCreatedTick() { return _createdTick; }
+		virtual void setCreatedTick(unsigned int value) { _createdTick = value; }
 		
-		unsigned int getLifeTickCount() { return _lifeTickCount; }
-		void setLifeTickCount(unsigned int value) { _lifeTickCount = value;  }
+		virtual unsigned int getLifeTickCount() { return _lifeTickCount; }
+		virtual void setLifeTickCount(unsigned int value) { _lifeTickCount = value;  }
 		
-		int getX() { return _x; }
-		void setX(int value) { _x = value; }
+		virtual int getX() { return _x; }
+		virtual void setX(int value) { _x = value; }
 		
-		int getY() { return _y; }
-		void setY(int value) { _y = value; }
+		virtual int getY() { return _y; }
+		virtual void setY(int value) { _y = value; }
 		
-		SDL_Texture * getTexture() { return _texture; }
-		void setTexture(SDL_Texture * value);
+		virtual SDL_Texture * getTexture() { return _texture; }
+		virtual void setTexture(SDL_Texture * value);
 		
-		bool getActive() { return _active; }
-		void setActive(bool value) { _active = value; }
+		virtual bool getActive() { return _active; }
+		virtual void setActive(bool value) { _active = value; }
 		
-		bool process();
-		bool render();
-		bool initialize();
+		virtual unsigned int getRespawnLoopSetPoint() { return _respawnLoopSetPoint; }
+		virtual void setRespawnLoopSetPoint(unsigned int value) { _respawnLoopSetPoint = value; }
+		
+		virtual unsigned int getRespawnLoopCount() { return _respawnLoopCount; }
+		virtual void setRespawnLoopCount(unsigned int value) { _respawnLoopCount = value; }
+		
+		virtual bool process();
+		virtual bool render();
+		virtual bool initialize();
 	
 	private:
 		unsigned int _lastUpdateTick = 0;
 		unsigned int _createdTick = 0;
 		unsigned int _lifeTickCount = 10000;
 		
+		unsigned int _respawnLoopSetPoint = 10;
+		unsigned int _respawnLoopCount = 0;
+		
 		bool _active = true;
 		
 		int _x = 0;
 		int _y = 0;
+		
+		
+	protected:
 		Particle _particles[256];
 		
 		SDL_Texture * _texture;
 		
-		bool _initializeParticle(Particle * particle, int particleno);
+		virtual bool _initializeParticle(Particle * particle, int particleno);
 };

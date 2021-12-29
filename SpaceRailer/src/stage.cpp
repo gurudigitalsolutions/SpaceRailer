@@ -19,6 +19,7 @@
 
 #include "particle.h"
 #include "particleemitter.h"
+#include "particleemitter.mobexplosion.h"
 #include "config.h"
 #include "stage_backdrop.h"
 #include "stage.h"
@@ -213,12 +214,13 @@ bool Stage::process()
 			//	Whatever happened during this mob's processing has indicated
 			//	that the mob should be destroyed.
 			//	I'm really not sure if this is proper
-			ParticleEmitter * nEmitter = new ParticleEmitter();
+			//ParticleEmitter * nEmitter = new ParticleEmitter();
+			MobExplosion * nEmitter = new MobExplosion();
 			nEmitter->setX(_mobs[emob]->getX());
 			nEmitter->setY(_mobs[emob]->getY());
 			nEmitter->setTexture(_mobs[emob]->sprites.front());
 			nEmitter->initialize();
-			_emitters.push_back(nEmitter);
+			_emitters.push_back((ParticleEmitter *)nEmitter);
 			
 			_callback_mobDestroyed(emob);
 			_mobs[emob] = new Mob();

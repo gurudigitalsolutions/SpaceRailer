@@ -39,6 +39,12 @@ class Particle
 		unsigned int getLifeTickCount() { return _lifeTickCount; }
 		void setLifeTickCount(unsigned int value) { _lifeTickCount = value; }
 		
+		unsigned int getRespawnCount() { return _respawnCount; }
+		void setRespawnCount(unsigned int value) { _respawnCount = value; }
+		
+		uint8_t getAlpha() { return _alpha; }
+		void setAlpha(uint8_t value) { _alpha = value; }
+		
 		bool process();
 		bool render();
 	
@@ -64,4 +70,10 @@ class Particle
 		int _textureX2 = 0;
 		int _textureY1 = 0;
 		int _textureY2 = 0;
+		
+		unsigned int _respawnCount = 0;
+		
+		uint8_t _alpha = 255;
+		
+	protected:
 };
