@@ -13,6 +13,12 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="src\mobs">
+      <UniqueIdentifier>{33a5d1d8-bee0-4cfb-84e8-3ea0daf98511}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\particles">
+      <UniqueIdentifier>{81352e86-bb4d-49d6-841e-52f4e8ab3950}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\config.cpp">
@@ -22,12 +28,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\mob.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\stage.cpp">
@@ -45,17 +45,26 @@
     <ClCompile Include="src\stage_api.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\mob.player.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\mobs\mob.cpp">
+      <Filter>src\mobs</Filter>
     </ClCompile>
-    <ClCompile Include="src\mob.projectile.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\mobs\mob.player.cpp">
+      <Filter>src\mobs</Filter>
     </ClCompile>
-    <ClCompile Include="src\particle.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\mobs\mob.projectile.cpp">
+      <Filter>src\mobs</Filter>
     </ClCompile>
-    <ClCompile Include="src\particleemitter.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\particles\particle.cpp">
+      <Filter>src\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\particles\particleemitter.cpp">
+      <Filter>src\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\particles\particleemitter.mobexplosion.cpp">
+      <Filter>src\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\particles\particleemitter.simpleexplosion.cpp">
+      <Filter>src\particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,12 +75,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\main.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\mob.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\stage.h">
@@ -89,17 +92,26 @@
     <ClInclude Include="src\stage_api.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\mob.player.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\mobs\mob.h">
+      <Filter>src\mobs</Filter>
     </ClInclude>
-    <ClInclude Include="src\mob.projectile.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\mobs\mob.player.h">
+      <Filter>src\mobs</Filter>
     </ClInclude>
-    <ClInclude Include="src\particle.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\mobs\mob.projectile.h">
+      <Filter>src\mobs</Filter>
     </ClInclude>
-    <ClInclude Include="src\particleemitter.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\particles\particle.h">
+      <Filter>src\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\particles\particleemitter.h">
+      <Filter>src\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\particles\particleemitter.mobexplosion.h">
+      <Filter>src\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\particles\particleemitter.simpleexplosion.h">
+      <Filter>src\particles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

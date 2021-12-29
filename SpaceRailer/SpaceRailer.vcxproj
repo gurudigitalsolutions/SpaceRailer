@@ -147,15 +147,14 @@
     <ClCompile Include="src\graphics.cpp" />
     <ClCompile Include="src\input.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\mob.cpp">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\vclib\SDL2-2.0.18\include;C:\Program Files\Python39\include</AdditionalIncludeDirectories>
-    </ClCompile>
-    <ClCompile Include="src\mob.player.cpp" />
-    <ClCompile Include="src\mob.projectile.cpp" />
-    <ClCompile Include="src\particle.cpp" />
-    <ClCompile Include="src\particleemitter.cpp" />
+    <ClCompile Include="src\mobs\mob.cpp" />
+    <ClCompile Include="src\mobs\mob.player.cpp" />
+    <ClCompile Include="src\mobs\mob.projectile.cpp" />
+    <ClCompile Include="src\particles\particle.cpp" />
+    <ClCompile Include="src\particles\particleemitter.cpp" />
+    <ClCompile Include="src\particles\particleemitter.mobexplosion.cpp" />
+    <ClCompile Include="src\particles\particleemitter.simpleexplosion.cpp" />
     <ClCompile Include="src\path_tools.cpp" />
-    <ClCompile Include="src\scripting.cpp" />
     <ClCompile Include="src\stage.cpp" />
     <ClCompile Include="src\stage_api.cpp" />
     <ClCompile Include="src\stage_backdrop.cpp" />
@@ -165,13 +164,14 @@
     <ClInclude Include="src\graphics.h" />
     <ClInclude Include="src\input.h" />
     <ClInclude Include="src\main.h" />
-    <ClInclude Include="src\mob.h" />
-    <ClInclude Include="src\mob.player.h" />
-    <ClInclude Include="src\mob.projectile.h" />
-    <ClInclude Include="src\particle.h" />
-    <ClInclude Include="src\particleemitter.h" />
+    <ClInclude Include="src\mobs\mob.h" />
+    <ClInclude Include="src\mobs\mob.player.h" />
+    <ClInclude Include="src\mobs\mob.projectile.h" />
+    <ClInclude Include="src\particles\particle.h" />
+    <ClInclude Include="src\particles\particleemitter.h" />
+    <ClInclude Include="src\particles\particleemitter.mobexplosion.h" />
+    <ClInclude Include="src\particles\particleemitter.simpleexplosion.h" />
     <ClInclude Include="src\path_tools.h" />
-    <ClInclude Include="src\scripting.h" />
     <ClInclude Include="src\stage.h" />
     <ClInclude Include="src\stage_api.h" />
     <ClInclude Include="src\stage_backdrop.h" />
