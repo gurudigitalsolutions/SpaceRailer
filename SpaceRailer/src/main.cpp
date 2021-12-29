@@ -19,7 +19,6 @@ using namespace std;
 #include "particles/particleemitter.h"
 #include "stage_backdrop.h"
 #include "main.h"
-#include "scripting.h"
 
 
 
