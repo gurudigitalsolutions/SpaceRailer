@@ -71,11 +71,12 @@ bool SimpleExplosion::render()
 	{
 		if(_particles[epart].getActive())
 		{
+			SDL_SetTextureColorMod(_particles[epart].getTexture(), 255, 128, 0);
 			_particles[epart].render();
 		}
 	}
 	
-	SDL_SetTextureColorMod(getTexture(), 255, 255, 255);
+	
 	
 	return true;
 }

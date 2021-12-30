@@ -232,7 +232,7 @@ bool Stage::process()
 				fEmitter->setX(_mobs[emob]->getX() + (_mobs[emob]->getWidth() / 2));
 				fEmitter->setY(_mobs[emob]->getY() + (_mobs[emob]->getHeight() / 2));
 				//fEmitter->setTexture(Graphics::loadTexture(Path_Tools::getGameDataPath() + "resources/particles/star.png"));
-				fEmitter->setTextureName(Path_Tools::getGameDataPath() + "resources/particles/star.png");
+				fEmitter->setTextureName(Path_Tools::getGameDataPath() + "resources/particles/round.png");
 				fEmitter->initialize();
 				_emitters.push_back((ParticleEmitter *)fEmitter);
 			}
