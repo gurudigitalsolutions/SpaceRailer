@@ -109,28 +109,28 @@ void handleRender()
 	SDL_Rect renderRect;
 	renderRect.x = 0;
 	renderRect.y = 0;
-	renderRect.w = windowWidth;
-	renderRect.h = windowHeight;
+	renderRect.w = actualWindowWidth;
+	renderRect.h = actualWindowHeight;
 	
 	SDL_RenderPresent(Renderer);
 	SDL_SetRenderTarget(Renderer, NULL);
 	
 	//	Now, render the texture target to the screen, but upside down.
-	SDL_RenderCopy(
+	/*SDL_RenderCopy(
 		Renderer,
 		RenderTarget,
 		NULL,
 		&renderRect
-	);
-	/*SDL_RenderCopyEx(
+	);*/
+	SDL_RenderCopyEx(
 		Renderer,
 		RenderTarget,
 		NULL,
-		NULL,
+		&renderRect,
 		0,
 		NULL,
-		SDL_FLIP_VERTICAL
-	);*/
+		SDL_FLIP_NONE
+	);
 	
 	SDL_RenderPresent(Renderer);
 	
@@ -187,6 +187,8 @@ void handleCleanup()
 //	include stuff like window resizing, input, and I'm not really sure yet.
 void handleSDLEvent(SDL_Event * Event)
 {
+	int tww, twh;
+	
 	switch(Event->type) {
 		case SDL_MOUSEMOTION: break;
 		case SDL_MOUSEBUTTONDOWN: break;
@@ -216,15 +218,17 @@ void handleSDLEvent(SDL_Event * Event)
 			programInput.handleConnectionEvent(Event);
 			break;
 		
-		case SDL_SYSWMEVENT: break;
+		case SDL_SYSWMEVENT:
 		case SDL_WINDOWEVENT:
-			/*if(((SDL_WindowEvent *)Event)->window.event == SDL_WINDOWEVENT_RESIZED
-			|| ((SDL_WindowEvent *)Event)->window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+			tww = Event->window.data1;
+			twh = Event->window.data2;
+			
+			if(tww > 50 && twh > 50)
 			{
-				actualWindowWidth = ((SDL_WindowEvent *)Event)->window.data1;
-				actualWindowHeight = ((SDL_WindowEvent *)Event)->window.data2;
-				printf("New window size: %dx%d\n", actualWindowWidth, actualWindowHeight);
-			}*/
+				actualWindowWidth = tww;
+				actualWindowHeight = twh;
+			}
+			
 			break;
 		default:
 			printf("some SDL event\n");
