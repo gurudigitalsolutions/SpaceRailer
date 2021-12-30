@@ -21,6 +21,7 @@ SDL_Window * getSDLWindow();
 SDL_Renderer * getSDLRenderer();
 SDL_Surface * getSDLPrimarySurface();
 
+
 void handleSDLEvent(SDL_Event * Event);
 
 extern short windowWidth;
@@ -39,5 +40,6 @@ enum programMode { PROGRAM_BOOT, PROGRAM_MAINMENU, PROGRAM_GAME };
 SDL_Window * Window;
 SDL_Renderer * Renderer;
 SDL_Surface * PrimarySurface;
+SDL_Texture * RenderTarget;
 
 extern unsigned int gameTickCount;

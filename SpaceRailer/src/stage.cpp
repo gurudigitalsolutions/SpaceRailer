@@ -310,8 +310,7 @@ float Stage::_plasma_effect(float x, float y, float time)
 bool Stage::render()
 {
 	//	Draw from the back to the front.  Otherwise things will be drawn over
-	SDL_SetRenderDrawColor(getSDLRenderer(), 0x00, 0x00, 0x00, 0xff);
-	SDL_RenderClear(getSDLRenderer());
+	
 	
 	//	Render backdrops
 	for(auto esb : _backdrops)
@@ -363,7 +362,7 @@ bool Stage::render()
 		if(_emitters[eemit]->getActive()) { _emitters[eemit]->render(); }
 	}
 	
-	SDL_RenderPresent(getSDLRenderer());
+	
 	return true;
 }
 

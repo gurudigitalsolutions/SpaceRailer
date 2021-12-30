@@ -26,6 +26,9 @@ using namespace std;
 short windowWidth = 960;
 short windowHeight = 540;
 
+short actualWindowWidth = 960;
+short actualWindowHeight = 540;
+
 //	keepRunning determines when the program should stop looping
 bool keepRunning = true;
 
@@ -85,6 +88,14 @@ int main(int argc, char ** argv)
 
 void handleRender()
 {
+	//	Rendering is done to a texture, which is then rendered to the screen.
+	//	This is done so that the window can be resized automatically.
+	
+	SDL_SetRenderTarget(Renderer, RenderTarget);
+	SDL_SetRenderDrawColor(getSDLRenderer(), 0xF0, 0x00, 0x00, 0xff);
+	SDL_RenderClear(Renderer);
+	
+	
 	switch(currentProgramMode)
 	{
 		case PROGRAM_BOOT		: break;
@@ -94,6 +105,36 @@ void handleRender()
 			break;
 	}
 	
+	
+	SDL_Rect renderRect;
+	renderRect.x = 0;
+	renderRect.y = 0;
+	renderRect.w = windowWidth;
+	renderRect.h = windowHeight;
+	
+	SDL_RenderPresent(Renderer);
+	SDL_SetRenderTarget(Renderer, NULL);
+	
+	//	Now, render the texture target to the screen, but upside down.
+	SDL_RenderCopy(
+		Renderer,
+		RenderTarget,
+		NULL,
+		&renderRect
+	);
+	/*SDL_RenderCopyEx(
+		Renderer,
+		RenderTarget,
+		NULL,
+		NULL,
+		0,
+		NULL,
+		SDL_FLIP_VERTICAL
+	);*/
+	
+	SDL_RenderPresent(Renderer);
+	
+	//SDL_DestroyTexture(renderTarget);
 }
 
 /*void handleReshape(GLint newWidth, GLint newHeight)
@@ -176,7 +217,15 @@ void handleSDLEvent(SDL_Event * Event)
 			break;
 		
 		case SDL_SYSWMEVENT: break;
-		case SDL_WINDOWEVENT: break;
+		case SDL_WINDOWEVENT:
+			/*if(((SDL_WindowEvent *)Event)->window.event == SDL_WINDOWEVENT_RESIZED
+			|| ((SDL_WindowEvent *)Event)->window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+			{
+				actualWindowWidth = ((SDL_WindowEvent *)Event)->window.data1;
+				actualWindowHeight = ((SDL_WindowEvent *)Event)->window.data2;
+				printf("New window size: %dx%d\n", actualWindowWidth, actualWindowHeight);
+			}*/
+			break;
 		default:
 			printf("some SDL event\n");
 			break;
@@ -215,7 +264,7 @@ bool init()
 	
 	PrimarySurface = SDL_GetWindowSurface(Window);
 	
-	if((Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED)) == NULL)
+	if((Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE)) == NULL)
 	{
 		cout << "Unable to create renderer.\n";
 		return false;
@@ -224,6 +273,17 @@ bool init()
 	//	Set draw color to fully opaque black (RGBA)
 	SDL_SetRenderDrawColor(Renderer, 0x00, 0x00, 0x00, 0xFF);
 	
+	//	Create a render target.  This is used to draw output to a texture, which
+	//	will then be scaled and drawn to the screen.
+	RenderTarget = SDL_CreateTexture(
+		Renderer,
+		SDL_PIXELFORMAT_RGBA8888,
+		SDL_TEXTUREACCESS_TARGET,
+		windowWidth,
+		windowHeight
+	);
+	
+	SDL_RenderClear(Renderer);
 	
 	//	Initialize the input system
 	if(!programInput.initialize())
