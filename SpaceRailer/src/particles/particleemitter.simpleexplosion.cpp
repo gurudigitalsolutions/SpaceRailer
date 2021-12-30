@@ -100,10 +100,11 @@ bool SimpleExplosion::initialize()
 
 bool SimpleExplosion::_initializeParticle(Particle * particle, int particleno)
 {
-	particle->setTexture(_texture);
+	if(_textureName == "") { particle->setTexture(_texture); }
+	
 	particle->setLastUpdateTick(gameTickCount);
 	particle->setCreatedTick(gameTickCount);
-	particle->setLifeTickCount(1000);
+	particle->setLifeTickCount((rand() % 1000) + 250);
 	
 	
 	int texX, texY;
@@ -111,7 +112,7 @@ bool SimpleExplosion::_initializeParticle(Particle * particle, int particleno)
 	texY = particleno / 16;
 	
 	SDL_Point texSize;
-	SDL_QueryTexture(_texture, NULL, NULL, &texSize.x, &texSize.y);
+	SDL_QueryTexture(particle->getTexture(), NULL, NULL, &texSize.x, &texSize.y);
 	
 	//	Setting TextureCoords x value to -1 will disable texture clipping.
 	particle->setTextureCoords(

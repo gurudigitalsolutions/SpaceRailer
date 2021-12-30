@@ -24,7 +24,9 @@ class Particle
 		void setVelocityY(float value) { _velocityY = value; }
 		void setVelocityZ(float value) { _velocityZ = value; }
 		
+		SDL_Texture * getTexture() { return _texture; }
 		void setTexture(SDL_Texture * value) { _texture = value; }
+		
 		void setTextureCoords(int x1, int x2, int y1, int y2);
 		
 		bool getActive() { return _active; }

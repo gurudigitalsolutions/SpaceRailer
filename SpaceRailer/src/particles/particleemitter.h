@@ -3,6 +3,7 @@
 #else
 	#include <SDL2/SDL.h>
 #endif
+#include <string>
 
 using namespace std;
 
@@ -26,6 +27,9 @@ class ParticleEmitter
 		
 		virtual SDL_Texture * getTexture() { return _texture; }
 		virtual void setTexture(SDL_Texture * value);
+		
+		virtual string getTextureName() { return _textureName; }
+		virtual void setTextureName(string value);
 		
 		virtual bool getActive() { return _active; }
 		virtual void setActive(bool value) { _active = value; }
@@ -58,6 +62,8 @@ class ParticleEmitter
 		Particle _particles[256];
 		
 		SDL_Texture * _texture;
+		string _textureName = "";
 		
 		virtual bool _initializeParticle(Particle * particle, int particleno);
+		
 };

@@ -1,3 +1,4 @@
+#include <string>
 #include "../graphics.h"
 #include "particle.h"
 #include "particleemitter.h"
@@ -65,7 +66,20 @@ void ParticleEmitter::setTexture(SDL_Texture * value)
 	
 	for(int epart = 0; epart < ((int)sizeof(_particles) / (int)sizeof(_particles[0])); epart++)
 	{
+		//SDL_Texture * tTex = Graphics::loadTexture(string);
 		_particles[epart].setTexture(_texture);
+	}
+}
+
+void ParticleEmitter::setTextureName(string value)
+{
+	_textureName = value;
+	
+	for(int epart = 0; epart < ((int)sizeof(_particles) / (int)sizeof(_particles[0])); epart++)
+	{
+		//printf("Loading texture %s\n", _textureName.c_str());
+		SDL_Texture * tTex = Graphics::loadTexture(_textureName);
+		_particles[epart].setTexture(tTex);
 	}
 }
 
@@ -84,7 +98,11 @@ bool ParticleEmitter::initialize()
 
 bool ParticleEmitter::_initializeParticle(Particle * particle, int particleno)
 {
-	particle->setTexture(_texture);
+	//	Check if a textureName has been set.  If so, then it will be loaded
+	//	individually for each particle rather than having them all share a
+	//	single reference.
+	if(_textureName == "") { particle->setTexture(_texture); }
+	
 	particle->setLastUpdateTick(gameTickCount);
 	particle->setCreatedTick(gameTickCount);
 	particle->setLifeTickCount(1000);
@@ -99,7 +117,7 @@ bool ParticleEmitter::_initializeParticle(Particle * particle, int particleno)
 	texY = particleno / 16;
 	
 	SDL_Point texSize;
-	SDL_QueryTexture(_texture, NULL, NULL, &texSize.x, &texSize.y);
+	SDL_QueryTexture(particle->getTexture(), NULL, NULL, &texSize.x, &texSize.y);
 	
 	particle->setTextureCoords(
 		(texSize.x / 16) * texX,

@@ -181,9 +181,7 @@ bool Mob::checkCollision(int x, int y, int width, int height)
 	if (getXWithHitbox() > x + width) { return false; }
 
 	return true;
-	
-	
-	int myX, myY, myW, myH;
+
 
 }
 
