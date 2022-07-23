@@ -189,6 +189,7 @@ void handleSDLEvent(SDL_Event * Event)
 {
 	int tww, twh;
 	
+	
 	switch(Event->type) {
 		case SDL_MOUSEMOTION: break;
 		case SDL_MOUSEBUTTONDOWN: break;
