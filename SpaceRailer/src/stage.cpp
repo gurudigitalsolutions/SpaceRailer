@@ -465,7 +465,11 @@ bool Stage::render()
 				box.x = mx * 32;
 				
 				//SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
-				cout << "Rendering sprite id: " + to_string(spriteid) + " Layer " + to_string(eml) + "\n";
+				/*if(eml == 1)
+				{
+					cout << "Rendering sprite id: " + to_string(spriteid) + " Layer " + to_string(eml) + "\n";
+				}*/
+				
 				if(spriteid > 0
 				&& spriteid < 4)
 				{

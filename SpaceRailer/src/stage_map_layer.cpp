@@ -52,7 +52,7 @@ bool StageMapLayer::initialize(unsigned short width, unsigned short height, unsi
 	{
 		for(unsigned short ex = 0; ex < getHeight(); ex++)
 		{
-			buffer = &mapData[(ey * (getWidth() * 4)) + ex];
+			buffer = &mapData[(ey * (getWidth() * 4)) + (ex * 4)];
 			
 			unsigned short spriteID = buffer[0] + (buffer[1] * 256);
 			
