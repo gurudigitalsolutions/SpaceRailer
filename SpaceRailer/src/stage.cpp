@@ -152,8 +152,11 @@ Stage * Stage::load(unsigned char stageid)
 				cout << "Tile: " + tilePath + "\n";
 				
 				//	Load this resource, or do something to indicate something
-				//	about it.
+				//	about it.  We load the first sprite twice so that index 0
+				//	is taken by something.  (This is rendered as nothing, but
+				//	we still need something there)
 				newStage->_loadSprite(tilePath);
+				if(tileID < 2) { newStage->_loadSprite(tilePath); }
 				
 				//	Reset the tile path so we can read another
 				tilePath = "";
@@ -438,40 +441,56 @@ float Stage::_plasma_effect(float x, float y, float time)
 bool Stage::render()
 {
 	//	Draw from the back to the front.  Otherwise things will be drawn over
-	
+	StageMapLayer * tMapLayer;
+	for(unsigned char eml = 0; eml < 4; eml++)
+	{
+		if(eml == 0) { tMapLayer = _mapBackdropLayer; }
+		else if(eml == 1) { tMapLayer = _mapBackgroundLayer; }
+		else if(eml == 2) { tMapLayer = _mapActiveLayer; }
+		else { tMapLayer = _mapForegroundLayer; }
+		
+		for(unsigned short my = 0; my < 34; my++)
+		{
+			for(unsigned short mx = 0; mx < 60; mx++)
+			{
+				unsigned short spriteid = tMapLayer->getTile(
+					mx + tMapLayer->getCurrentViewX(),
+					my + tMapLayer->getCurrentViewY()
+				)->getSpriteID();
+				
+				SDL_Rect box;
+				box.w = 32;
+				box.h = 32;
+				box.y = my * 32;
+				box.x = mx * 32;
+				
+				//SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
+				cout << "Rendering sprite id: " + to_string(spriteid) + "\n";
+				if(spriteid > 0
+				&& spriteid < 4)
+				{
+					SDL_RenderCopyEx(
+						getSDLRenderer(), 
+						_sprites[spriteid], 
+						NULL, 
+						&box, 
+						0.0, //_renderAngle, 
+						NULL, 
+						SDL_FLIP_NONE
+					);
+				}
+			}
+		}
+	}
 	
 	//	Render backdrops
+	/* disabled to implement the new tile system
 	for(auto esb : _backdrops)
 	{
 		esb->render();
-	}
-	
-	
-	
-	/*for(list<StageBackdrop *>::iterator esb = _backdrops.begin(); esb != _backdrops.end(); esb++)
-	{
-		(*esb)->render();
 	}*/
 	
-	//	Totally awesome white snake
-	/*
-	int x,y;
-	float value;
-	for(x = 0; x < 128; x++)
-	{
-		for(y = 0; y < 128; y++)
-		{
-			value = _plasma_effect(x, y, gameTickCount * .0025);
-			SDL_SetRenderDrawColor(
-				getSDLRenderer(),
-				10 * (sin(value * 3.1415926)),
-				10 * (cos(value * 3.1415926)),
-				0,
-				255
-			);
-			SDL_RenderDrawPoint(getSDLRenderer(), x, y);
-		}
-	}*/
+
 	
 	_player.render();
 	

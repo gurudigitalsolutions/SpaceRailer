@@ -77,7 +77,7 @@ class Stage
 		vector<Mob *> _mobs;
 		vector<StageBackdrop *> _backdrops;
 		vector<ParticleEmitter *> _emitters;
-		list<SDL_Texture*> _sprites;
+		vector<SDL_Texture*> _sprites;
 		
 		bool _loadSprite(string spritename);
 		
