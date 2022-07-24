@@ -62,6 +62,11 @@ class Stage
 		int _stageWidth = 1920 * 4;
 		int _stageHeight = 1080 * 4;
 		
+		unsigned short * mapForegroundLayer;
+		unsigned short * mapActiveLayer;
+		unsigned short * mapBackgroundLayer;
+		unsigned short * mapBackdropLayer;
+		
 		unsigned int _lastScrollTick = 0;
 		int _scrollPixelsPerInterval = 10;
 		unsigned int _scrollIntervalMS = 50;

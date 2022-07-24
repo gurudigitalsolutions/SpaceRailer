@@ -13,7 +13,9 @@ OBJ = SpaceRailer/src/main.cpp \
 	SpaceRailer/src/particles/particleemitter.cpp \
 	SpaceRailer/src/particles/particle.cpp \
 	SpaceRailer/src/particles/particleemitter.mobexplosion.cpp \
-	SpaceRailer/src/particles/particleemitter.simpleexplosion.cpp
+	SpaceRailer/src/particles/particleemitter.simpleexplosion.cpp \
+	SpaceRailer/src/stage_map_layer.cpp \
+	SpaceRailer/src/stage_map_tile.cpp
 
 #	Set any dependencies
 #DEPS = main.h

@@ -109,3 +109,4 @@ string Path_Tools::pathsExist(string * paths_to_check) {
 	}
 	return "";
 }
+

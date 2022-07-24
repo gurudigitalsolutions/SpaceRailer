@@ -27,6 +27,7 @@
 #include "stage.h"
 #include "input.h"
 #include "stage_api.h"
+#include "stage_map_layer.h"
 
 extern ProgramInput programInput;
 extern unsigned int gameTickCount;
@@ -69,6 +70,104 @@ Stage * Stage::load(unsigned char stageid)
 	newStage->_stageID = stageid;
 	
 	//if(!newStage->_initialize()) { return NULL; }
+	
+	//	Attempt to read and parse the stage's map file.
+	string mapFile = Path_Tools::getStageDataPath("stage_" + to_string(stageid)) + "/map.srm";
+	ifstream fileStream;
+	fileStream.open(mapFile.c_str());
+	
+	if(fileStream.is_open()) {
+		
+		//	the mapFile does exist
+	} else {
+		cout << "Could not find the map.srm file for the stage\n";
+		cout << mapFile + "\n";
+		return NULL;
+	}
+	
+	char * mapHeader = new char[128];
+	
+	fileStream.read(mapHeader, 128);
+	
+	if(mapHeader[0] != 'S'
+	|| mapHeader[1] != 'R'
+	|| mapHeader[2] != 'M'
+	|| mapHeader[3] != 'F')
+	{
+		cout << "Missing appropriate map format header.\n";
+		return NULL;
+	}
+	
+	if(mapHeader[4] != 0x01
+	|| mapHeader[5] != 0x00)
+	{
+		cout << "Only map version 0x0001 is supported.\n";
+		return NULL;
+	}
+	
+	//	Now there are 16 bytes for the map layer sizes
+	
+	
+	//	32 bytes for the map title
+	string mapTitle = "";
+	for(short etb = 0x0016; etb < 0x0036; etb++)
+	{
+		if(mapHeader[etb] == 0) { break ; }
+		mapTitle += mapHeader[etb];
+	}
+	
+	cout << "Map title: " + mapTitle + "\n";
+	
+	//	Load the sprite list
+	string tilePath = "";
+	unsigned short tileID = 1;
+	bool lNull = false;
+	bool keepSearching = true;
+	char * inByte = new char[1];
+	
+	while(keepSearching)
+	{
+		fileStream.read(inByte, 1);
+		
+		if(inByte[0] == 0)
+		{
+			//	We've hit the end of a string.  This is the name of a image
+			//	file to use.
+			if(lNull)
+			{
+				//	The previous byte was also null.  We are done searching
+				//	for tile names.
+				keepSearching = false;
+			}
+			else
+			{
+				lNull = true;
+				cout << "Tile: " + tilePath + "\n";
+				
+				//	Load this resource, or do something to indicate something
+				//	about it.
+				
+				//	Reset the tile path so we can read another
+				tilePath = "";
+				
+				if(tileID == 0xFFFF)
+				{
+					//	Too many tiles defined!!!@!
+					cout << "Too many tiles defined for stage.\n";
+				}
+				else { tileID++; }
+			}
+		}
+		else
+		{
+			lNull = false;
+			tilePath += inByte[0];
+		}
+	}
+	
+	//	Now all the map data can be loaded
+	
+	fileStream.close();
 	
 	return newStage;
 }
