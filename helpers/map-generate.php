@@ -116,7 +116,8 @@ for($ey = 0; $ey < 512; $ey++)
 {
 	for($ex = 0; $ex < 512; $ex++)
 	{
-		$randTile = rand(1, 3);
+		//$randTile = rand(1, 3);
+		$randTile = 1; //linus-guard
 		if($randTile == 1) { fwrite($fh, chr(0x01)); }
 		elseif($randTile == 2) { fwrite($fh, chr(0x02)); }
 		else { fwrite($fh, chr(0x03)); }
