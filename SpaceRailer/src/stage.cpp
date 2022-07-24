@@ -27,7 +27,7 @@
 #include "stage.h"
 #include "input.h"
 #include "stage_api.h"
-#include "stage_map_layer.h"
+
 
 extern ProgramInput programInput;
 extern unsigned int gameTickCount;
@@ -106,7 +106,14 @@ Stage * Stage::load(unsigned char stageid)
 	}
 	
 	//	Now there are 16 bytes for the map layer sizes
-	
+	unsigned short mapForegroundWidth = mapHeader[6] + (mapHeader[7] * 256);
+	unsigned short mapForegroundHeight = mapHeader[8] + (mapHeader[9] * 256);
+	unsigned short mapActiveWidth = mapHeader[10] + (mapHeader[11] * 256);
+	unsigned short mapActiveHeight = mapHeader[12] + (mapHeader[13] * 256);
+	unsigned short mapBackgroundWidth = mapHeader[14] + (mapHeader[15] * 256);
+	unsigned short mapBackgroundHeight = mapHeader[16] + (mapHeader[17] * 256);
+	unsigned short mapBackdropWidth = mapHeader[18] + (mapHeader[19] * 256);
+	unsigned short mapBackdropHeight = mapHeader[20] + (mapHeader[21] * 256);
 	
 	//	32 bytes for the map title
 	string mapTitle = "";
@@ -146,6 +153,7 @@ Stage * Stage::load(unsigned char stageid)
 				
 				//	Load this resource, or do something to indicate something
 				//	about it.
+				newStage->_loadSprite(tilePath);
 				
 				//	Reset the tile path so we can read another
 				tilePath = "";
@@ -166,6 +174,27 @@ Stage * Stage::load(unsigned char stageid)
 	}
 	
 	//	Now all the map data can be loaded
+	char * mapDataBuffer = new char[4096 * 4096];
+	
+	//	Foreground
+	fileStream.read(mapDataBuffer, (mapForegroundWidth * mapForegroundHeight * 4));
+	newStage->_mapForegroundLayer = new StageMapLayer();
+	newStage->_mapForegroundLayer->initialize(mapForegroundWidth, mapForegroundHeight, (unsigned char *)mapDataBuffer);
+	
+	//	Active Layer
+	fileStream.read(mapDataBuffer, (mapActiveWidth * mapActiveHeight * 4));
+	newStage->_mapActiveLayer = new StageMapLayer();
+	newStage->_mapActiveLayer->initialize(mapActiveWidth, mapActiveHeight, (unsigned char *)mapDataBuffer);
+	
+	//	Background
+	fileStream.read(mapDataBuffer, (mapBackgroundWidth * mapBackgroundHeight * 4));
+	newStage->_mapBackgroundLayer = new StageMapLayer();
+	newStage->_mapBackgroundLayer->initialize(mapBackgroundWidth, mapBackgroundHeight, (unsigned char *)mapDataBuffer);
+	
+	//	Backdrop
+	fileStream.read(mapDataBuffer, (mapBackdropWidth * mapBackdropHeight * 4));
+	newStage->_mapBackdropLayer = new StageMapLayer();
+	newStage->_mapBackdropLayer->initialize(mapBackdropWidth, mapBackdropHeight, (unsigned char *)mapDataBuffer);
 	
 	fileStream.close();
 	
@@ -517,3 +546,11 @@ bool Stage::_initializeScripting()
 }
 
 
+bool Stage::_loadSprite(string spritename)
+{
+	_sprites.push_back(
+		Graphics::loadTexture(Path_Tools::getGameDataPath() + "resources/" + spritename)
+	);
+	
+	return true;
+}

@@ -40,4 +40,5 @@ class StageMapLayer
 		unsigned short _currentViewYOffset = 0;
 		
 		StageMapTile ** _map;
+		
 };

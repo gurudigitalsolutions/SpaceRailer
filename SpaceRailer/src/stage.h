@@ -6,7 +6,8 @@
 //#include "mob.h"
 #include "mobs/mob.player.h"
 #include "mobs/mob.projectile.h"
-
+#include "stage_map_layer.h"
+#include "graphics.h"
 
 
 extern Config config;
@@ -62,10 +63,10 @@ class Stage
 		int _stageWidth = 1920 * 4;
 		int _stageHeight = 1080 * 4;
 		
-		unsigned short * mapForegroundLayer;
-		unsigned short * mapActiveLayer;
-		unsigned short * mapBackgroundLayer;
-		unsigned short * mapBackdropLayer;
+		StageMapLayer * _mapForegroundLayer;
+		StageMapLayer * _mapActiveLayer;
+		StageMapLayer * _mapBackgroundLayer;
+		StageMapLayer * _mapBackdropLayer;
 		
 		unsigned int _lastScrollTick = 0;
 		int _scrollPixelsPerInterval = 10;
@@ -76,6 +77,9 @@ class Stage
 		vector<Mob *> _mobs;
 		vector<StageBackdrop *> _backdrops;
 		vector<ParticleEmitter *> _emitters;
+		list<SDL_Texture*> _sprites;
+		
+		bool _loadSprite(string spritename);
 		
 		float _plasma_effect(float x, float y, float time);
 		
