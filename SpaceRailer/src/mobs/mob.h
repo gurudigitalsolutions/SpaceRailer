@@ -19,6 +19,14 @@ class Mob
 		
 		int getX() { return _coordX; }
 		int getY() { return _coordY; }
+		
+		unsigned short getTileX();
+		unsigned short getTileY();
+		unsigned short getTileXOffset();
+		unsigned short getTileYOffset();
+		
+		void changeTileXOffset(short amount);
+		void changeTileYOffset(short amount);
 
 		void setX(int value) { _coordX = value; }
 		void setY(int value) { _coordY = value; }
@@ -115,6 +123,11 @@ class Mob
 		unsigned int _magicPoints = 0;
 		int _coordX = 0;
 		int _coordY = 0;
+		
+		unsigned short _tileX = 0;
+		unsigned short _tileY = 0;
+		unsigned short _tileXOffset = 0;
+		unsigned short _tileYOffset = 0;
 		
 		int _width = 0;
 		int _height = 0;

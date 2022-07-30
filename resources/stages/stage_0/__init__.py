@@ -25,7 +25,8 @@ def initialize():
 	spacerailer.setPlayerX(50)
 	spacerailer.setPlayerY(256)
 	
-	spacerailer.setStageScrollPixelsPerInterval(3)
+	#spacerailer.setStageScrollPixelsPerInterval(3)
+	spacerailer.setStageScrollPixelsPerInterval(0)
 	spacerailer.setStageScrollInterval(50)
 	
 	#	Create the thruster for the player

@@ -277,7 +277,7 @@ bool Stage::initialize()
 bool Stage::process()
 {
 	//	Check if it's time to scroll the map
-	if(gameTickCount - _lastScrollTick >= getScrollIntervalMS())
+	/*if(gameTickCount - _lastScrollTick >= getScrollIntervalMS())
 	{
 		//	This can actually do more precise math.  If the interval is say 10,
 		//	and it's been 12 ms, we could leave that 2 left over.  For now I'm
@@ -304,16 +304,38 @@ bool Stage::process()
 		_callback_stageScrollEvent();
 		
 		
-	}
+	}*/
 	
 	//	Check if the player is trying to move around.
 	InputData currentInputState = programInput.getCurrentInputState();
 	InputData previousInputState = programInput.getPreviousInputState();
 	
-	if(currentInputState.analogRight > 16384) { _player.setX(_player.getX() + 3); }
+	/*if(currentInputState.analogRight > 16384) { _player.setX(_player.getX() + 3); }
 	if(currentInputState.analogLeft > 16384) { _player.setX(_player.getX() - 3); }
 	if(currentInputState.analogUp > 16384) { _player.setY(_player.getY() - 3); }
+	if(currentInputState.analogDown > 16384) { _player.setY(_player.getY() + 3); }*/
+	
+	if(currentInputState.analogRight > 16384) { _player.changeTileXOffset(3); }
+	if(currentInputState.analogLeft > 16384) { _player.changeTileXOffset(-3); }
+	if(currentInputState.analogUp > 16384) { _player.setY(_player.getY() - 3); }
 	if(currentInputState.analogDown > 16384) { _player.setY(_player.getY() + 3); }
+	
+	//	Check if we are at a boundary of the screen
+	if(_player.getTileX() > (getViewportX() + 25))
+	{
+		//setViewportX(getViewportX() + (getViewportX() - _player.getTileX()) );
+		short newX = _player.getTileX() - getViewportX();
+		setViewportX(getViewportX() + newX - 25);
+		
+		//cout << "RC: " + to_string(getViewportX()) + " " + to_string(getViewportY()) + "\n";
+	}
+	else if(_player.getTileX() < (getViewportX() + 1)
+	&& _player.getTileX() > 1)
+	{
+		short newX = _player.getTileX() - getViewportX();
+		setViewportX(getViewportX() - newX + 1);
+		
+	}
 
 	// make it shoot something?
 	if (currentInputState.buttonFire) {
@@ -449,20 +471,21 @@ bool Stage::render()
 		else if(eml == 2) { tMapLayer = _mapActiveLayer; }
 		else { tMapLayer = _mapForegroundLayer; }
 		
-		for(unsigned short my = 0; my < 34; my++)
+		for(unsigned short my = 0; my < 18; my++)
 		{
-			for(unsigned short mx = 0; mx < 60; mx++)
+			for(unsigned short mx = 0; mx < 32; mx++)
 			{
+
 				unsigned short spriteid = tMapLayer->getTile(
-					mx + tMapLayer->getCurrentViewX(),
-					my + tMapLayer->getCurrentViewY()
+					mx + getViewportX(),
+					my + getViewportY()
 				)->getSpriteID();
 				
 				SDL_Rect box;
 				box.w = 32;
 				box.h = 32;
-				box.y = my * 32;
-				box.x = mx * 32;
+				box.y = my * 32 - getViewportXOffset();
+				box.x = mx * 32 - getViewportYOffset();
 				
 				//SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
 				/*if(eml == 1)

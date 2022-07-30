@@ -39,6 +39,30 @@ class Stage
 		int getMapY() { return _mapY; }
 		void setMapY(int value) { _mapY = value; }
 		
+		unsigned short getMapTileX() { return _mapTileX; }
+		unsigned short getMapTileY() { return _mapTileY; }
+		
+		void setMapTileX(unsigned short value) { _mapTileX = value; }
+		void setMapTileY(unsigned short value) { _mapTileY = value; }
+		
+		unsigned short getMapTileXOffset() { return _mapTileXOffset; }
+		unsigned short getMapTileYOffset() { return _mapTileYOffset; }
+		
+		void setMapTileXOffset(unsigned short value) { _mapTileXOffset = value; }
+		void setMapTileYOffset(unsigned short value) { _mapTileYOffset = value; }
+		
+		unsigned short getViewportX() { return _viewportX; }
+		unsigned short getViewportY() { return _viewportY; }
+		
+		void setViewportX(unsigned short value) { _viewportX = value; }
+		void setViewportY(unsigned short value) { _viewportY = value; }
+		
+		unsigned short getViewportXOffset() { return _viewportXOffset; }
+		unsigned short getViewportYOffset() { return _viewportYOffset; }
+		
+		void setViewportXOffset(unsigned short value) { _viewportXOffset = value; }
+		void setViewportYOffset(unsigned short value) { _viewportYOffset = value; }
+		
 		int getStageWidth() { return _stageWidth; }
 		int getStageHeight() { return _stageHeight; }
 		void setStageWidth(int value) { _stageWidth = value; }
@@ -62,6 +86,16 @@ class Stage
 		int _mapY = 0;
 		int _stageWidth = 1920 * 4;
 		int _stageHeight = 1080 * 4;
+		
+		unsigned short _mapTileX = 0;
+		unsigned short _mapTileY = 0;
+		unsigned short _mapTileXOffset = 0;
+		unsigned short _mapTileYOffset = 0;
+		
+		unsigned short _viewportX = 0;
+		unsigned short _viewportY = 0;
+		unsigned short _viewportXOffset = 0;
+		unsigned short _viewportYOffset = 0;
 		
 		StageMapLayer * _mapForegroundLayer;
 		StageMapLayer * _mapActiveLayer;

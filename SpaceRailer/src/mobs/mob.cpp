@@ -126,13 +126,19 @@ bool Mob::render() {
 	
 	if(!getIsComponent())
 	{
-		box.x = getX() - currentStage->getMapX();
-		box.y = getY() - currentStage->getMapY();
+		//box.x = getX() - currentStage->getMapX();
+		//box.y = getY() - currentStage->getMapY();
+		
+		box.x = ((getTileX() * 32) + getTileXOffset()) - (currentStage->getViewportX() * 32);
+		box.y = ((getTileY() * 32) + getTileYOffset()) - (currentStage->getViewportY() * 32);
 	}
 	else
 	{
-		box.x = _parent->getX() + getX() - currentStage->getMapX();
-		box.y = _parent->getY() + getY() - currentStage->getMapY();
+		//box.x = _parent->getX() + getX() - currentStage->getMapX();
+		//box.y = _parent->getY() + getY() - currentStage->getMapY();
+		
+		box.x = ((_parent->getTileX() + getTileX()) * 32) + _parent->getTileXOffset() - (currentStage->getViewportX() * 32);
+		box.y = ((_parent->getTileY() + getTileY()) * 32) + _parent->getTileYOffset() - (currentStage->getViewportY() * 32);
 	}
 	
 	//SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
@@ -215,4 +221,87 @@ bool Mob::createProjectile()
 	
 	
 	return true;
+}
+
+unsigned short Mob::getTileX()
+{
+	return _tileX;
+}
+
+unsigned short Mob::getTileY()
+{
+	return _tileY;
+}
+
+unsigned short Mob::getTileXOffset()
+{
+	return _tileXOffset;
+}
+
+unsigned short Mob::getTileYOffset()
+{
+	return _tileYOffset;
+}
+
+//	Change this mob's tileXOffset.  This will take into consideration the
+//	direction and change the tileX accordingly
+void Mob::changeTileXOffset(short amount)
+{
+	if(amount == 0) { return; }
+	
+	//	Check if the offset moves the mob to the right
+	if(amount > 0)
+	{
+		_tileXOffset += amount;
+		
+		if(_tileXOffset < 32) { return; }
+
+		_tileX += (_tileXOffset / 32);
+		_tileXOffset = (_tileXOffset % 32);
+
+		return;
+	}
+	
+	//	The mob is moving to the left.  Since this can go negative, we need
+	//	to do a little bit more math.
+	short txOffset = _tileXOffset;
+	txOffset += amount;
+	
+	cout << "A: _tileX: " + to_string(_tileX) + "  _tileXOffset: " + to_string(_tileXOffset) + "\n";
+	
+	if(txOffset >= 0)
+	{
+		_tileXOffset = txOffset;
+		return;
+	}
+	
+	if(_tileX == 0
+	&& ((int)_tileXOffset) + amount < 0)
+	{
+		_tileX = 0;
+		_tileXOffset = 0;
+		return;
+	}
+	
+	txOffset = txOffset * -1;
+	short ogXOffset = _tileXOffset;
+	
+	_tileX -= (txOffset / 32);
+	_tileXOffset = 32 - (txOffset % 32);
+	if(_tileXOffset > ogXOffset
+	&& txOffset < 32)
+	{
+		_tileX -= 1;
+	}
+	
+	
+	
+	cout << "B: _tileX: " + to_string(_tileX) + "  _tileXOffset: " + to_string(_tileXOffset) + "\n";
+	
+	return;
+}
+
+void Mob::changeTileYOffset(short amount)
+{
+	
 }
