@@ -317,24 +317,38 @@ bool Stage::process()
 	
 	if(currentInputState.analogRight > 16384) { _player.changeTileXOffset(3); }
 	if(currentInputState.analogLeft > 16384) { _player.changeTileXOffset(-3); }
-	if(currentInputState.analogUp > 16384) { _player.setY(_player.getY() - 3); }
-	if(currentInputState.analogDown > 16384) { _player.setY(_player.getY() + 3); }
+	if(currentInputState.analogUp > 16384) { _player.changeTileYOffset(-3); }
+	if(currentInputState.analogDown > 16384) { _player.changeTileYOffset(3); }
 	
 	//	Check if we are at a boundary of the screen
-	if(_player.getTileX() > (getViewportX() + 25))
+	if(_player.getTileX() > (getViewportX() + 17))
 	{
 		//setViewportX(getViewportX() + (getViewportX() - _player.getTileX()) );
 		short newX = _player.getTileX() - getViewportX();
-		setViewportX(getViewportX() + newX - 25);
+		setViewportX(getViewportX() + newX - 17);
 		
 		//cout << "RC: " + to_string(getViewportX()) + " " + to_string(getViewportY()) + "\n";
 	}
-	else if(_player.getTileX() < (getViewportX() + 1)
-	&& _player.getTileX() > 1)
+	else if(_player.getTileX() < (getViewportX() + 13)
+	&& _player.getTileX() > 14)
 	{
+		//cout << "A: " + to_string(getViewportX()) + "  " + to_string(_player.getTileX()) + "\n";
 		short newX = _player.getTileX() - getViewportX();
-		setViewportX(getViewportX() - newX + 1);
-		
+		//cout << "newX: " + to_string(newX) + "\n";
+		setViewportX(getViewportX() - newX + 11);
+		//cout << "B: " + to_string(getViewportX()) + "  " + to_string(_player.getTileX()) + "\n";
+	}
+	
+	if(_player.getTileY() > (getViewportY() + 10))
+	{
+		short newY = _player.getTileY() - getViewportY();
+		setViewportY(getViewportY() + newY - 10);
+	}
+	else if(_player.getTileY() < (getViewportY() + 7)
+	&& _player.getTileY() > 8)
+	{
+		short newY = _player.getTileY() - getViewportY();
+		setViewportY(getViewportY() - newY + 5);
 	}
 
 	// make it shoot something?
@@ -471,14 +485,21 @@ bool Stage::render()
 		else if(eml == 2) { tMapLayer = _mapActiveLayer; }
 		else { tMapLayer = _mapForegroundLayer; }
 		
+		unsigned short vpX = (tMapLayer->getWidth() * getViewportX()) / _mapActiveLayer->getWidth();
+		unsigned short vpY = (tMapLayer->getHeight() * getViewportY()) / _mapActiveLayer->getHeight();
+		
 		for(unsigned short my = 0; my < 18; my++)
 		{
 			for(unsigned short mx = 0; mx < 32; mx++)
 			{
-
+				//	layervpx / layerwidth = activepx / activewidth
+				
+				
 				unsigned short spriteid = tMapLayer->getTile(
-					mx + getViewportX(),
-					my + getViewportY()
+					/*mx + getViewportX(),
+					my + getViewportY()*/
+					mx + vpX,
+					my + vpY
 				)->getSpriteID();
 				
 				SDL_Rect box;
@@ -493,8 +514,7 @@ bool Stage::render()
 					cout << "Rendering sprite id: " + to_string(spriteid) + " Layer " + to_string(eml) + "\n";
 				}*/
 				
-				if(spriteid > 0
-				&& spriteid < 4)
+				if(spriteid > 0)
 				{
 					SDL_RenderCopyEx(
 						getSDLRenderer(), 

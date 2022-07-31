@@ -92,7 +92,7 @@ void handleRender()
 	//	This is done so that the window can be resized automatically.
 	
 	SDL_SetRenderTarget(Renderer, RenderTarget);
-	SDL_SetRenderDrawColor(getSDLRenderer(), 0xF0, 0x00, 0x00, 0xff);
+	SDL_SetRenderDrawColor(getSDLRenderer(), 0x00, 0x00, 0x00, 0xff);
 	SDL_RenderClear(Renderer);
 	
 	

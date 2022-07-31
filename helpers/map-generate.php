@@ -40,19 +40,19 @@ fwrite($fh, chr(0x04));
 fwrite($fh, chr(0x00));
 fwrite($fh, chr(0x04));
 
-//	Background (512 * 512)
-fwrite($fh, chr(0x00));
-fwrite($fh, chr(0x02));
-
-fwrite($fh, chr(0x00));
-fwrite($fh, chr(0x02));
-
-//	Backdrop (256 * 256)
+//	Background (256 * 256)
 fwrite($fh, chr(0x00));
 fwrite($fh, chr(0x01));
 
 fwrite($fh, chr(0x00));
 fwrite($fh, chr(0x01));
+
+//	Backdrop (64 * 64)
+fwrite($fh, chr(0x40));
+fwrite($fh, chr(0x00));
+
+fwrite($fh, chr(0x40));
+fwrite($fh, chr(0x00));
 
 //	Write a title, then pad the 32 byte space with nulls
 fwrite($fh, $mapTitle);
@@ -77,6 +77,16 @@ fwrite($fh, chr(0x00));
 
 fwrite($fh, 'backdrops/Eta_Carinae_Nebula.png');
 fwrite($fh, chr(0x00));
+
+//	Define the nebula tiles
+for($ey = 0; $ey < 16; $ey++)
+{
+	for($ex = 0; $ex < 32; $ex++)
+	{
+		fwrite($fh, 'backdrops/eta_caranae/tile_'.$ex.'_'.$ey.'.png');
+		fwrite($fh, chr(0x00));
+	}
+}
 
 fwrite($fh, chr(0x00));
 
@@ -111,27 +121,26 @@ for($ey = 0; $ey < 1024; $ey++)
 	}
 }
 
-//	Background, random sprites
-for($ey = 0; $ey < 512; $ey++)
+//	Background, evenly spaced nebulas
+for($ey = 0; $ey < 256; $ey++)
 {
-	for($ex = 0; $ex < 512; $ex++)
+	for($ex = 0; $ex < 256; $ex++)
 	{
-		//$randTile = rand(1, 3);
-		$randTile = 1; //linus-guard
-		if($randTile == 1) { fwrite($fh, chr(0x01)); }
-		elseif($randTile == 2) { fwrite($fh, chr(0x02)); }
-		else { fwrite($fh, chr(0x03)); }
+		$tileID = ($ex % 32) + (($ey % 16) * 32);
+		echo "Writing tile ID: x: ".$ex.", y:".$ey." id:".$tileID."\n";
 		
-		fwrite($fh, chr(0x00)); // Most significant byte
+		fwrite($fh, chr(0xFF & $tileID));
+		fwrite($fh, chr((0xFF00 & $tileID) >> 8));
+		
 		fwrite($fh, chr(0x00)); // Flags
 		fwrite($fh, chr(0x00)); 
 	}
 }
 
 //	Backdrop, nothing for now
-for($ey = 0; $ey < 256; $ey++)
+for($ey = 0; $ey < 64; $ey++)
 {
-	for($ex = 0; $ex < 256; $ex++)
+	for($ex = 0; $ex < 64; $ex++)
 	{
 		//	Write 4 bytes - tile id, followed by flags
 		fwrite($fh, chr(0x00));

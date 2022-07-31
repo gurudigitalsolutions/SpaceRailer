@@ -267,7 +267,7 @@ void Mob::changeTileXOffset(short amount)
 	short txOffset = _tileXOffset;
 	txOffset += amount;
 	
-	cout << "A: _tileX: " + to_string(_tileX) + "  _tileXOffset: " + to_string(_tileXOffset) + "\n";
+	//cout << "A: _tileX: " + to_string(_tileX) + "  _tileXOffset: " + to_string(_tileXOffset) + "\n";
 	
 	if(txOffset >= 0)
 	{
@@ -296,12 +296,63 @@ void Mob::changeTileXOffset(short amount)
 	
 	
 	
-	cout << "B: _tileX: " + to_string(_tileX) + "  _tileXOffset: " + to_string(_tileXOffset) + "\n";
+	//cout << "B: _tileX: " + to_string(_tileX) + "  _tileXOffset: " + to_string(_tileXOffset) + "\n";
 	
 	return;
 }
 
 void Mob::changeTileYOffset(short amount)
 {
+	if(amount == 0) { return; }
 	
+	//	Check if the offset moves the mob to the right
+	if(amount > 0)
+	{
+		_tileYOffset += amount;
+		
+		if(_tileYOffset < 32) { return; }
+
+		_tileY += (_tileYOffset / 32);
+		_tileYOffset = (_tileYOffset % 32);
+
+		return;
+	}
+	
+	//	The mob is moving to the left.  Since this can go negative, we need
+	//	to do a little bit more math.
+	short tyOffset = _tileYOffset;
+	tyOffset += amount;
+	
+	//cout << "A: _tileX: " + to_string(_tileX) + "  _tileXOffset: " + to_string(_tileXOffset) + "\n";
+	
+	if(tyOffset >= 0)
+	{
+		_tileYOffset = tyOffset;
+		return;
+	}
+	
+	if(_tileY == 0
+	&& ((int)_tileYOffset) + amount < 0)
+	{
+		_tileY = 0;
+		_tileYOffset = 0;
+		return;
+	}
+	
+	tyOffset = tyOffset * -1;
+	short ogYOffset = _tileYOffset;
+	
+	_tileY -= (tyOffset / 32);
+	_tileYOffset = 32 - (tyOffset % 32);
+	if(_tileYOffset > ogYOffset
+	&& tyOffset < 32)
+	{
+		_tileY -= 1;
+	}
+	
+	
+	
+	//cout << "B: _tileX: " + to_string(_tileX) + "  _tileXOffset: " + to_string(_tileXOffset) + "\n";
+	
+	return;
 }
