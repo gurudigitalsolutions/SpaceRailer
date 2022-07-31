@@ -17,13 +17,18 @@ class Mob
 		unsigned int getMagicPoints() { return _magicPoints; }
 		void setMagicPoints(unsigned int value) { _magicPoints = value; }
 		
-		int getX() { return _coordX; }
-		int getY() { return _coordY; }
+		int getX() { return (getTileX() * 32) + getTileXOffset(); }
+		int getY() { return (getTileY() * 32) + getTileYOffset(); }
 		
 		unsigned short getTileX();
 		unsigned short getTileY();
 		unsigned short getTileXOffset();
 		unsigned short getTileYOffset();
+		
+		void setTileX(unsigned short value) { _tileX = value; }
+		void setTileY(unsigned short value) { _tileY = value; }
+		void setTileXOffset(unsigned short value) { _tileXOffset = value; }
+		void setTileYOffset(unsigned short value) { _tileYOffset = value; }
 		
 		void changeTileXOffset(short amount);
 		void changeTileYOffset(short amount);

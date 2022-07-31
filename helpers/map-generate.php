@@ -40,7 +40,7 @@ fwrite($fh, chr(0x04));
 fwrite($fh, chr(0x00));
 fwrite($fh, chr(0x04));
 
-//	Background (256 * 256)
+//	Background (128 * 128)
 fwrite($fh, chr(0x00));
 fwrite($fh, chr(0x01));
 
@@ -75,7 +75,7 @@ fwrite($fh, chr(0x00));
 fwrite($fh, 'images/enemy-1-rip-1.png');
 fwrite($fh, chr(0x00));
 
-fwrite($fh, 'backdrops/Eta_Carinae_Nebula.png');
+fwrite($fh, 'images/power-up.png');
 fwrite($fh, chr(0x00));
 
 //	Define the nebula tiles
@@ -104,16 +104,20 @@ for($ey = 0; $ey < 2048; $ey++)
 	}
 }
 
-//	Active, random sprites but mostly nothing
+//	Active, some random power up icons
 for($ey = 0; $ey < 1024; $ey++)
 {
 	for($ex = 0; $ex < 1024; $ex++)
 	{
-		$randTile = rand(0, 10);
-		if($randTile == 0) { fwrite($fh, chr(0x01)); }
-		elseif($randTile == 1) { fwrite($fh, chr(0x02)); }
-		else if($randTile == 2) { fwrite($fh, chr(0x03)); }
-		else { fwrite($fh, chr(0x00)); }
+		if($ex % 9 == 0
+		&& $ey % 6 == 0)
+		{
+			fwrite($fh, chr(0x03));
+		}
+		else
+		{
+			fwrite($fh, chr(0x00));
+		}
 		
 		fwrite($fh, chr(0x00)); // Most significant byte
 		fwrite($fh, chr(0x00)); // Flags
@@ -127,6 +131,7 @@ for($ey = 0; $ey < 256; $ey++)
 	for($ex = 0; $ex < 256; $ex++)
 	{
 		$tileID = ($ex % 32) + (($ey % 16) * 32);
+		$tileID += 4;
 		echo "Writing tile ID: x: ".$ex.", y:".$ey." id:".$tileID."\n";
 		
 		fwrite($fh, chr(0xFF & $tileID));

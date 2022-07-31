@@ -92,7 +92,8 @@ bool Mob::_processVelocity()
 		{
 			double tdistance = getVelocityX() / 1000.0f;
 			tdistance = tdistance * timesincelastupdate;
-			setX(getX() + ceil(tdistance));
+			//setX(getX() + ceil(tdistance));
+			changeTileXOffset((short)ceil(tdistance));
 			
 			setLastUpdateTick(gameTickCount);
 		}
@@ -106,7 +107,8 @@ bool Mob::_processVelocity()
 		{
 			double tdistance = getVelocityY() / 1000.0f;
 			tdistance = tdistance * timesincelastupdate;
-			setX(getY() + ceil(tdistance));
+			//setX(getY() + ceil(tdistance));
+			changeTileYOffset((short)ceil(tdistance));
 			
 			setLastUpdateTick(gameTickCount);
 		}
@@ -129,16 +131,16 @@ bool Mob::render() {
 		//box.x = getX() - currentStage->getMapX();
 		//box.y = getY() - currentStage->getMapY();
 		
-		box.x = ((getTileX() * 32) + getTileXOffset()) - (currentStage->getViewportX() * 32);
-		box.y = ((getTileY() * 32) + getTileYOffset()) - (currentStage->getViewportY() * 32);
+		box.x = ((getTileX() * 32) + getTileXOffset()) - (currentStage->getViewportX() * 32) - currentStage->getViewportXOffset();
+		box.y = ((getTileY() * 32) + getTileYOffset()) - (currentStage->getViewportY() * 32) - currentStage->getViewportYOffset();
 	}
 	else
 	{
 		//box.x = _parent->getX() + getX() - currentStage->getMapX();
 		//box.y = _parent->getY() + getY() - currentStage->getMapY();
 		
-		box.x = ((_parent->getTileX() + getTileX()) * 32) + _parent->getTileXOffset() - (currentStage->getViewportX() * 32);
-		box.y = ((_parent->getTileY() + getTileY()) * 32) + _parent->getTileYOffset() - (currentStage->getViewportY() * 32);
+		box.x = ((_parent->getTileX() + getTileX()) * 32) + _parent->getTileXOffset() - (currentStage->getViewportX() * 32) - currentStage->getViewportXOffset();
+		box.y = ((_parent->getTileY() + getTileY()) * 32) + _parent->getTileYOffset() - (currentStage->getViewportY() * 32) - currentStage->getViewportYOffset();
 	}
 	
 	//SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
@@ -202,8 +204,13 @@ bool Mob::registerCollision(Mob * target)
 bool Mob::createProjectile()
 {
 	Projectile * newProjectile = new Projectile();
-	newProjectile->setX(getX() + getWidth() + 1);
-	newProjectile->setY(getY() + (getHeight() / 2));
+	/*newProjectile->setX(getX() + getWidth() + 1);
+	newProjectile->setY(getY() + (getHeight() / 2));*/
+	newProjectile->setTileX((getTileX()) + (getWidth() / 32) + 2);
+	newProjectile->setTileY((getTileY()) + 2);
+	newProjectile->setTileXOffset(getTileXOffset());
+	newProjectile->setTileYOffset(getTileYOffset());
+	
 	newProjectile->setHeight(16);
 	newProjectile->setWidth(16);
 	

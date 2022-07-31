@@ -88,7 +88,8 @@ PyObject* Stage::_script_setPlayerX(PyObject* self, PyObject* args)
 	int newPlayerX;
 	if (!PyArg_ParseTuple(args, "i", &newPlayerX)) { return NULL; }
 
-	_player.setX(newPlayerX);
+	//_player.setX(newPlayerX);
+	_player.setTileX((unsigned short)newPlayerX);
 	Py_RETURN_TRUE;
 }
 
@@ -97,7 +98,8 @@ PyObject* Stage::_script_setPlayerY(PyObject* self, PyObject* args)
 	int newPlayerY;
 	if (!PyArg_ParseTuple(args, "i", &newPlayerY)) { return NULL; }
 
-	_player.setY(newPlayerY);
+	//_player.setY(newPlayerY);
+	_player.setTileY((unsigned short)newPlayerY);
 	Py_RETURN_TRUE;
 }
 

@@ -320,36 +320,63 @@ bool Stage::process()
 	if(currentInputState.analogUp > 16384) { _player.changeTileYOffset(-3); }
 	if(currentInputState.analogDown > 16384) { _player.changeTileYOffset(3); }
 	
-	//	Check if we are at a boundary of the screen
-	if(_player.getTileX() > (getViewportX() + 17))
+	//	Make sure that the player is not too close to the edges of the map
+	if(_player.getTileX() < 13)
 	{
-		//setViewportX(getViewportX() + (getViewportX() - _player.getTileX()) );
-		short newX = _player.getTileX() - getViewportX();
-		setViewportX(getViewportX() + newX - 17);
-		
-		//cout << "RC: " + to_string(getViewportX()) + " " + to_string(getViewportY()) + "\n";
+		_player.setTileX(13);
+		_player.setTileXOffset(0);
 	}
-	else if(_player.getTileX() < (getViewportX() + 13)
-	&& _player.getTileX() > 14)
+	
+	if(_player.getTileY() < 7)
 	{
-		//cout << "A: " + to_string(getViewportX()) + "  " + to_string(_player.getTileX()) + "\n";
+		_player.setTileY(7);
+		_player.setTileYOffset(0);
+	}
+	
+	//	Set the viewport to be in a contant position compared to the player
+	setViewportX(_player.getTileX() - 13);
+	setViewportY(_player.getTileY() - 7);
+	setViewportXOffset(_player.getTileXOffset());
+	setViewportYOffset(_player.getTileYOffset());
+	
+	//	Check if we are at a boundary of the screen
+	/*if(_player.getTileX() > (getViewportX() + 17))
+	{
 		short newX = _player.getTileX() - getViewportX();
-		//cout << "newX: " + to_string(newX) + "\n";
-		setViewportX(getViewportX() - newX + 11);
-		//cout << "B: " + to_string(getViewportX()) + "  " + to_string(_player.getTileX()) + "\n";
+		if(newX == getViewportX() - 17)
+		{
+			setViewportXOffset(_player.getTileXOffset());
+		}
+		else
+		{
+			setViewportX(getViewportX() + newX - 17);
+			setViewportXOffset(_player.getTileXOffset());
+		}
+	}
+	else if(_player.getTileX() < (getViewportX() + 11)
+	&& _player.getTileX() > 12)
+	{
+		short newX = _player.getTileX() - getViewportX();
+		setViewportX(getViewportX() - newX + 9);
+		
+		setViewportXOffset(_player.getTileXOffset());
 	}
 	
 	if(_player.getTileY() > (getViewportY() + 10))
 	{
 		short newY = _player.getTileY() - getViewportY();
 		setViewportY(getViewportY() + newY - 10);
+		
+		setViewportYOffset(_player.getTileYOffset());
 	}
 	else if(_player.getTileY() < (getViewportY() + 7)
 	&& _player.getTileY() > 8)
 	{
 		short newY = _player.getTileY() - getViewportY();
 		setViewportY(getViewportY() - newY + 5);
-	}
+		
+		setViewportYOffset(_player.getTileYOffset());
+	}*/
 
 	// make it shoot something?
 	if (currentInputState.buttonFire) {
@@ -485,6 +512,7 @@ bool Stage::render()
 		else if(eml == 2) { tMapLayer = _mapActiveLayer; }
 		else { tMapLayer = _mapForegroundLayer; }
 		
+		//	layervpx / layerwidth = activepx / activewidth
 		unsigned short vpX = (tMapLayer->getWidth() * getViewportX()) / _mapActiveLayer->getWidth();
 		unsigned short vpY = (tMapLayer->getHeight() * getViewportY()) / _mapActiveLayer->getHeight();
 		
@@ -492,9 +520,6 @@ bool Stage::render()
 		{
 			for(unsigned short mx = 0; mx < 32; mx++)
 			{
-				//	layervpx / layerwidth = activepx / activewidth
-				
-				
 				unsigned short spriteid = tMapLayer->getTile(
 					/*mx + getViewportX(),
 					my + getViewportY()*/
@@ -505,8 +530,8 @@ bool Stage::render()
 				SDL_Rect box;
 				box.w = 32;
 				box.h = 32;
-				box.y = my * 32 - getViewportXOffset();
-				box.x = mx * 32 - getViewportYOffset();
+				box.y = my * 32 - (eml == 2 ? getViewportYOffset() : 0);
+				box.x = mx * 32 - (eml == 2 ? getViewportXOffset() : 0);
 				
 				//SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
 				/*if(eml == 1)

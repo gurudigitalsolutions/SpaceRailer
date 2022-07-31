@@ -323,7 +323,13 @@ void execute()
 		}
 		
 		//	Run process every game tick
-		handleLoop();
+		//	This is called roughly every 8ms.  Originally this was handled every
+		//	loop, but this is a test to see if we can get more fine tuned input
+		if(gameTickCount - gameLastFrameTick == 1
+		|| gameTickCount - gameLastFrameTick > 8)
+		{
+			handleLoop();
+		}
 		
 		//	Run render every 16ms.  This is just over 60fps, but the timer
 		//	isn't actually that accurate

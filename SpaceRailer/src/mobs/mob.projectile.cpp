@@ -50,8 +50,11 @@ bool Projectile::render()
 	{
 		if(!getIsComponent())
 		{
-			box.x = getX() - (ep * 2) - currentStage->getMapX();
-			box.y = getY() - currentStage->getMapY();
+			//box.x = getX() - (ep * 2) - currentStage->getMapX();
+			//box.y = getY() - currentStage->getMapY();
+			
+			box.x = ((getTileX() * 32) + getTileXOffset()) - (currentStage->getViewportX() * 32) - currentStage->getViewportXOffset() - (ep * 2);
+			box.y = ((getTileY() * 32) + getTileYOffset()) - (currentStage->getViewportY() * 32) - currentStage->getViewportYOffset();
 		}
 		else
 		{
