@@ -516,6 +516,20 @@ bool Stage::render()
 		unsigned short vpX = (tMapLayer->getWidth() * getViewportX()) / _mapActiveLayer->getWidth();
 		unsigned short vpY = (tMapLayer->getHeight() * getViewportY()) / _mapActiveLayer->getHeight();
 		
+		//	Calculate the offset needed for background and backdrop layers
+		unsigned short layerOffsetX = 0;
+		unsigned short layerOffsetY = 0;
+		
+		if(eml == 0
+		|| eml == 1)
+		{
+			layerOffsetX = ceil(_mapActiveLayer->getWidth() / tMapLayer->getWidth());
+			layerOffsetX = (32 / layerOffsetX) * (getViewportX() % layerOffsetX);
+			
+			layerOffsetY = ceil(_mapActiveLayer->getHeight() / tMapLayer->getHeight());
+			layerOffsetY = (32 / layerOffsetY) * (getViewportY() % layerOffsetY);
+		}
+		
 		for(unsigned short my = 0; my < 18; my++)
 		{
 			for(unsigned short mx = 0; mx < 32; mx++)
@@ -530,8 +544,8 @@ bool Stage::render()
 				SDL_Rect box;
 				box.w = 32;
 				box.h = 32;
-				box.y = my * 32 - (eml == 2 ? getViewportYOffset() : 0);
-				box.x = mx * 32 - (eml == 2 ? getViewportXOffset() : 0);
+				box.y = my * 32 - (eml == 2 ? getViewportYOffset() : layerOffsetY);
+				box.x = mx * 32 - (eml == 2 ? getViewportXOffset() : layerOffsetX);
 				
 				//SDL_RenderCopy(getSDLRenderer(), sprites.front(), NULL, &box);
 				/*if(eml == 1)
