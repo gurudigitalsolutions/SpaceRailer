@@ -84,6 +84,8 @@ bool Mob::process()
 //	Process velocity/movement for this mob.
 bool Mob::_processVelocity()
 {
+	bool updated = false;
+	
 	if(abs(getVelocityX()) > 0)
 	{
 		unsigned int timesincelastupdate = gameTickCount - getLastUpdateTick();
@@ -95,7 +97,7 @@ bool Mob::_processVelocity()
 			//setX(getX() + ceil(tdistance));
 			changeTileXOffset((short)ceil(tdistance));
 			
-			setLastUpdateTick(gameTickCount);
+			updated = true;
 		}
 	}
 	
@@ -110,8 +112,13 @@ bool Mob::_processVelocity()
 			//setX(getY() + ceil(tdistance));
 			changeTileYOffset((short)ceil(tdistance));
 			
-			setLastUpdateTick(gameTickCount);
+			updated = true;
 		}
+	}
+	
+	if(updated)
+	{
+		setLastUpdateTick(gameTickCount);
 	}
 	
 	return true;
@@ -206,17 +213,19 @@ bool Mob::createProjectile()
 	Projectile * newProjectile = new Projectile();
 	/*newProjectile->setX(getX() + getWidth() + 1);
 	newProjectile->setY(getY() + (getHeight() / 2));*/
-	newProjectile->setTileX((getTileX()) + (getWidth() / 32) + 2);
+	newProjectile->setTileX((getTileX()) + (getWidth() / 32));
 	newProjectile->setTileY((getTileY()) + 2);
 	newProjectile->setTileXOffset(getTileXOffset());
 	newProjectile->setTileYOffset(getTileYOffset());
+	
+	newProjectile->changeTileXOffset(16);
 	
 	newProjectile->setHeight(16);
 	newProjectile->setWidth(16);
 	
 	newProjectile->setVelocityX(750);
 	newProjectile->setVelocityY(10 - rand() % 20);
-	newProjectile->setShotCooldown_ms(500);
+	newProjectile->setShotCooldown_ms(300);
 	
 	newProjectile->initialize("bullet1");
 	newProjectile->setLastUpdateTick(gameTickCount);

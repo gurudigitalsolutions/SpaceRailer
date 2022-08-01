@@ -276,49 +276,21 @@ bool Stage::initialize()
 //	next frame from being rendered.
 bool Stage::process()
 {
-	//	Check if it's time to scroll the map
-	/*if(gameTickCount - _lastScrollTick >= getScrollIntervalMS())
-	{
-		//	This can actually do more precise math.  If the interval is say 10,
-		//	and it's been 12 ms, we could leave that 2 left over.  For now I'm
-		//	not going to worry about it.
-		_lastScrollTick = gameTickCount;
-		
-		int newMapX = getMapX() + getScrollPixelsPerInterval();
-		if(newMapX > getStageWidth() - windowWidth) { newMapX = getStageWidth() - windowWidth; }
-		else
-		{
-			_player.setX(_player.getX() + getScrollPixelsPerInterval());
-			
-			for(unsigned int emob = 0; emob < _mobs.size(); emob++)
-			{
-				if(_mobs[emob]->getIsStationary())
-				{
-					_mobs[emob]->setX(_mobs[emob]->getX() + getScrollPixelsPerInterval());
-				}
-			}
-		}
-		
-		setMapX(newMapX);
-		
-		_callback_stageScrollEvent();
-		
-		
-	}*/
-	
 	//	Check if the player is trying to move around.
 	InputData currentInputState = programInput.getCurrentInputState();
 	InputData previousInputState = programInput.getPreviousInputState();
 	
-	/*if(currentInputState.analogRight > 16384) { _player.setX(_player.getX() + 3); }
-	if(currentInputState.analogLeft > 16384) { _player.setX(_player.getX() - 3); }
-	if(currentInputState.analogUp > 16384) { _player.setY(_player.getY() - 3); }
-	if(currentInputState.analogDown > 16384) { _player.setY(_player.getY() + 3); }*/
-	
-	if(currentInputState.analogRight > 16384) { _player.changeTileXOffset(3); }
+	/*if(currentInputState.analogRight > 16384) { _player.changeTileXOffset(3); }
 	if(currentInputState.analogLeft > 16384) { _player.changeTileXOffset(-3); }
 	if(currentInputState.analogUp > 16384) { _player.changeTileYOffset(-3); }
-	if(currentInputState.analogDown > 16384) { _player.changeTileYOffset(3); }
+	if(currentInputState.analogDown > 16384) { _player.changeTileYOffset(3); }*/
+	
+	if(currentInputState.analogRight > 16384) { _player.setVelocityX(_player.getVelocityX() + 15); }
+	if(currentInputState.analogLeft > 16384) { _player.setVelocityX(_player.getVelocityX() - 15); }
+	if(currentInputState.analogUp > 16384) { _player.setVelocityY(_player.getVelocityY() - 15); }
+	if(currentInputState.analogDown > 16384) { _player.setVelocityY(_player.getVelocityY() + 15); }
+	
+	_player.process();
 	
 	//	Make sure that the player is not too close to the edges of the map
 	if(_player.getTileX() < 13)
@@ -397,7 +369,7 @@ bool Stage::process()
 		}
 	}
 	
-	_player.process();
+	//_player.process();
 	
 	//	Process data for each mob
 	_callback_mobProcess();
